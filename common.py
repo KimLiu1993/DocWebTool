@@ -21,3 +21,13 @@ def cur_file_dir():
         return os.path.dirname(path)
 
 
+sql_path = cur_file_dir() + '\\sql\\'
+sql_server = 'dcdrdb601\dminputdb'
+sql_database = 'DocumentAcquisition'
+sql_user = 'jyu2'
+sql_pw = 'hhh'
+
+
+def init():
+    if not os.path.exists(sql_path):
+        os.makedirs(sql_path)
