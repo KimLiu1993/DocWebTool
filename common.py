@@ -8,6 +8,7 @@
 
 import os
 import sys
+import IPTracking
 
 
 def cur_file_dir():
@@ -26,8 +27,11 @@ sql_server = 'dcdrdb601\dminputdb'
 sql_database = 'DocumentAcquisition'
 sql_user = 'jyu2'
 sql_pw = 'hhh'
+IP_Tracking_DB_path = cur_file_dir() + '\\Database\\IP_Tracking.db3'
 
 
 def init():
     if not os.path.exists(sql_path):
         os.makedirs(sql_path)
+    if not os.path.isfile(IP_Tracking_DB_path):
+        IPTracking.create_db(IP_Tracking_DB_path)
