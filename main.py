@@ -9,6 +9,7 @@
 from flask import Flask, render_template, request, send_from_directory, send_file
 import common
 import IPTracking
+import Tracking_Record as tr
 
 common.init()
 
@@ -22,10 +23,21 @@ def homepage_show():
     return render_template(location_page)
 
 
-@app.route('/mapbydocfromcik', methods=['POST'])
-def mapbydocfromcik():
-    return x
+# @app.route('/mapbydocfromcik', methods=['POST'])
+# def mapbydocfromcik():
+#     return x                            ??????
 
+@app.route('/mapbydocfromcik')
+def mapbydocfromcik_show():
+    visitor_ip = request.remote_addr
+    try:
+        _ip = request.headers["X-Real-IP"]
+        if _ip is not None:
+            visitor_ip = _ip
+    except Exception as e:
+        visitor_ip = visitor_ip
+    tr.record(visitor_ip, 'MapByDocFromCIK')
+    return render_template('MapByDocFromCIK.html')
 
 if __name__ == '__main__':
     # app.debug = True
