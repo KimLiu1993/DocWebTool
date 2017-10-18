@@ -1,0 +1,153 @@
+
+<html>
+	
+		<div id='miu' style='z-index: 100; left: 2px; width: 108px; position: absolute; top: 43px; height: 108px; visibility: visible;'>
+			<!--<a href='http://codingstandards.iteye.com/' target='_blank'>-->
+				<img src="{{ picname }}" width='108' height='108' border='0'/>
+			<!--</a>-->
+		</div>
+	
+		<script>
+			(function(id){
+			var xPos = 2;
+			var yPos = 43;
+			var step = 1;
+			var delay = 30;
+			var height = 0;
+			var Hoffset = 0;
+			var Woffset = 0;
+			var yon = 0;
+			var xon = 0;
+			var pause = true;
+			var interval;
+			var img1 = document.getElementById(id);
+			img1.style.top = yPos;
+			function changePos() {
+				width = document.body.clientWidth;
+				height = document.body.clientHeight;
+				Hoffset = img1.offsetHeight;
+				Woffset = img1.offsetWidth;
+				img1.style.left = xPos + document.body.scrollLeft;
+				img1.style.top = yPos + document.body.scrollTop;
+				if (yon)
+					{yPos = yPos + step;}
+				else
+					{yPos = yPos - step;}
+				if (yPos < 0)
+					{yon = 1;yPos = 0;}
+				if (yPos >= (height - Hoffset))
+					{yon = 0;yPos = (height - Hoffset);}
+				if (xon)
+					{xPos = xPos + step;}
+				else
+					{xPos = xPos - step;}
+				if (xPos < 0)
+					{xon = 1;xPos = 0;}
+				if (xPos >= (width - Woffset))
+					{xon = 0;xPos = (width - Woffset);   }
+				}
+	
+				function start() {
+					 img1.visibility = 'visible';
+					interval = setInterval(changePos, delay);
+				}
+				function pause_resume() {
+					if(pause) {
+						clearInterval(interval);
+						pause = false;
+					} else {
+						interval = setInterval(changePos,delay);
+						pause = true;
+					}
+				}
+				start();
+			})('miu');
+		</script>
+	
+	
+	<head>
+		<meta charset="utf-8">
+		<title>Content</title>
+		<link rel="shortcut icon" href="/static/img/Favicon.ico" type="image/x-icon"/> 
+		<link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
+		<style>
+			 ul li{
+				 list-style-type:none;
+				 }
+			ul a{
+				display: block;
+				width: 275px;
+				height: 40px;
+				line-height: 40px;
+				background: #f8f8f8;
+				border-radius: 3px;
+				border: 0px solid #e7e7e7;
+				padding: 0 15px;
+				margin-bottom: -1px;
+			}
+			ul li:last-child a{
+				margin-bottom: 0;
+			}
+			ul .active a, ul a:hover{
+				background: #f8f8f8;
+			}
+			.demo{width:360px; margin:60px auto 10px auto}
+			@media only screen and (min-width: 420px) {
+				.demo{width:800px; margin:60px auto 10px auto}
+			}
+			.box{float:left; width:380px; height:260px}
+			.clear{clear:both}
+		</style>
+	</head>
+	<table>
+		<tr>
+			<td><h2 font style="text-shadow:0px 0px 15px #FF37FD;" ><a href="/caldate" style="text-decoration:none;" target="showframe">US Document Web Tools</a></h2></td>
+			<td style="font-family:arial;font-size:13px"><i><sub> updated on 2017.10.05</sub></i></td>
+		</tr>
+	</table>
+	<body bgcolor="#f8f8f8">
+		<form action="/" method="POST">
+			<ul>
+				<li><a href="/mapbydocfromcik" target="showframe" style="text-decoration:none" target="view_window"><b>Map by Doc from CIK</b></a></li>
+				<li><a href="/searchbyfund" target="showframe" style="text-decoration:none" target="view_window"><b>Search by Fund</b></a></li>
+				<li><a href="/supbyfund" target="showframe" style="text-decoration:none" target="view_window"><b>Supplement by Fund</b></a></li>
+				<li><a href="/twofilescomparetool" target="showframe" style="text-decoration:none" target="view_window"><b>Two Files Compare Tool</b></a></li>
+				<li><a href="/mappingtool" target="showframe" style="text-decoration:none" target="view_window"><b>Mapping Tool</b></a></li>
+				<li><a href="/batchautomapping" target="showframe" style="text-decoration:none" target="view_window"><b>Batch Auto Mapping</b></a></li>
+				<li><a href="/doctracking_NG" target="showframe" style="text-decoration:none" target="view_window"><b>Document Tracking - 次世代</b></a></li>
+				<li><a href="/contract2filing" target="showframe" style="text-decoration:none" target="view_window"><b>ContractId-Filing</b></a></li>
+				<li><a href="/secidnamechangetracking" target="showframe" style="text-decoration:none" target="view_window"><b>SecId Name Change Tracking</b></a></li>		
+				<li><a href="/searchkeywords" target="showframe" style="text-decoration:none" target="view_window"><b>Batch Search Keywords</b></a></li>
+				<li><a href="/extractticker" target="showframe" style="text-decoration:none" target="view_window"><b>Extract Ticker</b></a></li>
+				<li><a href="/timeliness" target="showframe" style="text-decoration:none" target="view_window"><b>Timeliness Report</b></a></li>
+				<li><a href="/hyperlinkmonitor" target="showframe" style="text-decoration:none" target="view_window"><b>Hyperlink Monitor</b></a></li>
+				<li><a href="/todolistmail" target="showframe" style="text-decoration:none" target="view_window"><b>ToDoList E-mail</b></a></li>
+				<li><a href="/remainingcheckworkload" target="showframe" style="text-decoration:none" target="view_window"><b>Remaining Check Workload E-mail</b></a></li>
+				<li><a href="/rename" target="showframe" style="text-decoration:none" target="view_window"><b>Rename Tool</b></a></li>
+			</ul>	
+		</form>
+	
+		<table>
+			<tr>
+				<td style="font-family:arial;color:red;font-size:13px;"><b>Note: </b></td>
+				<td style="font-family:arial;font-size:13px;">Developed by <b><i><a href="/miumiu" target="showframe" style="text-decoration:none" target="view_window">Jeffrey Yu</a></i></b>.</td>
+			</tr>
+		</table>
+		<table>
+			<td>
+				<div class="box">
+					<div class="he_slideCaptionDown">
+						<img class="he_slideCaptionDown_img" src="/static/img/a.png">
+						<div class="he_slideCaptionDown_caption">
+							<h3 class="he_slideCaptionDown_caption_h">Adopt Rather Than Buy</h3>
+							<p class="he_slideCaptionDown_caption_p">領養代替購買</p>
+						</div>
+					</div>
+				</div>
+			</td>
+			
+		</table>
+		友情提示：生活周圍都有彩蛋喲~ ^_^ ~
+	</body>
+	</html>
+	
