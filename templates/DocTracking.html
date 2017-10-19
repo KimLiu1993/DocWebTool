@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Document Tracking</title>
+	<link rel="shortcut icon" href="/static/img/Favicon.ico" type="image/x-icon"/>
+	<style>
+		.myButton {
+			-moz-box-shadow:inset 0px 1px 0px 0px #f5978e;
+			-webkit-box-shadow:inset 0px 1px 0px 0px #f5978e;
+			box-shadow:inset 0px 1px 0px 0px #f5978e;
+			background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f24537), color-stop(1, #c62d1f));
+			background:-moz-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+			background:-webkit-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+			background:-o-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+			background:-ms-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+			background:linear-gradient(to bottom, #f24537 5%, #c62d1f 100%);
+			filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f24537', endColorstr='#c62d1f',GradientType=0);
+			background-color:#f24537;
+			-moz-border-radius:6px;
+			-webkit-border-radius:6px;
+			border-radius:6px;
+			border:1px solid #d02718;
+			display:inline-block;
+			cursor:pointer;
+			color:#ffffff;
+			font-family:Arial;
+			font-size:15px;
+			font-weight:bold;
+			padding:6px 24px;
+			text-decoration:none;
+			text-shadow:0px 1px 0px #810e05;
+		}
+		.myButton:hover {
+			background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #c62d1f), color-stop(1, #f24537));
+			background:-moz-linear-gradient(top, #c62d1f 5%, #f24537 100%);
+			background:-webkit-linear-gradient(top, #c62d1f 5%, #f24537 100%);
+			background:-o-linear-gradient(top, #c62d1f 5%, #f24537 100%);
+			background:-ms-linear-gradient(top, #c62d1f 5%, #f24537 100%);
+			background:linear-gradient(to bottom, #c62d1f 5%, #f24537 100%);
+			filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#c62d1f', endColorstr='#f24537',GradientType=0);
+			background-color:#c62d1f;
+		}
+		.myButton:active {
+			position:relative;
+			top:1px;
+		}	
+	</style>
+</head>
+<table>
+	<tr>
+		<td width="30">
+		</td>
+		<td>
+			<table>
+				<tr>
+					<td><h2>Document Tracking</h2></td>
+					<td style="font-family:arial;font-size:13px"><i><sub> updated on 2017.10.19</sub></i></td>
+				</tr>
+			</table>
+			<body>
+				<form action="/doctracking" method="POST">
+					<select name="idtype">
+						<option value="1" selected>ProcessId</option>
+						<option value="2">DocumentId</option>
+					</select>
+					: <br/>
+					<input type="text" name="id" required="required">
+					<br/><br/>
+					Time Difference (Hour):
+					<br/>
+					<input type="text" name="timediff" value="14" required="required">
+					<br/><br/>
+					<br/><br/>
+					<input type="submit" class="myButton" formtarget="_blank" value="Submit">
+					<br/><br/>
+				</form>
+				<table>
+					<tr>
+						<td style="font-family:arial;color:red;font-size:13px;"><b>Note: </b></td>
+						<td style="font-family:arial;font-size:13px;">Developed by <b><i>Lychee Li</i></b>.</td>
+					</tr>
+				</table>
+			</body>
+		</td>
+	</tr>
+</table>
+</html>
