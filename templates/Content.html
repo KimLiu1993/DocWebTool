@@ -6,7 +6,7 @@
 				<img src="{{ picname }}" width='108' height='108' border='0'/>
 			<!--</a>-->
 		</div>
-	
+
 		<script>
 			(function(id){
 			var xPos = 2;
@@ -46,7 +46,7 @@
 				if (xPos >= (width - Woffset))
 					{xon = 0;xPos = (width - Woffset);   }
 				}
-	
+
 				function start() {
 					 img1.visibility = 'visible';
 					interval = setInterval(changePos, delay);
@@ -71,7 +71,7 @@
 		<link rel="shortcut icon" href="/static/img/Favicon.ico" type="image/x-icon"/> 
 		<link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
 		<style>
-			 ul li{
+		 	ul li{
 				 list-style-type:none;
 				 }
 			ul a{
@@ -97,14 +97,168 @@
 			}
 			.box{float:left; width:380px; height:260px}
 			.clear{clear:both}
+
+
+			@-moz-keyframes loading {
+			  0%, 100% {
+				-moz-transform: scale(1) rotateZ(0deg);
+				transform: scale(1) rotateZ(0deg);
+				opacity: 1;
+			  }
+
+			  26% {
+				-moz-transform: scale(1.1) rotateZ(12deg);
+				transform: scale(1.1) rotateZ(12deg);
+				opacity: .2;
+			  }
+
+			  76% {
+				-moz-transform: scale(0.8) rotateZ(-8deg);
+				transform: scale(0.8) rotateZ(-8deg);
+				opacity: .6;
+			  }
+			}
+			@-webkit-keyframes loading {
+			  0%, 100% {
+				-webkit-transform: scale(1) rotateZ(0deg);
+				transform: scale(1) rotateZ(0deg);
+				opacity: 1;
+			  }
+
+			  26% {
+				-webkit-transform: scale(1.1) rotateZ(12deg);
+				transform: scale(1.1) rotateZ(12deg);
+				opacity: .2;
+			  }
+
+			  76% {
+				-webkit-transform: scale(0.8) rotateZ(-8deg);
+				transform: scale(0.8) rotateZ(-8deg);
+				opacity: .6;
+			  }
+			}
+			@keyframes loading {
+			  0%, 100% {
+				-moz-transform: scale(1) rotateZ(0deg);
+				-ms-transform: scale(1) rotateZ(0deg);
+				-webkit-transform: scale(1) rotateZ(0deg);
+				transform: scale(1) rotateZ(0deg);
+				opacity: 1;
+			  }
+
+			  26% {
+				-moz-transform: scale(1.1) rotateZ(12deg);
+				-ms-transform: scale(1.1) rotateZ(12deg);
+				-webkit-transform: scale(1.1) rotateZ(12deg);
+				transform: scale(1.1) rotateZ(12deg);
+				opacity: .2;
+			  }
+
+			  76% {
+				-moz-transform: scale(0.8) rotateZ(-8deg);
+				-ms-transform: scale(0.8) rotateZ(-8deg);
+				-webkit-transform: scale(0.8) rotateZ(-8deg);
+				transform: scale(0.8) rotateZ(-8deg);
+				opacity: .6;
+			  }
+			}
+			.loader {
+			  overflow: hidden;
+			  font-size: 45px;
+			}
+			.loader span {
+			  -moz-animation: loading 1s linear infinite -0.8s;
+			  -webkit-animation: loading 1s linear infinite -0.8s;
+			  animation: loading 1s linear infinite -0.8s;
+			  float: left;
+			}
+			.loader .span2 {
+			  -moz-animation: loading 1s linear infinite -0.2s;
+			  -webkit-animation: loading 1s linear infinite -0.2s;
+			  animation: loading 1s linear infinite -0.2s;
+			}
+			.loader .span3 {
+			  -moz-animation: loading 1s linear infinite -0.5s;
+			  -webkit-animation: loading 1s linear infinite -0.5s;
+			  animation: loading 1s linear infinite -0.5s;
+			}
+			.loader .span4 {
+			  -moz-animation: loading 1s linear infinite -1.1s;
+			  -webkit-animation: loading 1s linear infinite -1.1s;
+			  animation: loading 1s linear infinite -1.1s;
+			}
+			.loader .span5 {
+			  -moz-animation: loading 1s linear infinite -0.36s;
+			  -webkit-animation: loading 1s linear infinite -0.36s;
+			  animation: loading 1s linear infinite -0.36s;
+			}
+			.loader .span6 {
+			  -moz-animation: loading 1s linear infinite -0.65s;
+			  -webkit-animation: loading 1s linear infinite -0.65s;
+			  animation: loading 1s linear infinite -0.65s;
+			}
+			.loader .span7 {
+			  -moz-animation: loading 1s linear infinite -0.93s;
+			  -webkit-animation: loading 1s linear infinite -0.93s;
+			  animation: loading 1s linear infinite -0.93s;
+			}
+
+			.font1 {
+			  font-family: "Helvetica", Arial, sans-serif;
+			}
+
+			.font2 {
+			  font-family: Impact;
+			}
+
+			.font3 {
+			  font-family: "Webdings";
+			}
+
+			.font4 {
+			  font-family: "Comic Sans MS", sans-serif;
+			  font-weight: bold;
+			}
+
 		</style>
 	</head>
 	<table>
 		<tr>
-			<td><h2 font style="text-shadow:0px 0px 15px #FF37FD;" ><a href="/caldate" style="text-decoration:none;" target="showframe">Document Web Tools</a></h2></td>
-			<td style="font-family:arial;font-size:13px"><i><sub> updated on 2017.11.01</sub></i></td>
+			<!--<td><h2 font style="text-shadow:0px 0px 15px #FF37FD;" ><a href="/caldate" style="text-decoration:none;" target="showframe">Document Web Tools</a></h2></td>-->
+			<td>
+				<a href="/caldate" style="text-decoration:none;" target="showframe">
+					<div class="loader font4">
+						<span>D</span>
+						<span class="span2">o</span>
+						<span class="span3">c</span>
+					</div>
+				</a>
+			</td>
+			<td>
+				<a href="/caldate" style="text-decoration:none;" target="showframe">
+					<div class="loader font4">
+						<span>W</span>
+						<span class="span4">e</span>
+						<span class="span5">b</span>
+					</div>
+				</a>
+			</td>
+			<td>
+				<a href="/caldate" style="text-decoration:none;" target="showframe">
+					<div class="loader font4">
+						<span>T</span>
+						<span class="span6">o</span>
+						<span class="span7">o</span>
+						<span class="span8">l</span>
+						<span class="span9">s</span>
+					</div>
+				</a>
+			</td>
 		</tr>
 	</table>
+
+	<div style="font-family:arial;font-size:13px"><i><sub> updated on 2017.11.01</sub></i></div>
+
 	<body bgcolor="#f8f8f8">
 		<form action="/" method="POST">
 			<ul>
