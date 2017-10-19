@@ -81,6 +81,20 @@ def caldate_show():
                            after60=after60, after75=after75)
 
 
+@app.route('/miumiu')
+def miumiu_show():
+    location_page = 'MiuMiu.html'
+    IPTracking.log_IP(request, location_page)
+    return render_template(location_page)
+
+
+@app.route('/elephant')
+def elephant_show():
+    location_page = 'Elephant.html'
+    IPTracking.log_IP(request, location_page)
+    return render_template(location_page)
+
+
 @app.route('/doctracking')
 def doctracking_show():
     location_page = 'DocTracking.html'
