@@ -105,7 +105,7 @@ def get_log(connection_string, processid, timediff):
     for each in log_list:
         if log_list.index(each) == 0:# 对于cutting
             if len(cutter) != 0:# 以后可以多增加内容，目前暂时只有creation date，operation和user
-                record = [str(1), each[1].strftime('%Y-%m-%d %H:%M:%S'), 'Cutting', each[0]]
+                record = [str(1), processid, each[1].strftime('%Y-%m-%d %H:%M:%S'), 'Cutting', each[0]]
                 record_list.append(record)
             else:
                 record = ['', '', 'No Cutting', '']
@@ -113,7 +113,7 @@ def get_log(connection_string, processid, timediff):
 
         elif log_list.index(each) == 1:
             if len(first_mapper) != 0:
-                record = [str(2), each[1].strftime('%Y-%m-%d %H:%M:%S'), 'First Mapping', each[0]]
+                record = [str(2), processid, each[1].strftime('%Y-%m-%d %H:%M:%S'), 'First Mapping', each[0]]
                 record_list.append(record)
             else:
                 record = ['', '', 'No Mapping', '']
@@ -121,7 +121,7 @@ def get_log(connection_string, processid, timediff):
 
         elif log_list.index(each) == 2:
             if len(last_mapper) != 0:
-                record = [str(3),  each[1].strftime('%Y-%m-%d %H:%M:%S'), 'Last Mapping', each[0]]
+                record = [str(3), processid, each[1].strftime('%Y-%m-%d %H:%M:%S'), 'Last Mapping', each[0]]
                 record_list.append(record)
             else:
                 record = ['', '', 'No Mapping', '']
@@ -129,7 +129,7 @@ def get_log(connection_string, processid, timediff):
 
         elif log_list.index(each) == 3:
             if len(charter) != 0:
-                record = [str(4), each[1].strftime('%Y-%m-%d %H:%M:%S'), 'Add Chart', each[0]]
+                record = [str(4), processid, each[1].strftime('%Y-%m-%d %H:%M:%S'), 'Add Chart', each[0]]
                 record_list.append(record)
             else:
                 record = ['', '', 'No Operation', '']
@@ -137,7 +137,7 @@ def get_log(connection_string, processid, timediff):
 
         else:
             if len(linker) != 0:
-                record = [str(5), each[1].strftime('%Y-%m-%d %H:%M:%S'), 'Add Link', each[0]]
+                record = [str(5), processid, each[1].strftime('%Y-%m-%d %H:%M:%S'), 'Add Link', each[0]]
                 record_list.append(record)
             else:
                 record = ['', '', 'No Operation', '']
@@ -190,7 +190,7 @@ css_code = '''
 def run(processid, timediff):
     connection_string = 'Driver={SQL Server};Server=' + common.sql_server + ';Database=' + common.sql_database + ';Uid=' + common.sql_user + ';Pwd=' + common.sql_pw + ';Trusted_Domain=msdomain1;Trusted_Connection=1;'
     total_result = get_log(connection_string, processid, timediff)
-    pd_result = pd.DataFrame(total_result, columns=['No', 'Operation Time', 'Operation', 'User'])
+    pd_result = pd.DataFrame(total_result, columns=['No', 'Processid', 'Operation Time', 'Operation', 'User'])
     pd.set_option('display.max_colwidth', -1)
     html_code = pd_result.to_html(classes='tablestyle', index=False)
     html_code = css_code + html_code
