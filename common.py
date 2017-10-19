@@ -3,7 +3,7 @@
 #------------------------------------
 #--Author:        Jeffrey Yu
 #--CreationDate:  2017/10/16 11:01
-#--RevisedDate:   
+#--RevisedDate:   2017/10/19
 #------------------------------------
 
 import os
@@ -27,11 +27,14 @@ sql_server = 'dcdrdb601\dminputdb'
 sql_database = 'DocumentAcquisition'
 sql_user = 'jyu2'
 sql_pw = 'hhh'
-IP_Tracking_DB_path = cur_file_dir() + '\\Database\\IP_Tracking.db3'
+IP_Tracking_DB_path = cur_file_dir() + '\\Database\\'
+IP_Tracking_DB_file_path = IP_Tracking_DB_path + 'IP_Tracking.db3'
 
 
 def init():
     if not os.path.exists(sql_path):
         os.makedirs(sql_path)
-    if not os.path.isfile(IP_Tracking_DB_path):
-        IPTracking.create_db(IP_Tracking_DB_path)
+    if not os.path.exists(IP_Tracking_DB_path):
+        os.makedirs(IP_Tracking_DB_path)
+    if not os.path.isfile(IP_Tracking_DB_file_path):
+        IPTracking.create_db(IP_Tracking_DB_file_path)
