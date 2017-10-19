@@ -95,6 +95,13 @@ def elephant_show():
     return render_template(location_page)
 
 
+@app.route('/game1')
+def game1_show():
+    location_page = 'Game1.html'
+    IPTracking.log_IP(request, location_page)
+    return render_template(location_page)
+
+
 @app.route('/doctracking')
 def doctracking_show():
     location_page = 'DocTracking.html'
