@@ -9,6 +9,7 @@
 from flask import Flask, render_template, request, send_from_directory, send_file
 import common
 import IPTracking
+import Tracking_Record as tr
 
 common.init()
 
@@ -22,10 +23,12 @@ def homepage_show():
     return render_template(location_page)
 
 
+
 @app.route('/mapbydocfromcik', methods=['POST'])
 def mapbydocfromcik():
     return x
 
+  
 @app.route('/doctracking')
 def doctracking_show():
     visitor_ip = request.remote_addr
@@ -38,6 +41,7 @@ def doctracking_show():
     tr.record(visitor_ip, 'doctracking')
     return render_template('doctracking.html')
 
+  
 @app.route('/doctracking', methods=['POST'])
 def doctracking():
     idtype = str(request.form['idtype'])
@@ -55,7 +59,6 @@ def doctracking():
     else:
         processid = dk.get_processid(connection_string,id_content)
     return dk.run(connection_string,processid)
-
 
 
 if __name__ == '__main__':
