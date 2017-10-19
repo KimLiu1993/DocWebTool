@@ -12,9 +12,7 @@ import pandas as pd
 import time
 import datetime
 import flask
-# 目前存在的问题
-# 1.connection_string的引入的问题
-# 2.
+
 
 
 # 读取SQL代码
@@ -110,7 +108,7 @@ def get_log(connection_string, processid, timediff):
                 record = [str(1), each[1].strftime('%Y-%m-%d %H:%M:%S'), 'Cutting', each[0]]
                 record_list.append(record)
             else:
-                record = [str(1), '', 'No Cutting', '']
+                record = ['', '', 'No Cutting', '']
                 record_list.append(record)
 
         elif log_list.index(each) == 1:
@@ -118,7 +116,7 @@ def get_log(connection_string, processid, timediff):
                 record = [str(2), each[1].strftime('%Y-%m-%d %H:%M:%S'), 'First Mapping', each[0]]
                 record_list.append(record)
             else:
-                record = [str(2), '', 'No Mapping', '']
+                record = ['', '', 'No Mapping', '']
                 record_list.append(record)
 
         elif log_list.index(each) == 2:
@@ -126,7 +124,7 @@ def get_log(connection_string, processid, timediff):
                 record = [str(3),  each[1].strftime('%Y-%m-%d %H:%M:%S'), 'Last Mapping', each[0]]
                 record_list.append(record)
             else:
-                record = [str(3), '', 'No Mapping', '']
+                record = ['', '', 'No Mapping', '']
                 record_list.append(record)
 
         elif log_list.index(each) == 3:
@@ -134,7 +132,7 @@ def get_log(connection_string, processid, timediff):
                 record = [str(4), each[1].strftime('%Y-%m-%d %H:%M:%S'), 'Add Chart', each[0]]
                 record_list.append(record)
             else:
-                record = [str(4), '', 'No Need Chart', '']
+                record = ['', '', 'No Operation', '']
                 record_list.append(record)
 
         else:
@@ -142,7 +140,7 @@ def get_log(connection_string, processid, timediff):
                 record = [str(5), each[1].strftime('%Y-%m-%d %H:%M:%S'), 'Add Link', each[0]]
                 record_list.append(record)
             else:
-                record = [str(5), '', 'No Need Link', '']
+                record = ['', '', 'No Operation', '']
                 record_list.append(record)
 
     return record_list
