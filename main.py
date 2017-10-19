@@ -23,6 +23,20 @@ def homepage_show():
     return render_template(location_page)
 
 
+@app.route('/content')
+def content_show():
+    location_page = 'Content.html'
+    IPTracking.log_IP(request, location_page)
+    return render_template(location_page)
+
+
+@app.route('/caldate')
+def caldate_show():
+    location_page = 'Caldate.html'
+    IPTracking.log_IP(request, location_page)
+    return render_template(location_page)
+
+
 @app.route('/doctracking')
 def doctracking_show():
     location_page = 'DocTracking.html'
