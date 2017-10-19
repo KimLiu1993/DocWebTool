@@ -29,6 +29,7 @@ sql_user = 'jyu2'
 sql_pw = 'hhh'
 IP_Tracking_DB_path = cur_file_dir() + '\\Database\\'
 IP_Tracking_DB_file_path = IP_Tracking_DB_path + 'IP_Tracking.db3'
+stickers_path = cur_file_dir() + '\\static\\img\\stickers\\'
 
 
 def init():
@@ -36,5 +37,7 @@ def init():
         os.makedirs(sql_path)
     if not os.path.exists(IP_Tracking_DB_path):
         os.makedirs(IP_Tracking_DB_path)
+    if not os.path.exists(stickers_path):
+        os.makedirs(stickers_path)
     if not os.path.isfile(IP_Tracking_DB_file_path):
         IPTracking.create_db(IP_Tracking_DB_file_path)
