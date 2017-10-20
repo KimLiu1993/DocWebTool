@@ -6,41 +6,54 @@
 	<link rel="shortcut icon" href="/static/img/Favicon.ico" type="image/x-icon"/>
 
 </head>
-<table border="0"; style="border-collapse:collapse;">
-    <br/><br/>
-    &nbsp;&nbsp;&nbsp;计算Effective Date O(∩_∩)O
-    <br/><br/>
-    <tr><td style= "width:9px;border-left:none;border-top:none;border-bottom:none"></td>
-        <td style="border:3px #FFAC55 solid;padding:5px;" rules="all" cellpadding='5';>Today is <b>{{ today }}</b>, {{ weekday }}</td>
-    </tr>
-    <tr><td style= "width:9px;border-left:none;border-top:none;border-bottom:none"></td>
-        <td style="border:3px #FFAC55 solid;padding:5px;" rules="all" cellpadding='5';>Filing Date is <b>{{ filingdate }}</b></td>
-    </tr>
-    <tr><td style= "width:9px;border-left:none;border-top:none;border-bottom:none"></td>
-        <td style="border:3px #FFAC55 solid;padding:5px;" rules="all" cellpadding='5';>After 60 days is <b>{{ after60 }}</b></td>
-    </tr>
-    <tr><td style= "width:9px;border-left:none;border-top:none;border-bottom:none"></td>
-        <td style="border:3px #FFAC55 solid;padding:5px;" rules="all" cellpadding='5';>After 75 days is <b>{{ after75 }}</b></td>
-    </tr>
-</table>
+
+<div>
+    <table border="0"; style="border-collapse:collapse;">
+        <br/><br/>
+        &nbsp;&nbsp;&nbsp;计算Effective Date O(∩_∩)O
+        <br/><br/>
+        <tr>
+            <td style= "width:9px;border-left:none;border-top:none;border-bottom:none"></td>
+            <td style="border:3px #FFAC55 solid;padding:5px;" rules="all" cellpadding='5';>Today is <b>{{ today }}</b>, {{ weekday }}</td>
+        </tr>
+        <tr>
+            <td style= "width:9px;border-left:none;border-top:none;border-bottom:none"></td>
+            <td style="border:3px #FFAC55 solid;padding:5px;" rules="all" cellpadding='5';>Filing Date is <b>{{ filingdate }}</b></td>
+        </tr>
+        <tr>
+            <td style= "width:9px;border-left:none;border-top:none;border-bottom:none"></td>
+            <td style="border:3px #FFAC55 solid;padding:5px;" rules="all" cellpadding='5';>After 60 days is <b>{{ after60 }}</b></td>
+        </tr>
+        <tr>
+            <td style= "width:9px;border-left:none;border-top:none;border-bottom:none"></td>
+            <td style="border:3px #FFAC55 solid;padding:5px;" rules="all" cellpadding='5';>After 75 days is <b>{{ after75 }}</b></td>
+        </tr>
+    </table>
+</div>
+
+<div>
+    <img src="/images/cat-1.png" width="825" height="225">
+</div>
+
 <body>
-<br/><br/><br/><br/><br/>
-<p style="text-decoration:none; font-size:17px">&nbsp;&nbsp;&nbsp;Useful links：</p>
-<p>&nbsp;&nbsp;&nbsp;SEC: <a href="https://www.sec.gov/edgar/searchedgar/companysearch.html" target="view_window">https://www.sec.gov/edgar/searchedgar/companysearch.html</a></p>
-<p>&nbsp;&nbsp;&nbsp;MDL用户名：<input type="text" name="1" value="gfdt" readonly="readonly"> 密码：<input type="text" name="2" value="9afafb2e67d38883" readonly="readonly"></p>
-<p>&nbsp;&nbsp;&nbsp;MDL查询页面: <a href="http://doc.morningstar.com/qapage.aspx" target="view_window">http://doc.morningstar.com/qapage.aspx</a></p>
-<p>&nbsp;&nbsp;&nbsp;DAP dev version: <a href="http://dcdevweb813/GED" target="view_window">http://dcdevweb813/GED</a></p>
-<p>&nbsp;&nbsp;&nbsp;DAP stage version: <a href="http://dcstgweb813/GED" target="view_window">http://dcstgweb813/GED</a></p>
-<p>&nbsp;&nbsp;&nbsp;DAP live version 1: <a href="http://dcweb613/GED" target="view_window">http://dcweb613/GED</a></p>
-<p>&nbsp;&nbsp;&nbsp;DAP live version 2: <a href="http://dcweb813/GED" target="view_window">http://dcweb813/GED</a></p>
-<p>&nbsp;&nbsp;&nbsp;Web DataManager: <a href="https://webdatamanager.morningstar.com" target="view_window">https://webdatamanager.morningstar.com</a></p>
-<p>&nbsp;&nbsp;&nbsp;Morningstar Direct: <a href="https://direct.morningstar.com" target="view_window">https://direct.morningstar.com</a></p>
-<p>&nbsp;&nbsp;&nbsp;Morningstar Jira: <a href="https://msjira.morningstar.com" target="view_window">https://msjira.morningstar.com</a></p>
-<p>&nbsp;&nbsp;&nbsp;Morningstar Wiki: <a href="https://mswiki.morningstar.com" target="view_window">https://mswiki.morningstar.com</a></p>
-<p>&nbsp;&nbsp;&nbsp;Morningstar Workday: <a href="https://wd5.myworkday.com/morningstar" target="view_window">https://wd5.myworkday.com/morningstar</a></p>
-<p>&nbsp;&nbsp;&nbsp;Morningstar Concur: <a href="https://www.concursolutions.com" target="view_window">https://www.concursolutions.com</a></p>
-<p>&nbsp;&nbsp;&nbsp;Morningstar QuickBase: <a href="https://morningstar.quickbase.com" target="view_window">https://morningstar.quickbase.com</a></p>
-<p>&nbsp;&nbsp;&nbsp;Morningstar Service Desk: <a href="https://msjira.morningstar.com/servicedesk" target="view_window">https://msjira.morningstar.com/servicedesk</a></p>
-<br/><br/>
+    <div>
+        <p style="text-decoration:none; font-size:17px">&nbsp;&nbsp;&nbsp;Useful links：</p>
+        <p>&nbsp;&nbsp;&nbsp;SEC: <a href="https://www.sec.gov/edgar/searchedgar/companysearch.html" target="view_window">https://www.sec.gov/edgar/searchedgar/companysearch.html</a></p>
+        <p>&nbsp;&nbsp;&nbsp;MDL用户名：<input type="text" name="1" value="gfdt" readonly="readonly"> 密码：<input type="text" name="2" value="9afafb2e67d38883" readonly="readonly"></p>
+        <p>&nbsp;&nbsp;&nbsp;MDL查询页面: <a href="http://doc.morningstar.com/qapage.aspx" target="view_window">http://doc.morningstar.com/qapage.aspx</a></p>
+        <p>&nbsp;&nbsp;&nbsp;DAP dev version: <a href="http://dcdevweb813/GED" target="view_window">http://dcdevweb813/GED</a></p>
+        <p>&nbsp;&nbsp;&nbsp;DAP stage version: <a href="http://dcstgweb813/GED" target="view_window">http://dcstgweb813/GED</a></p>
+        <p>&nbsp;&nbsp;&nbsp;DAP live version 1: <a href="http://dcweb613/GED" target="view_window">http://dcweb613/GED</a></p>
+        <p>&nbsp;&nbsp;&nbsp;DAP live version 2: <a href="http://dcweb813/GED" target="view_window">http://dcweb813/GED</a></p>
+        <p>&nbsp;&nbsp;&nbsp;Web DataManager: <a href="https://webdatamanager.morningstar.com" target="view_window">https://webdatamanager.morningstar.com</a></p>
+        <p>&nbsp;&nbsp;&nbsp;Morningstar Direct: <a href="https://direct.morningstar.com" target="view_window">https://direct.morningstar.com</a></p>
+        <p>&nbsp;&nbsp;&nbsp;Morningstar Jira: <a href="https://msjira.morningstar.com" target="view_window">https://msjira.morningstar.com</a></p>
+        <p>&nbsp;&nbsp;&nbsp;Morningstar Wiki: <a href="https://mswiki.morningstar.com" target="view_window">https://mswiki.morningstar.com</a></p>
+        <p>&nbsp;&nbsp;&nbsp;Morningstar Workday: <a href="https://wd5.myworkday.com/morningstar" target="view_window">https://wd5.myworkday.com/morningstar</a></p>
+        <p>&nbsp;&nbsp;&nbsp;Morningstar Concur: <a href="https://www.concursolutions.com" target="view_window">https://www.concursolutions.com</a></p>
+        <p>&nbsp;&nbsp;&nbsp;Morningstar QuickBase: <a href="https://morningstar.quickbase.com" target="view_window">https://morningstar.quickbase.com</a></p>
+        <p>&nbsp;&nbsp;&nbsp;Morningstar Service Desk: <a href="https://msjira.morningstar.com/servicedesk" target="view_window">https://msjira.morningstar.com/servicedesk</a></p>
+        <br/><br/>
+    </div>
 </body>
 </html>
