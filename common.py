@@ -29,7 +29,7 @@ sql_user = 'jyu2'
 sql_pw = 'hhh'
 IP_Tracking_DB_path = cur_file_dir() + '\\Database\\'
 IP_Tracking_DB_file_path = IP_Tracking_DB_path + 'IP_Tracking.db3'
-stickers_path = cur_file_dir() + '\\static\\img\\stickers\\'
+stickers_path = cur_file_dir() + '\\static\\images\\stickers\\'
 
 
 def init():
