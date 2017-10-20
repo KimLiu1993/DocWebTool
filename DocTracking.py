@@ -9,10 +9,6 @@
 import pyodbc
 import common
 import pandas as pd
-import time
-import datetime
-import flask
-
 
 
 # 读取SQL代码
