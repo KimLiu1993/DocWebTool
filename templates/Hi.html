@@ -6,33 +6,38 @@
 	<link rel="shortcut icon" href="/static/img/Favicon.ico" type="image/x-icon"/>
 
 </head>
-
+<table>
+    <tr>
+        <td>
+            <table border="0"; style="border-collapse:collapse;">
+                <br/><br/>
+                &nbsp;&nbsp;&nbsp;计算Effective Date O(∩_∩)O
+                <br/><br/>
+                <tr>
+                    <td style= "width:9px;border-left:none;border-top:none;border-bottom:none"></td>
+                    <td style="border:3px #FFAC55 solid;padding:5px;" rules="all" cellpadding='5';>Today is <b>{{ today }}</b>, {{ weekday }}</td>
+                </tr>
+                <tr>
+                    <td style= "width:9px;border-left:none;border-top:none;border-bottom:none"></td>
+                    <td style="border:3px #FFAC55 solid;padding:5px;" rules="all" cellpadding='5';>Filing Date is <b>{{ filingdate }}</b></td>
+                </tr>
+                <tr>
+                    <td style= "width:9px;border-left:none;border-top:none;border-bottom:none"></td>
+                    <td style="border:3px #FFAC55 solid;padding:5px;" rules="all" cellpadding='5';>After 60 days is <b>{{ after60 }}</b></td>
+                </tr>
+                <tr>
+                    <td style= "width:9px;border-left:none;border-top:none;border-bottom:none"></td>
+                    <td style="border:3px #FFAC55 solid;padding:5px;" rules="all" cellpadding='5';>After 75 days is <b>{{ after75 }}</b></td>
+                </tr>
+            </table>
+        </td>
+        <td align="right" width="70%">
+            <img src="/images/littlecat.gif">
+        </td>
+    </tr>
+</table>
 <div>
-    <table border="0"; style="border-collapse:collapse;">
-        <br/><br/>
-        &nbsp;&nbsp;&nbsp;计算Effective Date O(∩_∩)O
-        <br/><br/>
-        <tr>
-            <td style= "width:9px;border-left:none;border-top:none;border-bottom:none"></td>
-            <td style="border:3px #FFAC55 solid;padding:5px;" rules="all" cellpadding='5';>Today is <b>{{ today }}</b>, {{ weekday }}</td>
-        </tr>
-        <tr>
-            <td style= "width:9px;border-left:none;border-top:none;border-bottom:none"></td>
-            <td style="border:3px #FFAC55 solid;padding:5px;" rules="all" cellpadding='5';>Filing Date is <b>{{ filingdate }}</b></td>
-        </tr>
-        <tr>
-            <td style= "width:9px;border-left:none;border-top:none;border-bottom:none"></td>
-            <td style="border:3px #FFAC55 solid;padding:5px;" rules="all" cellpadding='5';>After 60 days is <b>{{ after60 }}</b></td>
-        </tr>
-        <tr>
-            <td style= "width:9px;border-left:none;border-top:none;border-bottom:none"></td>
-            <td style="border:3px #FFAC55 solid;padding:5px;" rules="all" cellpadding='5';>After 75 days is <b>{{ after75 }}</b></td>
-        </tr>
-    </table>
-</div>
-
-<div>
-    <img src="/images/cat-1.png" width="825" height="225">
+    <img src="/images/cat-1.png" width="725" height="225">
 </div>
 
 <body>

@@ -44,9 +44,9 @@ def content_show():
         return render_template(location_page, picname='/images/stickers/gif/' + sticker_name + '.gif')
 
 
-@app.route('/caldate')
-def caldate_show():
-    location_page = 'Caldate.html'
+@app.route('/hi')
+def hi_show():
+    location_page = 'Hi.html'
     IPTracking.log_IP(request, location_page)
 
     week_day_dict = {
