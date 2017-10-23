@@ -3,20 +3,20 @@
 #------------------------------------
 #--Author:        Jeffrey Yu
 #--CreationDate:  2017/10/16 10:53
-#--RevisedDate:   2017/10/19
+#--RevisedDate:   2017/10/20
 #------------------------------------
 
 import os
 import random
 import datetime
-from flask import Flask, render_template, request, send_from_directory, send_file
+from flask import Flask, render_template, request
 import common
 import IPTracking
 import DocTracking as dt
 
 common.init()
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='')
 
 
 @app.route('/')
@@ -34,19 +34,19 @@ def content_show():
     if gif == 1:
         file_count = len([name for name in os.listdir(common.stickers_path) if os.path.isfile(os.path.join(common.stickers_path, name))])
         sticker_name = str(random.randint(1, file_count))
-        return render_template(location_page, picname='/static/img/stickers/' + sticker_name + '.png')
+        return render_template(location_page, picname='/images/stickers/' + sticker_name + '.png')
     else:
         gif_path = common.stickers_path + 'gif\\'
         if not os.path.exists(gif):
             os.makedirs(gif)
         file_count = len([name for name in os.listdir(gif_path) if os.path.isfile(os.path.join(gif_path, name))])
         sticker_name = str(random.randint(1, file_count))
-        return render_template(location_page, picname='/static/img/stickers/gif/' + sticker_name + '.gif')
+        return render_template(location_page, picname='/images/stickers/gif/' + sticker_name + '.gif')
 
 
-@app.route('/caldate')
-def caldate_show():
-    location_page = 'Caldate.html'
+@app.route('/hi')
+def hi_show():
+    location_page = 'Hi.html'
     IPTracking.log_IP(request, location_page)
 
     week_day_dict = {
@@ -81,6 +81,13 @@ def caldate_show():
                            after60=after60, after75=after75)
 
 
+@app.route('/doctracking')
+def doctracking_show():
+    location_page = 'DocTracking.html'
+    IPTracking.log_IP(request, location_page)
+    return render_template(location_page)
+
+
 @app.route('/miumiu')
 def miumiu_show():
     location_page = 'MiuMiu.html'
@@ -102,11 +109,11 @@ def game1_show():
     return render_template(location_page)
 
 
-@app.route('/doctracking')
-def doctracking_show():
-    location_page = 'DocTracking.html'
+@app.route('/fruit_ninja')
+def fruit_ninja_show():
+    location_page = 'Fruit_ninja.html'
     IPTracking.log_IP(request, location_page)
-    return render_template(location_page)
+    return app.send_static_file(location_page)
 
 
 @app.route('/doctracking', methods=['POST'])

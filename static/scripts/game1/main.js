@@ -12,10 +12,10 @@ game_state.main.prototype = {
         this.game.stage.backgroundColor = '#71c5cf';
 
         // Load the bird sprite
-        this.game.load.image('bird', '/static/img/bird.png');
+        this.game.load.image('bird', '/images/Game1/bird.png');
 
         // Load the pipe sprite
-        this.game.load.image('pipe', '/static/img/pipe.png');
+        this.game.load.image('pipe', '/images/Game1/pipe.png');
     },
 
     // Fuction called after 'preload' to setup the game 
