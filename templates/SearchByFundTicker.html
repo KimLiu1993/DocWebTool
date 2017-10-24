@@ -2,8 +2,8 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Search by Fund</title>
-	<link rel="shortcut icon" href="/static/img/Favicon.ico" type="image/x-icon"/>
+	<title>Search by Fund & Ticker</title>
+	<link rel="shortcut icon" href="/images/Favicon.ico" type="image/x-icon"/>
 	<style>
 		.myButton {
 			-moz-box-shadow:inset 0px 1px 0px 0px #f5978e;
@@ -80,12 +80,12 @@
 		<td>
 			<table>
 				<tr>
-					<td><h2>Search by Fund</h2></td>
-					<td style="font-family:arial;font-size:13px"><i><sub> updated on 2017.9.13</sub></i></td>
+					<td><h2>Search by Fund & Ticker</h2></td>
+					<td style="font-family:arial;font-size:13px"><i><sub> updated on 2017.11.01</sub></i></td>
 				</tr>
 			</table>
 			<body>
-				<form action="/searchbyfund" method="POST">
+				<form action="/searchbyfundticker" method="POST">
 					<table>
 						<tr>
 							<td>
@@ -102,6 +102,9 @@
 					Document Content:
 					<br/>
 					<textarea name="content" style="height:400px;width:750px;resize:none" required="required"></textarea>
+					<!--<p><input type="checkbox" name="ignore" value="1"/>忽略大小写</p>-->
+					<table>
+						<tr>
 							<td valign="baseline">
 								<p>常用正则例子：</p>
 								<p>
@@ -110,11 +113,11 @@
 								</p>
 								<p>
 									2. 匹配首字母大写，以fund、portfolio等结尾的fund:
-									<input type="text" name="reg2" value="(?:[0-9A-Z&][^,:\"@\s\n\r\t]*?\s){2,10}?(?:Fund|ETF|Portfolio|Reserves|RESERVES|FUND|PORTFOLIO|VP|VIP)\b" readonly="readonly" size="40">
+									<input type="text" name="reg2" value="(?:[0-9A-Z&][^,:\@\s\n\r\t]*?\s){2,10}?(?:Fund|ETF|Portfolio|Reserves|RESERVES|FUND|PORTFOLIO|VP|VIP)\b" readonly="readonly" size="75">
 								</p>
 								<p>
-									3. 匹配形如'ARLIX'ticker，{}里面的数字表示ticker字母的个数，若是4个字母，则相应地将括号里面的数字改成4；以此类推。
-									<input type="text" name="reg3" value="[A-Z]{{5}}" readonly="readonly" size="40">
+									3. 匹配形如'ARLIX'的Ticker，{}里面的数字表示Ticker字母的个数，若是4个字母，则相应地将括号里面的数字改成4；以此类推。
+									<input type="text" name="reg3" value="[A-Z]{5}" readonly="readonly" size="40">
 								</p>
 							</td>
 						</tr>
@@ -123,13 +126,12 @@
 				<table>
 					<tr>
 						<td style="font-family:arial;color:red;font-size:13px;"><b>Note: </b></td>
-						<td style="font-family:arial;font-size:13px;">Developed by <b><i>Lychee Li</i></b></td>
+						<td style="font-family:arial;font-size:13px;">Developed by <b><i>Lychee Li</i></b>.</td>
 					</tr>
 					<tr>
 						<td style="font-family:arial;color:red;font-size:13px;"><b></b></td>
 						<td style="font-family:arial;font-size:13px;">本功能是利用正则表达式来提取文中fund和ticker。<a href="http://deerchao.net/tutorials/regex/regex.htm" target="view_window">正则表达式30分钟入门教程</a></td>
 					</tr>
-
 				</table>
 			</body>
 		</td>
