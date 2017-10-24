@@ -1,10 +1,14 @@
-
+#!/usr/bin/env python
+# -*- Coding: UTF-8 -*-
+#------------------------------------
+#--Author:        Lychee Li
+#--CreationDate:  2017/10/24
+#--RevisedDate:
+#------------------------------------
 
 import common
 import pyodbc
 import pandas as pd
-import time
- 
 
 css_code = '''
     <style>
@@ -47,13 +51,13 @@ css_code = '''
 '''
 
 
-with open(common.sql_path + '\\ContractId_Filing.sql','r') as contractid_filing_code:
+with open(common.sql_path + '\\ContractId_Filing.sql', 'r', encoding='UTF-8') as contractid_filing_code:
     contractid_filing = contractid_filing_code.read()
 
 
 # 从contractid中得到filing的相关信息
 def get_filing(contractid):
-    connection = pyodbc.connect(connection_string)
+    connection = pyodbc.connect(common.connection_string_multithread)
     cursor = connection.cursor()
     result = cursor.execute(contractid_filing % (contractid)).fetchall()
 
@@ -67,15 +71,15 @@ def get_filing(contractid):
         Accession = each[5]
         Formtype = each[6]
         Filedate = each[7]
-        total_result = [Contractid,Seriesname,Contractname,Cik,Filingid,Accession,Formtype,Filedate.strftime('%Y-%m-%d %H:%M:%S')]
-        print(total_result)
+        total_result = [Contractid, Seriesname, Contractname, Cik, Filingid, Accession, Formtype, Filedate.strftime('%Y-%m-%d %H:%M:%S')]
+        # print(total_result)
         all_result.append(total_result)
-
+    cursor.close()
+    connection.close()
     return all_result
 
 
 def run_contractid(contractid):
-    connection_string = 'Driver={SQL Server};Server=' + common.sql_server + ';Database=' + common.sql_database + ';Uid=' + common.sql_user + ';Pwd=' + common.sql_pw + ';Trusted_Domain=msdomain1;Trusted_Connection=1;'
     total_result = get_filing(contractid)
     pd_result = pd.DataFrame(total_result, columns=['ContractId', 'SeriesName', 'ContractName', 'Cik', 'FilingId', 'Accession', 'Formtype', 'Filedate'])
     pd.set_option('display.max_colwidth', -1)

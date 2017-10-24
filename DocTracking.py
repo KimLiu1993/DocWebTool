@@ -3,7 +3,7 @@
 #------------------------------------
 #--Author:        Lychee Li
 #--CreationDate:  2017/10/18
-#--RevisedDate:
+#--RevisedDate:   2017/10/24
 #------------------------------------
 
 import pyodbc
@@ -29,20 +29,20 @@ with open(common.cur_file_dir()+'\\sql\\DocTracking_link_code.sql', 'r') as link
 
 
 def get_processid(docid):
-    connection_string = 'Driver={SQL Server};Server=' + common.sql_server + ';Database=' + common.sql_database + ';Uid=' + common.sql_user + ';Pwd=' + common.sql_pw + ';Trusted_Domain=msdomain1;Trusted_Connection=1;'
+    connection = pyodbc.connect(common.connection_string_multithread)
     code = '''
         select ProcessId
         from DocumentAcquisition..MasterProcess
         where DocumentId=%s
         ''' % (docid)
-    connection = pyodbc.connect(connection_string)
     cursor = connection.cursor()
     processid = cursor.execute(code).fetchall()[0][0]
+    cursor.close()
+    connection.close()
     return processid
 
 
-def get_log(connection_string, processid, timediff):
-    connection = pyodbc.connect(connection_string)
+def get_log(connection, processid, timediff):
     cursor = connection.cursor()
     # 获取SQL运行的结果
     # cutter information
@@ -104,7 +104,7 @@ def get_log(connection_string, processid, timediff):
                 record = [str(1), processid, each[1].strftime('%Y-%m-%d %H:%M:%S'), 'Cutting', each[0]]
                 record_list.append(record)
             else:
-                record = ['', '', 'No Cutting', '']
+                record = ['', '', '', 'No Cutting', '']
                 record_list.append(record)
 
         elif log_list.index(each) == 1:
@@ -112,7 +112,7 @@ def get_log(connection_string, processid, timediff):
                 record = [str(2), processid, each[1].strftime('%Y-%m-%d %H:%M:%S'), 'First Mapping', each[0]]
                 record_list.append(record)
             else:
-                record = ['', '', 'No Mapping', '']
+                record = ['', '', '', 'No Mapping', '']
                 record_list.append(record)
 
         elif log_list.index(each) == 2:
@@ -120,7 +120,7 @@ def get_log(connection_string, processid, timediff):
                 record = [str(3), processid, each[1].strftime('%Y-%m-%d %H:%M:%S'), 'Last Mapping', each[0]]
                 record_list.append(record)
             else:
-                record = ['', '', 'No Mapping', '']
+                record = ['', '', '', 'No Mapping', '']
                 record_list.append(record)
 
         elif log_list.index(each) == 3:
@@ -128,7 +128,7 @@ def get_log(connection_string, processid, timediff):
                 record = [str(4), processid, each[1].strftime('%Y-%m-%d %H:%M:%S'), 'Add Chart', each[0]]
                 record_list.append(record)
             else:
-                record = ['', '', 'No Operation', '']
+                record = ['', '', '', 'No Operation', '']
                 record_list.append(record)
 
         else:
@@ -136,9 +136,9 @@ def get_log(connection_string, processid, timediff):
                 record = [str(5), processid, each[1].strftime('%Y-%m-%d %H:%M:%S'), 'Add Link', each[0]]
                 record_list.append(record)
             else:
-                record = ['', '', 'No Operation', '']
+                record = ['', '', '', 'No Operation', '']
                 record_list.append(record)
-
+    cursor.close()
     return record_list
 
 
@@ -184,10 +184,11 @@ css_code = '''
 
 
 def run(processid, timediff):
-    connection_string = 'Driver={SQL Server};Server=' + common.sql_server + ';Database=' + common.sql_database + ';Uid=' + common.sql_user + ';Pwd=' + common.sql_pw + ';Trusted_Domain=msdomain1;Trusted_Connection=1;'
-    total_result = get_log(connection_string, processid, timediff)
+    connection = pyodbc.connect(common.connection_string_multithread)
+    total_result = get_log(connection, processid, timediff)
     pd_result = pd.DataFrame(total_result, columns=['No', 'Processid', 'Operation Time', 'Operation', 'User'])
     pd.set_option('display.max_colwidth', -1)
     html_code = pd_result.to_html(classes='tablestyle', index=False)
     html_code = css_code + html_code
+    connection.close()
     return html_code
