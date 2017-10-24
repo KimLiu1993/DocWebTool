@@ -72,7 +72,7 @@ def run(regex,content):
         items = [each]
         total_result.append(items)
     print(total_result)
-    pd_result = pd.DataFrame.from_records(total_result,columns=['FundName/Ticker'])
+    pd_result = pd.DataFrame.from_records(total_result,columns=['Fund Name/Ticker'])
     pd.set_option('display.max_colwidth', -1)
     pd_result.index += 1
     html_code = pd_result.to_html(classes='tablestyle')
