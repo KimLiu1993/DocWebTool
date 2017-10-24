@@ -3,7 +3,7 @@
 #------------------------------------
 #--Author:        Jeffrey Yu
 #--CreationDate:  2017/10/16 10:53
-#--RevisedDate:   2017/10/23
+#--RevisedDate:   2017/10/24
 #------------------------------------
 
 import os
@@ -14,6 +14,7 @@ import common
 import IPTracking
 import ContentCompare
 import DocTracking as dt
+import SearchByFundTicker
 
 common.init()
 
@@ -96,6 +97,13 @@ def doctracking_show():
     return render_template(location_page)
 
 
+@app.route('/searchbyfundticker')
+def searchbyfundticker_show():
+    location_page = 'SearchByFundTicker.html'
+    IPTracking.log_IP(request, location_page)
+    return render_template(location_page)
+
+
 @app.route('/miumiu')
 def miumiu_show():
     location_page = 'MiuMiu.html'
@@ -146,6 +154,13 @@ def doctracking():
     else:
         processid = dt.get_processid(id_content)
     return dt.run(processid, timediff)
+
+
+@app.route('/searchbyfundticker', methods=['POST'])
+def searchbyfundticker():
+    regex = str(request.form['regex'])
+    content = str(request.form['content'])
+    return SearchByFundTicker.run(regex, content)
 
 
 if __name__ == '__main__':
