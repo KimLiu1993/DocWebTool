@@ -16,6 +16,7 @@ import ContentCompare
 import DocTracking as dt
 import SearchByFundTicker
 # import MapByDocFromCIK
+import ContractIdFiling
 import Rename
 
 common.init()
@@ -105,6 +106,13 @@ def doctracking_show():
     return render_template(location_page)
 
 
+@app.route('/contractidfiling')
+def contractidfiling_show():
+    location_page = 'ContractIdFiling.html'
+    IPTracking.log_IP(request, location_page)
+    return render_template(location_page)
+
+
 @app.route('/searchbyfundticker')
 def searchbyfundticker_show():
     location_page = 'SearchByFundTicker.html'
@@ -173,6 +181,12 @@ def doctracking():
     else:
         processid = dt.get_processid(id_content)
     return dt.run(processid, timediff)
+
+
+@app.route('/contractidfiling', methods=['POST'])
+def contractidfiling():
+    contractid = str(request.form['contractid'])
+    return ContractIdFiling.run_contractid(contractid)
 
 
 @app.route('/searchbyfundticker', methods=['POST'])
