@@ -3,15 +3,16 @@
 #------------------------------------
 #--Author:        Jeffrey Yu
 #--CreationDate:  2017/10/16 10:53
-#--RevisedDate:   2017/10/20
+#--RevisedDate:   2017/10/23
 #------------------------------------
 
 import os
 import random
 import datetime
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_from_directory
 import common
 import IPTracking
+import ContentCompare
 import DocTracking as dt
 
 common.init()
@@ -81,6 +82,13 @@ def hi_show():
                            after60=after60, after75=after75)
 
 
+@app.route('/contentcompare')
+def contentcompare_show():
+    location_page = 'ContentCompare.html'
+    IPTracking.log_IP(request, location_page)
+    return render_template(location_page)
+
+
 @app.route('/doctracking')
 def doctracking_show():
     location_page = 'DocTracking.html'
@@ -114,6 +122,17 @@ def fruit_ninja_show():
     location_page = 'Fruit_ninja.html'
     IPTracking.log_IP(request, location_page)
     return app.send_static_file(location_page)
+
+
+@app.route('/contentcompare', methods=['POST'])
+def contentcompare():
+    try:
+        id1 = str(request.form['id1'])
+        id2 = str(request.form['id2'])
+        result = ContentCompare.run(id1, id2)
+        return send_from_directory(directory=result[0], filename=result[1])
+    except Exception as e:
+        return str(e)
 
 
 @app.route('/doctracking', methods=['POST'])

@@ -3,7 +3,7 @@
 #------------------------------------
 #--Author:        Jeffrey Yu
 #--CreationDate:  2017/10/16 11:01
-#--RevisedDate:   2017/10/19
+#--RevisedDate:   2017/10/23
 #------------------------------------
 
 import os
@@ -30,6 +30,8 @@ sql_pw = 'hhh'
 IP_Tracking_DB_path = cur_file_dir() + '\\Database\\'
 IP_Tracking_DB_file_path = IP_Tracking_DB_path + 'IP_Tracking.db3'
 stickers_path = cur_file_dir() + '\\static\\images\\stickers\\'
+apps_path = cur_file_dir() + '\\apps\\'
+temp_path = cur_file_dir() + '\\temp\\'
 
 
 def init():
@@ -39,5 +41,9 @@ def init():
         os.makedirs(IP_Tracking_DB_path)
     if not os.path.exists(stickers_path):
         os.makedirs(stickers_path)
+    if not os.path.exists(apps_path):
+        os.makedirs(apps_path)
+    if not os.path.exists(temp_path):
+        os.makedirs(temp_path)
     if not os.path.isfile(IP_Tracking_DB_file_path):
         IPTracking.create_db(IP_Tracking_DB_file_path)
