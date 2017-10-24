@@ -1,4 +1,4 @@
-SELECT   mp.DocumentId
+﻿SELECT   mp.DocumentId
         ,mp.ContainerId as FilingId
         ,mp.ProcessId
         ,case mp.DocumentType when 1 then 'Prospectus'
