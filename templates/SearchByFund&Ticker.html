@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Search by Fund</title>
+	<link rel="shortcut icon" href="/static/img/Favicon.ico" type="image/x-icon"/>
+	<style>
+		.myButton {
+			-moz-box-shadow:inset 0px 1px 0px 0px #f5978e;
+			-webkit-box-shadow:inset 0px 1px 0px 0px #f5978e;
+			box-shadow:inset 0px 1px 0px 0px #f5978e;
+			background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f24537), color-stop(1, #c62d1f));
+			background:-moz-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+			background:-webkit-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+			background:-o-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+			background:-ms-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+			background:linear-gradient(to bottom, #f24537 5%, #c62d1f 100%);
+			filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f24537', endColorstr='#c62d1f',GradientType=0);
+			background-color:#f24537;
+			-moz-border-radius:6px;
+			-webkit-border-radius:6px;
+			border-radius:6px;
+			border:1px solid #d02718;
+			display:inline-block;
+			cursor:pointer;
+			color:#ffffff;
+			font-family:Arial;
+			font-size:15px;
+			font-weight:bold;
+			padding:6px 24px;
+			text-decoration:none;
+			text-shadow:0px 1px 0px #810e05;
+		}
+		.myButton:hover {
+			background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #c62d1f), color-stop(1, #f24537));
+			background:-moz-linear-gradient(top, #c62d1f 5%, #f24537 100%);
+			background:-webkit-linear-gradient(top, #c62d1f 5%, #f24537 100%);
+			background:-o-linear-gradient(top, #c62d1f 5%, #f24537 100%);
+			background:-ms-linear-gradient(top, #c62d1f 5%, #f24537 100%);
+			background:linear-gradient(to bottom, #c62d1f 5%, #f24537 100%);
+			filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#c62d1f', endColorstr='#f24537',GradientType=0);
+			background-color:#c62d1f;
+		}
+		.myButton:active {
+			position:relative;
+			top:1px;
+		}	
+		<!--
+		.link{
+			position: relative;
+		}
+		#box{
+			display: none;
+			width: 315px;
+			height: 180px;
+			border: 0;
+			padding: 12px;
+			text-align: left;
+			line-height: 175%;
+			text-indent: 2em;
+			position: absolute;left:200px;top:450px
+		}
+	-->		
+</style>
+<script type="text/javascript" language="javascript" >
+	<!--
+	function display(){
+		document.getElementById("box").style.display="block"; 
+	}
+	function disappear(){
+		document.getElementById("box").style.display="none"; 
+	}
+-->
+</script>
+</head>
+<table>
+	<tr>
+		<td width="30">
+		</td>
+		<td>
+			<table>
+				<tr>
+					<td><h2>Search by Fund</h2></td>
+					<td style="font-family:arial;font-size:13px"><i><sub> updated on 2017.9.13</sub></i></td>
+				</tr>
+			</table>
+			<body>
+				<form action="/searchbyfund" method="POST">
+					<table>
+						<tr>
+							<td>
+								Regex:
+								<br/>
+								<textarea name="regex" style="height:50px;width:640px;resize:none" required="required"></textarea>
+								<br/><br/>
+							</td>
+							<td>
+								<input type="submit" class="myButton" formtarget="_blank" value="Search!">
+							</td>
+						</tr>
+					</table>
+					Document Content:
+					<br/>
+					<textarea name="content" style="height:400px;width:750px;resize:none" required="required"></textarea>
+							<td valign="baseline">
+								<p>常用正则例子：</p>
+								<p>
+									1. 匹配fundname开头和结尾都确定的fund，如Deutsche Core Equity Fund:
+									<input type="text" name="reg1" value="Deutsche.*?Fund" readonly="readonly">
+								</p>
+								<p>
+									2. 匹配首字母大写，以fund、portfolio等结尾的fund:
+									<input type="text" name="reg2" value="(?:[0-9A-Z&][^,:\"@\s\n\r\t]*?\s){2,10}?(?:Fund|ETF|Portfolio|Reserves|RESERVES|FUND|PORTFOLIO|VP|VIP)\b" readonly="readonly" size="40">
+								</p>
+								<p>
+									3. 匹配形如'ARLIX'ticker，{}里面的数字表示ticker字母的个数，若是4个字母，则相应地将括号里面的数字改成4；以此类推。
+									<input type="text" name="reg3" value="[A-Z]{{5}}" readonly="readonly" size="40">
+								</p>
+							</td>
+						</tr>
+					</table>
+				</form>
+				<table>
+					<tr>
+						<td style="font-family:arial;color:red;font-size:13px;"><b>Note: </b></td>
+						<td style="font-family:arial;font-size:13px;">Developed by <b><i>Lychee Li</i></b></td>
+					</tr>
+					<tr>
+						<td style="font-family:arial;color:red;font-size:13px;"><b></b></td>
+						<td style="font-family:arial;font-size:13px;">本功能是利用正则表达式来提取文中fund和ticker。<a href="http://deerchao.net/tutorials/regex/regex.htm" target="view_window">正则表达式30分钟入门教程</a></td>
+					</tr>
+
+				</table>
+			</body>
+		</td>
+	</tr>
+</table>
+</html>
