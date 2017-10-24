@@ -1,0 +1,13 @@
+fund #Fund 
+funds #Funds 
+Ucits#UCITS
+sicav#SICAV
+Sicav#SICAV
+Fcp#FCP
+fcp#FCP
+plc.#plc
+PLC.#PLC
+plc#Plc
+ucits#UCITS
+PIMCO#PIMCO
+S&p#S&P

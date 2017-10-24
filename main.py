@@ -15,6 +15,8 @@ import IPTracking
 import ContentCompare
 import DocTracking as dt
 import SearchByFundTicker
+# import MapByDocFromCIK
+import Rename
 
 common.init()
 
@@ -82,6 +84,12 @@ def hi_show():
     return render_template(location_page, today=today_str, weekday=weekday_str, filingdate=filingdate_str,
                            after60=after60, after75=after75)
 
+@app.route('/maobydocfromcik')
+def maobydocfromcik_show():
+    location_page = 'MapByDocFromCIK.html'
+    IPTracking.log_IP(request, location_page)
+    return render_template(location_page)
+
 
 @app.route('/contentcompare')
 def contentcompare_show():
@@ -100,6 +108,13 @@ def doctracking_show():
 @app.route('/searchbyfundticker')
 def searchbyfundticker_show():
     location_page = 'SearchByFundTicker.html'
+    IPTracking.log_IP(request, location_page)
+    return render_template(location_page)
+
+
+@app.route('/rename')
+def rename_show():
+    location_page = 'Rename.html'
     IPTracking.log_IP(request, location_page)
     return render_template(location_page)
 
@@ -132,6 +147,10 @@ def fruit_ninja_show():
     return app.send_static_file(location_page)
 
 
+@app.route('/maobydocfromcik', methods=['POST'])
+def maobydocfromcik():
+    pass
+
 @app.route('/contentcompare', methods=['POST'])
 def contentcompare():
     try:
@@ -161,6 +180,13 @@ def searchbyfundticker():
     regex = str(request.form['regex'])
     content = str(request.form['content'])
     return SearchByFundTicker.run(regex, content)
+
+
+@app.route('/rename', methods=['POST'])
+def rename():
+    content = str(request.form['content'])
+    result = Rename.run(content)
+    return send_from_directory(directory=common.temp_path, filename=result, as_attachment=True)
 
 
 if __name__ == '__main__':

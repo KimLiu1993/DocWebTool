@@ -1,0 +1,28 @@
+﻿GBP#£
+USD#$
+EUR#€
+Hdg#H
+Unhdgd#UnH
+MDis#MD
+ADis#AD
+QDis#QD
+Grs Inc#GI
+ADis#AD
+Sdis#SD
+Hi Yld#HY
+Hi#H
+Yld#Y
+Short Dur#Shrt Dur
+Opports#Opps
+Amer#Am
+Amer#Am
+Defensv#Defesv
+Divers#Dvrs
+Emerg#Em
+Fltng#Fl
+Glbl#Glb
+Instl#Ins
+Invmt#Invm
+Invmts#Invms
+Volatil#Vol
+Avrg#Avg
