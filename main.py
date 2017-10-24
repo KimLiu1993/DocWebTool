@@ -3,7 +3,7 @@
 #------------------------------------
 #--Author:        Jeffrey Yu
 #--CreationDate:  2017/10/16 10:53
-#--RevisedDate:   2017/10/23
+#--RevisedDate:   2017/10/24
 #------------------------------------
 
 import os
@@ -14,7 +14,7 @@ import common
 import IPTracking
 import ContentCompare
 import DocTracking as dt
-import SeaechByFundTicker
+import SearchByFundTicker
 
 common.init()
 
@@ -160,7 +160,7 @@ def doctracking():
 def searchbyfundticker():
     regex = str(request.form['regex'])
     content = str(request.form['content'])
-    return SeaechByFundTicker.run(regex, content)
+    return SearchByFundTicker.run(regex, content)
 
 
 if __name__ == '__main__':
