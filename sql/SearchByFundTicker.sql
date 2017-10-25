@@ -8,4 +8,5 @@ from CurrentData..FundBasic fb
 left join SecurityData..SecuritySearch ss on ss.FundId=fb.FundId
 where lower(fb.LegalName) like '%s%%'
 	  and fb.DomicileId like '%%USA'
+	  and (ss.Universe like '/CE%%' or ss.Universe like '/OE%%')
 order by fb.LegalName,ss.SecId
