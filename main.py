@@ -13,6 +13,7 @@ from flask import Flask, render_template, request, send_from_directory, abort
 import common
 import IPTracking
 import ContentCompare
+import BatchAutoMapping
 import DocTracking as dt
 import SearchByFundTicker
 # import MapByDocFromCIK
@@ -100,6 +101,13 @@ def contentcompare_show():
     return render_template(location_page)
 
 
+@app.route('/batchautomapping')
+def batchautomapping_show():
+    location_page = 'BatchAutoMapping.html'
+    IPTracking.log_IP(request, location_page)
+    return render_template(location_page)
+
+
 @app.route('/doctracking')
 def doctracking_show():
     location_page = 'DocTracking.html'
@@ -169,6 +177,14 @@ def contentcompare():
         return send_from_directory(directory=result[0], filename=result[1])
     except Exception as e:
         return str(e)
+
+
+@app.route('/batchautomapping', methods=['POST'])
+def batchautomapping():
+    processid = request.form['processid']
+    runqc = str(request.form['runqc'])
+    mapper = str(request.form['mapper'])
+    return BatchAutoMapping.run(processid, runqc, mapper, request)
 
 
 @app.route('/doctracking', methods=['POST'])
