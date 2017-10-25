@@ -90,54 +90,42 @@ def get_log(connection, processid, timediff):
         linker = ''
         linker_time = ''
 
-    cutting_list = [cutter, cutter_time]
-    first_mapping_list = [first_mapper, first_mapper_time]
-    last_mapping_list = [last_mapper, last_mapper_time]
-    charting_list = [charter, charter_time]
-    linking_list = [linker, linker_time]
-    log_list = [cutting_list, first_mapping_list, last_mapping_list, charting_list, linking_list]
-
     record_list = []
-    for each in log_list:
-        if log_list.index(each) == 0:# 对于cutting
-            if len(cutter) != 0:# 以后可以多增加内容，目前暂时只有creation date，operation和user
-                record = [str(1), processid, each[1].strftime('%Y-%m-%d %H:%M:%S'), 'Cutting', each[0]]
-                record_list.append(record)
-            else:
-                record = ['', '', '', 'No Cutting', '']
-                record_list.append(record)
+    if len(cutter) != 0:
+        cutting_list = [str(1), processid, cutter_time.strftime('%Y-%m-%d %H:%M:%S'), 'Cutting', cutter]
+        record_list.append(cutting_list)
+    else:
+        cutting_list = ['', '', '', 'No Cutting', '']
+        record_list.append(cutting_list)
 
-        elif log_list.index(each) == 1:
-            if len(first_mapper) != 0:
-                record = [str(2), processid, each[1].strftime('%Y-%m-%d %H:%M:%S'), 'First Mapping', each[0]]
-                record_list.append(record)
-            else:
-                record = ['', '', '', 'No Mapping', '']
-                record_list.append(record)
+    if len(first_mapper) != 0:
+        first_mapping_list = [str(2), processid, first_mapper_time.strftime('%Y-%m-%d %H:%M:%S'), 'First Mapping', first_mapper]
+        record_list.append(first_mapping_list)
+    else:
+        first_mapping_list = ['', '', '', 'No Mapping', '']
+        record_list.append(first_mapping_listrecord)
 
-        elif log_list.index(each) == 2:
-            if len(last_mapper) != 0:
-                record = [str(3), processid, each[1].strftime('%Y-%m-%d %H:%M:%S'), 'Last Mapping', each[0]]
-                record_list.append(record)
-            else:
-                record = ['', '', '', 'No Mapping', '']
-                record_list.append(record)
+    if len(last_mapper) != 0:
+        last_mapping_list = [str(3), processid, last_mapper_time.strftime('%Y-%m-%d %H:%M:%S'), 'Last Mapping', last_mapper]
+        record_list.append(last_mapping_list)
+    else:
+        last_mapping_list = ['', '', '', 'No Mapping', '']
+        record_list.append(last_mapping_list)
 
-        elif log_list.index(each) == 3:
-            if len(charter) != 0:
-                record = [str(4), processid, each[1].strftime('%Y-%m-%d %H:%M:%S'), 'Add Chart', each[0]]
-                record_list.append(record)
-            else:
-                record = ['', '', '', 'No Operation', '']
-                record_list.append(record)
+    if len(linker) != 0:
+        linking_list = [str(5), processid, linker_time.strftime('%Y-%m-%d %H:%M:%S'), 'Add Link', linker]
+        record_list.append(linking_list)
+    else:
+        linking_list = ['', '', '', 'No Link', '']
+        record_list.append(linking_list)
+    
+    if len(charter) != 0:
+        charting_list = [str(4), processid, charter_time.strftime('%Y-%m-%d %H:%M:%S'), 'Add Chart', charter]
+        record_list.append(charting_list)
+    else:
+        charting_list = ['', '', '', 'No Chart', '']
+        record_list.append(charting_list)
 
-        else:
-            if len(linker) != 0:
-                record = [str(5), processid, each[1].strftime('%Y-%m-%d %H:%M:%S'), 'Add Link', each[0]]
-                record_list.append(record)
-            else:
-                record = ['', '', '', 'No Operation', '']
-                record_list.append(record)
     cursor.close()
     return record_list
 
