@@ -43,8 +43,8 @@ def get_secid_byfundname(connection, fundname):
         return [[fundname, '', '', '', '', '', '', '']]
 
 
-def to_html_table(result_list, processid):
-    html_code = '<p>ProcessId: ' + processid + '</p><table class=tablestyle >'
+def to_html_table(result_list, processid, fund_num):
+    html_code = '<p>ProcessId: <b>' + processid + '</b></p><p>Total funds count: <b>' + str(fund_num) + '</b></p><table class=tablestyle >'
     row_num = 0
     for row in result_list:
         if row_num == 0:
@@ -57,7 +57,10 @@ def to_html_table(result_list, processid):
             column_num = 0
             for column in row:
                 if column_num == 3:
-                    html_code = html_code + '<td><a href="' + common.domain + '/api/v1.0/mapping?processid=' + processid + '&secid=' + secid + '" target="_blank">AddMapping</a></td>'
+                    if secid != '':
+                        html_code = html_code + '<td><a href="' + common.domain + '/api/v1.0/mapping?processid=' + processid + '&secid=' + secid + '" target="_blank">AddMapping</a></td>'
+                    else:
+                        html_code = html_code + '<td></td>'
                 else:
                     html_code = html_code + '<td>' + column + '</td>'
                     if column_num == 2:
@@ -72,6 +75,7 @@ def to_html_table(result_list, processid):
 def run(regex, processid, content, ignore):
     connection = pyodbc.connect(common.connection_string_multithread)
     all_fundname = search_doc(regex, content, ignore)
+    fund_num = len(all_fundname)
 
     all_result = []
     for each_fundname in all_fundname:
@@ -87,7 +91,7 @@ def run(regex, processid, content, ignore):
         all_result = header + all_result
     else:
         all_result = header
-    html_code = to_html_table(all_result, processid)
+    html_code = to_html_table(all_result, processid, fund_num)
     html_code = common.css_code + html_code
     connection.close()
     return html_code
