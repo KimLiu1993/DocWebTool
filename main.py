@@ -3,18 +3,22 @@
 #------------------------------------
 #--Author:        Jeffrey Yu
 #--CreationDate:  2017/10/16 10:53
-#--RevisedDate:   2017/10/24
+#--RevisedDate:   2017/10/25
 #------------------------------------
 
 import os
 import random
 import datetime
-from flask import Flask, render_template, request, send_from_directory
+from flask import Flask, render_template, request, send_from_directory, abort
 import common
 import IPTracking
 import ContentCompare
 import DocTracking as dt
 import SearchByFundTicker
+# import MapByDocFromCIK
+import ContractIdFiling
+import Rename
+import Web_API
 
 common.init()
 
@@ -82,6 +86,12 @@ def hi_show():
     return render_template(location_page, today=today_str, weekday=weekday_str, filingdate=filingdate_str,
                            after60=after60, after75=after75)
 
+@app.route('/maobydocfromcik')
+def maobydocfromcik_show():
+    location_page = 'MapByDocFromCIK.html'
+    IPTracking.log_IP(request, location_page)
+    return render_template(location_page)
+
 
 @app.route('/contentcompare')
 def contentcompare_show():
@@ -97,9 +107,23 @@ def doctracking_show():
     return render_template(location_page)
 
 
+@app.route('/contractidfiling')
+def contractidfiling_show():
+    location_page = 'ContractIdFiling.html'
+    IPTracking.log_IP(request, location_page)
+    return render_template(location_page)
+
+
 @app.route('/searchbyfundticker')
 def searchbyfundticker_show():
     location_page = 'SearchByFundTicker.html'
+    IPTracking.log_IP(request, location_page)
+    return render_template(location_page)
+
+
+@app.route('/rename')
+def rename_show():
+    location_page = 'Rename.html'
     IPTracking.log_IP(request, location_page)
     return render_template(location_page)
 
@@ -132,6 +156,10 @@ def fruit_ninja_show():
     return app.send_static_file(location_page)
 
 
+@app.route('/maobydocfromcik', methods=['POST'])
+def maobydocfromcik():
+    pass
+
 @app.route('/contentcompare', methods=['POST'])
 def contentcompare():
     try:
@@ -156,11 +184,51 @@ def doctracking():
     return dt.run(processid, timediff)
 
 
+@app.route('/contractidfiling', methods=['POST'])
+def contractidfiling():
+    contractid = str(request.form['contractid'])
+    return ContractIdFiling.run_contractid(contractid)
+
+
 @app.route('/searchbyfundticker', methods=['POST'])
 def searchbyfundticker():
     regex = str(request.form['regex'])
+    processid = str(request.form['processid'])
     content = str(request.form['content'])
-    return SearchByFundTicker.run(regex, content)
+    if request.form.get('ignore'):
+        ignore = 1
+    else:
+        ignore = 0
+    return SearchByFundTicker.run(regex, processid, content, ignore)
+
+
+@app.route('/rename', methods=['POST'])
+def rename():
+    content = str(request.form['content'])
+    result = Rename.run(content)
+    return send_from_directory(directory=common.temp_path, filename=result, as_attachment=True)
+
+
+@app.route('/api/v1.0/mapping', methods=['GET'])
+def api_mapping():
+    processid = request.args.get('processid')
+    secid = request.args.get('secid')
+    if processid is None or secid is None:
+        abort(404, 'Wrong info was passed to API.')
+    else:
+        return_info = Web_API.mapping(request, processid, secid)
+        return return_info
+
+
+@app.route('/api/v1.0/importdocmapping', methods=['GET'])
+def api_import_doc_mapping():
+    from_processid = request.args.get('fromprocessid')
+    to_processid = request.args.get('toprocessid')
+    if from_processid is None or to_processid is None:
+        abort(404, 'Wrong info was passed to API.')
+    else:
+        return_info = Web_API.mapping(request, processid, secid)
+        return return_info
 
 
 if __name__ == '__main__':
