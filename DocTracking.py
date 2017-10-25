@@ -106,8 +106,12 @@ def get_log(connection, processid, timediff):
         record_list.append(first_mapping_list)
 
     if len(last_mapper) != 0:
-        last_mapping_list = [str(3), processid, last_mapper_time.strftime('%Y-%m-%d %H:%M:%S'), 'Last Mapping', last_mapper]
-        record_list.append(last_mapping_list)
+        if len(first_mapper) != 0:
+            last_mapping_list = [str(3), processid, last_mapper_time.strftime('%Y-%m-%d %H:%M:%S'), 'Last Mapping', last_mapper]
+            record_list.append(last_mapping_list)
+        else:
+            last_mapping_list = [str(3), processid, last_mapper_time.strftime('%Y-%m-%d %H:%M:%S'), 'Mapping is not completed.', last_mapper]
+            record_list.append(last_mapping_list)
     else:
         last_mapping_list = ['', '', '', 'No Mapping', '']
         record_list.append(last_mapping_list)
