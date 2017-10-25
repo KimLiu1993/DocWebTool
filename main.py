@@ -3,13 +3,13 @@
 #------------------------------------
 #--Author:        Jeffrey Yu
 #--CreationDate:  2017/10/16 10:53
-#--RevisedDate:   2017/10/24
+#--RevisedDate:   2017/10/25
 #------------------------------------
 
 import os
 import random
 import datetime
-from flask import Flask, render_template, request, send_from_directory
+from flask import Flask, render_template, request, send_from_directory, abort
 import common
 import IPTracking
 import ContentCompare
@@ -18,6 +18,7 @@ import SearchByFundTicker
 # import MapByDocFromCIK
 import ContractIdFiling
 import Rename
+import Web_API
 
 common.init()
 
@@ -201,6 +202,28 @@ def rename():
     content = str(request.form['content'])
     result = Rename.run(content)
     return send_from_directory(directory=common.temp_path, filename=result, as_attachment=True)
+
+
+@app.route('/api/v1.0/mapping', methods=['GET'])
+def api_mapping():
+    processid = request.args.get('processid')
+    secid = request.args.get('secid')
+    if processid is None or secid is None:
+        abort(404, 'Wrong info was passed to API.')
+    else:
+        return_info = Web_API.mapping(request, processid, secid)
+        return return_info
+
+
+@app.route('/api/v1.0/importdocmapping', methods=['GET'])
+def api_import_doc_mapping():
+    from_processid = request.args.get('fromprocessid')
+    to_processid = request.args.get('toprocessid')
+    if from_processid is None or to_processid is None:
+        abort(404, 'Wrong info was passed to API.')
+    else:
+        return_info = Web_API.mapping(request, processid, secid)
+        return return_info
 
 
 if __name__ == '__main__':
