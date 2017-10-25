@@ -233,4 +233,8 @@ def api_import_doc_mapping():
 
 if __name__ == '__main__':
     # app.debug = True
-    app.run(host='0.0.0.0', port=common.domain.split(':')[1], threaded=True)
+    if len(common.domain.split(':')) > 2:
+        port = common.domain.split(':')[2]
+    else:
+        port = 80
+    app.run(host='0.0.0.0', port=port, threaded=True)

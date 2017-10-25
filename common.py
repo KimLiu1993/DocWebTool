@@ -23,7 +23,7 @@ def cur_file_dir():
         return os.path.dirname(path)
 
 
-domain = 'http://szvm20152:8080'
+domain = 'http://szvm20152'
 sql_path = cur_file_dir() + '\\sql\\'
 sql_server = 'dcdrdb601\dminputdb'
 sql_database = 'DocumentAcquisition'
