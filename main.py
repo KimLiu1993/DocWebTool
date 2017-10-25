@@ -193,8 +193,13 @@ def contractidfiling():
 @app.route('/searchbyfundticker', methods=['POST'])
 def searchbyfundticker():
     regex = str(request.form['regex'])
+    processid = str(request.form['processid'])
     content = str(request.form['content'])
-    return SearchByFundTicker.run(regex, content)
+    if request.form.get('ignore'):
+        ignore = 1
+    else:
+        ignore = 0
+    return SearchByFundTicker.run(regex, processid, content, ignore)
 
 
 @app.route('/rename', methods=['POST'])

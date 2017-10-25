@@ -103,7 +103,7 @@ def get_log(connection, processid, timediff):
         record_list.append(first_mapping_list)
     else:
         first_mapping_list = ['', '', '', 'No Mapping', '']
-        record_list.append(first_mapping_listrecord)
+        record_list.append(first_mapping_list)
 
     if len(last_mapper) != 0:
         last_mapping_list = [str(3), processid, last_mapper_time.strftime('%Y-%m-%d %H:%M:%S'), 'Last Mapping', last_mapper]
@@ -177,6 +177,6 @@ def run(processid, timediff):
     pd_result = pd.DataFrame(total_result, columns=['No', 'Processid', 'Operation Time', 'Operation', 'User'])
     pd.set_option('display.max_colwidth', -1)
     html_code = pd_result.to_html(classes='tablestyle', index=False)
-    html_code = css_code + html_code
+    html_code = '<p>ProcessId: ' + processid + '</p>' + css_code + html_code
     connection.close()
     return html_code
