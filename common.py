@@ -38,6 +38,46 @@ stickers_path = cur_file_dir() + '\\static\\images\\stickers\\'
 apps_path = cur_file_dir() + '\\apps\\'
 temp_path = cur_file_dir() + '\\temp\\'
 
+css_code = '''
+    <style>
+    .tablestyle table {
+        width:100%;
+        margin:15px 0
+    }
+    .tablestyle th {
+        background-color:#87CEFA;
+        background:-o-linear-gradient(90deg, #87CEFA, #bae3fc);
+        background:-moz-linear-gradient( center top, #87CEFA 5%, #bae3fc 100% );
+        background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #87CEFA), color-stop(1, #bae3fc) );
+        filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#87CEFA', endColorstr='#bae3fc');
+        color:#000000
+    }
+    .tablestyle,.tablestyle th,.tablestyle td
+    {
+        font-size:0.95em;
+        text-align:left;
+        padding:4px;
+        border:1px solid #5fbdf8;
+        border-collapse:collapse
+    }
+    .tablestyle td {
+
+        border:1px solid #bae3fc;
+        border-collapse:collapse
+    }
+    .tablestyle tr:nth-child(odd){
+        background-color:#d7eefd;
+        background:-o-linear-gradient(90deg, #d7eefd, #f7fbfe);
+        background:-moz-linear-gradient( center top, #d7eefd 5%, #f7fbfe 100% );
+        background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #d7eefd), color-stop(1, #f7fbfe) );
+        filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#d7eefd', endColorstr='#f7fbfe');
+    }
+    .tablestyle tr:nth-child(even){
+        background-color:#fdfdfd;
+    }
+    </style>
+'''
+
 
 def init():
     if not os.path.exists(sql_path):
