@@ -26,9 +26,9 @@ def search_doc(regex, content, ignore):
 
 
 def get_secid_byfundname(connection, fundname):
-    fundname = str(fundname).lower()
+    new_fundname = str(fundname).lower()
     cursor = connection.cursor()
-    cursor.execute(sql_code % (fundname))
+    cursor.execute(sql_code % (new_fundname))
     result = cursor.fetchall()
     new_result = []
     if len(result) > 0:
