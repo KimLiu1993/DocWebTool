@@ -134,7 +134,5 @@ def run(filingorcik, filingid, doctype, selecttype):
         html_code += '</tr>'
     html_code += '</tbody></table></body></html>'
     html_code = ('' + common.css_code + html_code).replace('class="dataframe tablestyle"','class="tablestyle"')
-    with open ('C:\\Users\\sliu15\\Sharol\\python\\1.html','w') as html_table:
-        html_table.write(html_code)   
-
+    
     connection.close()
