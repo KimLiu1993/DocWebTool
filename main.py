@@ -216,7 +216,7 @@ def api_mapping():
 
 
 @app.route('/api/v1.0/importdocmapping', methods=['GET'])
-def api_mapping():
+def api_import_doc_mapping():
     from_processid = request.args.get('fromprocessid')
     to_processid = request.args.get('toprocessid')
     if from_processid is None or to_processid is None:
