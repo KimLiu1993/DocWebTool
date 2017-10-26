@@ -47,14 +47,17 @@ def get_secid(connection, filingorcik, id):
 # 由secid取currentdocid
 def get_currentdocid(connection, list_currentdocid, secid, doctype, selecttype, mutex):
     cursor = connection.cursor()
-    if selecttype =='currentdocs':
-        result = cursor.execute(currentdocid_code %(secid,doctype)).fetchall()
-    else:
-        result = cursor.execute(alldocid_code %(secid,doctype)).fetchall()
-    for each in result:
-        list_currentdocid.append(each[0])
-    cursor.close()
-    return list_currentdocid
+    try:
+        if selecttype =='currentdocs':
+            result = cursor.execute(currentdocid_code %(secid,doctype)).fetchall()
+        else:
+            result = cursor.execute(alldocid_code %(secid,doctype)).fetchall()
+        for each in result:
+            list_currentdocid.append(each[0])
+        cursor.close()
+        return list_currentdocid
+    except Exception as e:
+        return e
 
 
 # 由docid取currentdoc的信息
