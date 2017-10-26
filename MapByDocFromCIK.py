@@ -3,9 +3,8 @@
 #------------------------------------
 #--Author:        Sharol Liu
 #--CreationDate:  2017/10/23
-#--RevisedDate:
+#--RevisedDate:   2017/10/26
 #------------------------------------
-
 
 import common
 import pyodbc
@@ -47,17 +46,14 @@ def get_secid(connection, filingorcik, id):
 # 由secid取currentdocid
 def get_currentdocid(connection, list_currentdocid, secid, doctype, selecttype, mutex):
     cursor = connection.cursor()
-    try:
-        if selecttype =='currentdocs':
-            result = cursor.execute(currentdocid_code %(secid,doctype)).fetchall()
-        else:
-            result = cursor.execute(alldocid_code %(secid,doctype)).fetchall()
-        for each in result:
-            list_currentdocid.append(each[0])
-        cursor.close()
-        return list_currentdocid
-    except Exception as e:
-        return e
+    if selecttype =='currentdocs':
+        result = cursor.execute(currentdocid_code %(secid,doctype)).fetchall()
+    else:
+        result = cursor.execute(alldocid_code %(secid,doctype)).fetchall()
+    for each in result:
+        list_currentdocid.append(each[0])
+    cursor.close()
+    return list_currentdocid
 
 
 # 由docid取currentdoc的信息
@@ -71,18 +67,16 @@ def get_info_currentdoc(connection, docid):
 
 # 线程设置
 def getrange(l,r,connection,SecId_list, num, doctype, list_currentdocid, selecttype, mutex):
-	for i in range(l,r):
-		if i < num:
-			secid = SecId_list[i]
-			get_currentdocid(connection, list_currentdocid, secid, doctype, selecttype, mutex)
+    for i in range(l,r):
+        if i < num:
+            secid = SecId_list[i]
+            get_currentdocid(connection, list_currentdocid, secid, doctype, selecttype, mutex)
 
-
-#-----------------------------------------main-------------------------------------------
 
 def run(filingorcik, filingid, doctype, selecttype):
     # 连接数据库
     connection = pyodbc.connect(common.connection_string_multithread)
- 
+
     secid = get_secid(connection, filingorcik, filingid)
     # 设置每个线程的任务量
     totalThread = 20
@@ -104,38 +98,39 @@ def run(filingorcik, filingid, doctype, selecttype):
     info_currentdoc = get_info_currentdoc(connection, list_currentdocid)
 
     html_code ='''
-    <!DOCTYPE HTML>
-    <html>
-      <head>
-        <meta charset="utf-8">
-        <link rel="shortcut icon" href="/static/img/Favicon.ico" type="image/x-icon"/>
-        <title>Map By Doc from CIK</title>
-      </head>
-    <body>
-    <h3>Map By Doc from CIK</h3>
-    <table border="1" class="tablestyle">
-    <thead>
-    <tr style="text-align: right;">
-        <th></th>
-        <th>DocumentId</th>
-        <th>FilingId</th>
-        <th>ProcessId</th>
-        <th>DocType</th>
-        <th>EffectiveDate</th>
-        <th>MappingNum</th>
-        </tr>
-    </thead>
-    <tbody>    
+        <!DOCTYPE HTML>
+        <html>
+          <head>
+            <meta charset="utf-8">
+            <link rel="shortcut icon" href="/static/img/Favicon.ico" type="image/x-icon"/>
+            <title>Map By Doc from CIK</title>
+          </head>
+        <body>
+        <h3>Map By Doc from CIK</h3>
+        <table border="1" class="tablestyle">
+        <thead>
+        <tr style="text-align: right;">
+            <th></th>
+            <th>DocumentId</th>
+            <th>FilingId</th>
+            <th>ProcessId</th>
+            <th>DocType</th>
+            <th>EffectiveDate</th>
+            <th>MappingNum</th>
+            </tr>
+        </thead>
+        <tbody>
     '''
     for row in range(len(info_currentdoc)):
         html_code += '<tr>' + '<td>%s</td>' %row
         for col in range(6):
             if col == 0:
-                html_code += '<td><a href=\'http://doc.morningstar.com/document/%s.msdoc/?clientid=uscomplianceserviceteam&key=617cf7b229240e1b\' target="_blank"> %s </a></td>' % (info_currentdoc.iloc[row,col],info_currentdoc.iloc[row,col])
+                html_code += '<td><a href="http://doc.morningstar.com/document/%s.msdoc/?clientid=uscomplianceserviceteam&key=617cf7b229240e1b" target="_blank"> %s </a></td>' % (info_currentdoc.iloc[row,col],info_currentdoc.iloc[row,col])
             else:
                 html_code += '<td>%s</td>' % (info_currentdoc.iloc[row,col])
         html_code += '</tr>'
     html_code += '</tbody></table></body></html>'
     html_code = ('' + common.css_code + html_code).replace('class="dataframe tablestyle"','class="tablestyle"')
-    
+
     connection.close()
+    return html_code
