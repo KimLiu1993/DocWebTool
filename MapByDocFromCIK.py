@@ -32,7 +32,7 @@ with open(common.sql_path + '\\MapByDocFromCIK_Info_CurrentDoc.sql', 'r', encodi
 # 由filingid取secid
 def get_secid(connection, filingorcik, id):
     cursor = connection.cursor()
-    if filingorcik == 1:
+    if filingorcik == '1':
         result = cursor.execute(filingid_secid_code % (id)).fetchall()
     else:
         result = cursor.execute(cik_secid_code % (id)).fetchall()
@@ -58,10 +58,11 @@ def get_currentdocid(connection, list_currentdocid, secid, doctype, selecttype, 
 
 # 由docid取currentdoc的信息
 def get_info_currentdoc(connection, docid):
+    cursor = connection.cursor()
     pd_currentdoc = pd.DataFrame()
     result = pd.read_sql(info_currentdoc_code %(docid), connection)
     pd_currentdoc = pd_currentdoc.append(result, ignore_index=True)
-    pd_currentdoc = pd_currentdoc.sort_values(by='EffectiveDate', ascending=False)
+    cursor.close()
     return pd_currentdoc
 
 
@@ -79,24 +80,20 @@ def run(filingorcik, filingid, doctype, selecttype):
 
     secid = get_secid(connection, filingorcik, filingid)
     # 设置每个线程的任务量
-    totalThread = 20
+    totalThread = 30
     num = len(secid)
     gap = math.ceil(float(num) / totalThread)
 
     list_currentdocid = []
     # 多线程，取currentdoc
     mutex = threading.Lock()
-    threadlist = [threading.Thread(target=getrange, args=(i, i+gap, connection, secid, num, doctype, list_currentdocid, selecttype, mutex,)) for i in range(1,num,gap)]
+    threadlist = [threading.Thread(target=getrange, args=(i, i+gap, connection, secid, num, doctype, list_currentdocid, selecttype, mutex,)) for i in range(0,num,gap)]
     for t in threadlist:
         t.setDaemon(True)
         t.start()
     for i in threadlist:
         i.join()
-
-    list_currentdocid = list(set(list_currentdocid))
-    list_currentdocid = ','.join(map(str,list_currentdocid))
-    info_currentdoc = get_info_currentdoc(connection, list_currentdocid)
-
+    
     html_code ='''
         <!DOCTYPE HTML>
         <html>
@@ -121,16 +118,27 @@ def run(filingorcik, filingid, doctype, selecttype):
         </thead>
         <tbody>
     '''
-    for row in range(len(info_currentdoc)):
-        html_code += '<tr>' + '<td>%s</td>' %row
-        for col in range(6):
-            if col == 0:
-                html_code += '<td><a href="http://doc.morningstar.com/document/%s.msdoc/?clientid=uscomplianceserviceteam&key=617cf7b229240e1b" target="_blank"> %s </a></td>' % (info_currentdoc.iloc[row,col],info_currentdoc.iloc[row,col])
-            else:
-                html_code += '<td>%s</td>' % (info_currentdoc.iloc[row,col])
-        html_code += '</tr>'
-    html_code += '</tbody></table></body></html>'
-    html_code = ('' + common.css_code + html_code).replace('class="dataframe tablestyle"','class="tablestyle"')
+    
+    if len(list_currentdocid) < 1:
+        html_code += '</tbody></table></body></html>'
+        html_code = ('' + common.css_code + html_code).replace('class="dataframe tablestyle"','class="tablestyle"')
+    else:  
+        list_currentdocid = list(set(list_currentdocid))
+        list_currentdocid = ','.join(map(str,list_currentdocid))
+        info_currentdoc = get_info_currentdoc(connection, list_currentdocid)
+
+        for row in range(len(info_currentdoc)):
+            html_code += '<tr>' + '<td>%s</td>' %str(row + 1)
+            for col in range(6):
+                if col == 0:
+                    html_code += '<td><a href="http://doc.morningstar.com/document/%s.msdoc/?clientid=uscomplianceserviceteam&key=617cf7b229240e1b" target="_blank"> %s </a></td>' % (info_currentdoc.iloc[row,col],info_currentdoc.iloc[row,col])
+                else:
+                    html_code += '<td>%s</td>' % (info_currentdoc.iloc[row,col])
+            html_code += '</tr>'
+        html_code += '</tbody></table></body></html>'
+        html_code = ('' + common.css_code + html_code).replace('class="dataframe tablestyle"','class="tablestyle"')
 
     connection.close()
     return html_code
+
+

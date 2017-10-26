@@ -7,4 +7,5 @@ SELECT   mp.DocumentId
             ,mp.EffectiveDate
             ,(select count(im.InvestmentId) from DocumentAcquisition..InvestmentMapping im where im.ProcessId =mp.ProcessId) as [MappingNum]
 FROM DocumentAcquisition..MasterProcess as mp
-where mp.DocumentId in (%s)
+where mp.DocumentId in (%s)	
+order by mp.EffectiveDate desc		
