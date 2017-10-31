@@ -1,4 +1,4 @@
-﻿SELECT   mp.DocumentId
+SELECT   mp.DocumentId
         ,mp.ContainerId as FilingId
         ,mp.ProcessId
         ,case mp.DocumentType when 1 then 'Prospectus'
@@ -7,4 +7,5 @@
             ,mp.EffectiveDate
             ,(select count(im.InvestmentId) from DocumentAcquisition..InvestmentMapping im where im.ProcessId =mp.ProcessId) as [MappingNum]
 FROM DocumentAcquisition..MasterProcess as mp
-where mp.DocumentId = '%s'
+where mp.DocumentId in (%s)	
+order by mp.EffectiveDate desc		

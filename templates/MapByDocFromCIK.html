@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Mapping Tool</title>
+	<title>Map By Doc from CIK</title>
 	<link rel="shortcut icon" href="/images/Favicon.ico" type="image/x-icon"/>
 	<style>
 		.myButton {
@@ -45,7 +45,33 @@
 			position:relative;
 			top:1px;
 		}	
-	</style>
+		<!--
+		.link{
+			position: relative;
+		}
+		#box{
+			display: none;
+			width: 315px;
+			height: 180px;
+			border: 0;
+			padding: 12px;
+			text-align: left;
+			line-height: 175%;
+			text-indent: 2em;
+			position: absolute;left:200px;top:450px
+		}
+	-->		
+</style>
+<script type="text/javascript" language="javascript" >
+	<!--
+	function display(){
+		document.getElementById("box").style.display="block"; 
+	}
+	function disappear(){
+		document.getElementById("box").style.display="none"; 
+	}
+-->
+</script>
 </head>
 <table>
 	<tr>
@@ -54,37 +80,44 @@
 		<td>
 			<table>
 				<tr>
-					<td><h2>Mapping Tool</h2></td>
+					<td><h2>Map By Doc from CIK</h2></td>
 					<td style="font-family:arial;font-size:13px"><i><sub> updated on 2017.11.01</sub></i></td>
 				</tr>
 			</table>
 			<body>
-				<form action="/mappingtool" method="POST">
-					Filing Id:
-					<br/>
-					<input type="text" name="filingid" required="required">
-					<br/><br/>
-					Investment Type:
-					<br/>
-					<select name="investmenttype">
-						<option value="1" selected>MF</option>
-						<option value="34">VA</option>
-						<option value="1">UIT</option>
+				<form action="/mapbydocfromcik" method="POST">
+					<select name="filingorcik">
+						<option value="1" selected>FilingId</option>
+						<option value="2">CIK</option>
 					</select>
+					: <br/>
+					<textarea name="filingid" required="required" style="height:160px;width:300px;resize:none" placeholder="如需输入多个，请用英文状态的逗号隔开。"></textarea>
 					<br/><br/>
+					Document Type:
+					<br/>
+					<select name="doctype">
+						<option value="1" selected>Supplement</option>
+						<option value="3">Supplement to SAI</option>
+						<option value="17">Supplement to Summary Prospectus</option>
+					</select>
+					<br/><br/><br/>
+					<input type="radio" name="selecttype" value="currentdocs" checked>Current Documents
+					<span style="width:15px">&nbsp;</span>
+					<span style="width:15px">&nbsp;</span>
+					<input type="radio" name="selecttype" value="alldocs">All Documents
+					<br/><br/><br/><br/>
 					<input type="submit" class="myButton" formtarget="_blank" value="Submit">
 					<br/><br/>
 				</form>
 				<table>
 					<tr>
 						<td style="font-family:arial;color:red;font-size:13px;"><b>Note: </b></td>
-						<td style="font-family:arial;font-size:13px;">Developed by <b><i>Lychee Li</i></b>.</td>
+						<td style="font-family:arial;font-size:13px;">Developed by <b><i>Sharol Liu</i></b>.</td>
 					</tr>
 					<tr>
-						<td style="font-family:arial;color:red;font-size:13px;"><b></b></td>
-						<td style="font-family:arial;font-size:13px;">原理：此工具是根据同一个CIK下面所有历史的Document的Mapping进行统计筛选出被map过次数最多的SecId。</td>
+						<td style="font-family:arial;font-size:13px;"></td>
+						<td style="font-family:arial;font-size:13px;">SQL code for Current & All Documents provided by <b><i>Sharol Liu</i></b>.</td>
 					</tr>
-
 				</table>
 			</body>
 		</td>

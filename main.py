@@ -3,7 +3,7 @@
 #------------------------------------
 #--Author:        Jeffrey Yu
 #--CreationDate:  2017/10/16 10:53
-#--RevisedDate:   2017/10/25
+#--RevisedDate:   2017/10/26
 #------------------------------------
 
 import os
@@ -16,7 +16,7 @@ import ContentCompare
 import BatchAutoMapping
 import DocTracking as dt
 import SearchByFundTicker
-# import MapByDocFromCIK
+import MapByDocFromCIK
 import ContractIdFiling
 import Rename
 import Web_API
@@ -87,7 +87,7 @@ def hi_show():
     return render_template(location_page, today=today_str, weekday=weekday_str, filingdate=filingdate_str,
                            after60=after60, after75=after75)
 
-@app.route('/maobydocfromcik')
+@app.route('/mapbydocfromcik')
 def maobydocfromcik_show():
     location_page = 'MapByDocFromCIK.html'
     IPTracking.log_IP(request, location_page)
@@ -164,9 +164,13 @@ def fruit_ninja_show():
     return app.send_static_file(location_page)
 
 
-@app.route('/maobydocfromcik', methods=['POST'])
+@app.route('/mapbydocfromcik', methods=['POST'])
 def maobydocfromcik():
-    pass
+    filingorcik = str(request.form['filingorcik'])
+    filingid = str(request.form['filingid'])
+    doctype = str(request.form['doctype'])
+    selecttype = str(request.form['selecttype'])
+    return MapByDocFromCIK.run(filingorcik, filingid, doctype, selecttype)
 
 @app.route('/contentcompare', methods=['POST'])
 def contentcompare():
