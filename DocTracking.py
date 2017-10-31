@@ -3,7 +3,7 @@
 #------------------------------------
 #--Author:        Lychee Li
 #--CreationDate:  2017/10/18
-#--RevisedDate:   2017/10/25
+#--RevisedDate:   2017/10/27
 #------------------------------------
 
 import pyodbc
@@ -140,6 +140,6 @@ def run(processid, timediff):
     pd_result = pd.DataFrame(total_result, columns=['No', 'Processid', 'Operation Time', 'Operation', 'User'])
     pd.set_option('display.max_colwidth', -1)
     html_code = pd_result.to_html(classes='tablestyle', index=False)
-    html_code = '<p>ProcessId: ' + processid + '</p>' + common.css_code + html_code
+    html_code = '<p>ProcessId: ' + str(processid) + '</p>' + common.css_code + html_code
     connection.close()
     return html_code
