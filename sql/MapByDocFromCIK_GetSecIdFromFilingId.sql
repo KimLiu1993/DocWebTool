@@ -6,5 +6,5 @@ where ss.Status != 0
 and fsc.CIK in  (
 				SELECT distinct fsc1.CIK
 				from DocumentAcquisition..FilingSECContract as fsc1
-				where fsc1.FilingId = %s
+				where fsc1.FilingId in (%s)
 				)
