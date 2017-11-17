@@ -3,7 +3,7 @@
 #------------------------------------
 #--Author:        Jeffrey Yu
 #--CreationDate:  2017/10/16 11:01
-#--RevisedDate:   2017/10/25
+#--RevisedDate:   2017/11/17
 #------------------------------------
 
 import os
@@ -29,7 +29,7 @@ sql_server = 'dcdrdb601\dminputdb'
 sql_database = 'DocumentAcquisition'
 sql_user = 'jyu2'
 sql_pw = 'hhh'
-connection_string_multithread = 'Driver={SQL Server Native Client 10.0};Server=' + sql_server + ';Database=' + sql_database + ';Uid=' + sql_user + ';Pwd=' + sql_pw + ';Trusted_Domain=msdomain1;Trusted_Connection=yes;MARS_Connection=yes;'
+connection_string_multithread = 'Driver={SQL Server Native Client 11.0};Server=' + sql_server + ';Database=' + sql_database + ';Uid=' + sql_user + ';Pwd=' + sql_pw + ';Trusted_Domain=msdomain1;Trusted_Connection=yes;MARS_Connection=yes;'
 DB_path = cur_file_dir() + '\\Database\\'
 IP_Tracking_DB_file_path = DB_path + 'IP_Tracking.db3'
 Operation_Tracking_DB_file_path = DB_path + 'Operation_Tracking.db3'
