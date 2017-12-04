@@ -3,7 +3,7 @@
 #------------------------------------
 #--Author:        Jeffrey Yu
 #--CreationDate:  2017/10/16 11:01
-#--RevisedDate:   2017/11/17
+#--RevisedDate:   2017/12/04
 #------------------------------------
 
 import os
@@ -23,7 +23,7 @@ def cur_file_dir():
         return os.path.dirname(path)
 
 
-domain = 'http://szvm20152'
+domain = 'http://us-vmjyu2w10-1'
 sql_path = cur_file_dir() + '\\sql\\'
 sql_server = 'dcdrdb601\dminputdb'
 sql_database = 'DocumentAcquisition'
