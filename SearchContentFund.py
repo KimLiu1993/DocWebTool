@@ -118,7 +118,7 @@ def run(id, SupplementDocType):
         final_result = test+No_match_fundlist
 
         # 输出html结果
-        a = pd.DataFrame.from_records(data=final_result, columns=['ContentFund', 'LegalName', 'Diff Ratio']).sort_values(by='diff_ratio', ascending=False)
+        a = pd.DataFrame.from_records(data=final_result, columns=['ContentFund', 'LegalName', 'Diff Ratio']).sort_values(by='Diff Ratio', ascending=False)
         pd.set_option('display.max_colwidth', -1)
         html_code = a.to_html(classes='tablestyle',index=False)
         html_code = common.css_code + html_code
