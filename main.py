@@ -17,6 +17,7 @@ import BatchAutoMapping
 import DocTracking as dt
 import SearchByFundTicker
 import MapByDocFromCIK
+import SearchContentFund
 import ContractIdFiling
 import Rename
 import Web_API
@@ -120,6 +121,13 @@ def maobydocfromcik_show():
     return render_template(location_page)
 
 
+@app.route('/searchcontentfund')
+def searchcontentfund_show():
+    location_page = 'SearchContentFund.html'
+    IPTracking.log_IP(request, location_page)
+    return render_template(location_page)
+
+
 @app.route('/contentcompare')
 def contentcompare_show():
     location_page = 'ContentCompare.html'
@@ -197,6 +205,14 @@ def maobydocfromcik():
     doctype = str(request.form['doctype'])
     selecttype = str(request.form['selecttype'])
     return MapByDocFromCIK.run(filingorcik, filingid, doctype, selecttype)
+
+
+@app.route('/searchcontentfund', methods=['POST'])
+def searchcontentfund():
+    processid = str(request.form['processid'])
+    doctype = str(request.form['doctype'])
+    return SearchContentFund.run(processid, doctype)
+
 
 @app.route('/contentcompare', methods=['POST'])
 def contentcompare():
