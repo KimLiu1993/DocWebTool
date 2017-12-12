@@ -93,7 +93,8 @@ def run(id, SupplementDocType):
         Doctext = fo.get_doc_conent(id, idtype='ProcessId', source='DAP', method=1)
         reglex = re.compile('\\s(?:[0-9A-Z&][^,\\"@\\s\\n\\r\\t]*?\\s{1,2}){1,10}?(?:Fund|ETF|Portfolio|Reserves|RESERVES|FUND|PORTFOLIO|VP|VIP)\\b')
         Funds = re.findall(reglex,Doctext)
-        Funds = list(set(Funds))  #去重
+        # 去重
+        Funds = list(set(Funds))
 
         with open(common.cur_file_dir() + '\\static\\SearchContentFund\\invalid_fund.txt', 'r') as e:
             msgs = e.read()
@@ -102,7 +103,7 @@ def run(id, SupplementDocType):
 
         # 根据匹配度进行排序
         test = []
-        while len(Filter_Funds) != 0:
+        while len(Filter_Funds) != 0 and len(LegalName) != 0:
             temps = []
             for a in Filter_Funds:
                 for b in LegalName:
