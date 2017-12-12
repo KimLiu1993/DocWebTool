@@ -3,7 +3,7 @@
 #------------------------------------
 #--Author:        Jeffrey Yu
 #--CreationDate:  2017/10/16 10:53
-#--RevisedDate:   2017/10/26
+#--RevisedDate:   2017/11/20
 #------------------------------------
 
 import os
@@ -17,9 +17,36 @@ import BatchAutoMapping
 import DocTracking as dt
 import SearchByFundTicker
 import MapByDocFromCIK
+import SearchContentFund
 import ContractIdFiling
 import Rename
 import Web_API
+
+#
+#                       _oo0oo_
+#                      o8888888o
+#                      88" . "88
+#                      (| -_- |)
+#                      0\  =  /0
+#                    ___/`---'\___
+#                  .' \\|     |// '.
+#                 / \\|||  :  |||// \
+#                / _||||| -:- |||||- \
+#               |   | \\\  -  /// |   |
+#               | \_|  ''\---/''  |_/ |
+#               \  .-\__  '-'  ___/-. /
+#             ___'. .'  /--.--\  `. .'___
+#          ."" '<  `.___\_<|>_/___.' >' "".
+#         | | :  `- \`.;`\ _ /`;.`/ - ` : | |
+#         \  \ `_.   \_ __\ /__ _/   .-` /  /
+#     =====`-.____`.___ \_____/___.-`___.-'=====
+#                       `=---='
+#
+#
+#     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+#               佛祖保佑         永无BUG
+
 
 common.init()
 
@@ -90,6 +117,13 @@ def hi_show():
 @app.route('/mapbydocfromcik')
 def maobydocfromcik_show():
     location_page = 'MapByDocFromCIK.html'
+    IPTracking.log_IP(request, location_page)
+    return render_template(location_page)
+
+
+@app.route('/searchcontentfund')
+def searchcontentfund_show():
+    location_page = 'SearchContentFund.html'
     IPTracking.log_IP(request, location_page)
     return render_template(location_page)
 
@@ -171,6 +205,14 @@ def maobydocfromcik():
     doctype = str(request.form['doctype'])
     selecttype = str(request.form['selecttype'])
     return MapByDocFromCIK.run(filingorcik, filingid, doctype, selecttype)
+
+
+@app.route('/searchcontentfund', methods=['POST'])
+def searchcontentfund():
+    processid = str(request.form['processid'])
+    doctype = str(request.form['doctype'])
+    return SearchContentFund.run(processid, doctype)
+
 
 @app.route('/contentcompare', methods=['POST'])
 def contentcompare():
