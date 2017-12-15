@@ -61,7 +61,7 @@ def get_doc_server_path(connection, processid):
 
 # source填DAP或SEC
 def get_filing(filingid, source='DAP'):
-    connection_string = 'Driver={SQL Server Native Client 10.0};Server=dcdrdb601\dminputdb;Database=DocumentAcquisition;Uid=jyu2;Pwd=hhh;Trusted_Domain=msdomain1;Trusted_Connection=yes;MARS_Connection=yes;'
+    connection_string = 'Driver={SQL Server Native Client 11.0};Server=dcdrdb601\dminputdb;Database=DocumentAcquisition;Uid=jyu2;Pwd=hhh;Trusted_Domain=msdomain1;Trusted_Connection=yes;MARS_Connection=yes;'
     connection = pyodbc.connect(connection_string)
 
     if source == 'DAP':
@@ -114,7 +114,7 @@ def get_filing(filingid, source='DAP'):
 
 # idtype填ProcessId或者DocumentId；source填DAP或MDL
 def get_doc(id, idtype='ProcessId', source='DAP'):
-    connection_string = 'Driver={SQL Server Native Client 10.0};Server=dcdrdb601\dminputdb;Database=DocumentAcquisition;Uid=jyu2;Pwd=hhh;Trusted_Domain=msdomain1;Trusted_Connection=yes;MARS_Connection=yes;'
+    connection_string = 'Driver={SQL Server Native Client 11.0};Server=dcdrdb601\dminputdb;Database=DocumentAcquisition;Uid=jyu2;Pwd=hhh;Trusted_Domain=msdomain1;Trusted_Connection=yes;MARS_Connection=yes;'
     connection = pyodbc.connect(connection_string)
 
     if idtype == 'ProcessId':
