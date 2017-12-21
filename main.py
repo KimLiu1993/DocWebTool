@@ -274,7 +274,8 @@ def batchsearchkeywords():
     keywords = str(request.form['keywords'])
     keywordtyp = str(request.form['keywordtype'])
     ThreadNumber = str(request.form['ThreadNumber'])
-    return BatchSearchKeywords.run(ids, Idtype, keywords, keywordtype, ThreadNumber)
+    result = BatchSearchKeywords.run(ids, idtype, keywords, keywordtype, ThreadNumber)
+    return send_from_directory(directory=result[0], filename=result[1], as_attachment=True)
 
 
 @app.route('/searchbyfundticker', methods=['POST'])
