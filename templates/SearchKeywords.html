@@ -2,8 +2,8 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Search Content Fund</title>
-	<link rel="shortcut icon" href="/images/Favicon.ico" type="image/x-icon"/>
+	<title>Batch Search Keywords</title>
+	<link rel="shortcut icon" href="/static/img/Favicon.ico" type="image/x-icon"/>
 	<style>
 		.myButton {
 			-moz-box-shadow:inset 0px 1px 0px 0px #f5978e;
@@ -45,33 +45,7 @@
 			position:relative;
 			top:1px;
 		}	
-		<!--
-		.link{
-			position: relative;
-		}
-		#box{
-			display: none;
-			width: 315px;
-			height: 180px;
-			border: 0;
-			padding: 12px;
-			text-align: left;
-			line-height: 175%;
-			text-indent: 2em;
-			position: absolute;left:200px;top:450px
-		}
-	-->		
-</style>
-<script type="text/javascript" language="javascript" >
-	<!--
-	function display(){
-		document.getElementById("box").style.display="block"; 
-	}
-	function disappear(){
-		document.getElementById("box").style.display="none"; 
-	}
--->
-</script>
+	</style>
 </head>
 <table>
 	<tr>
@@ -80,35 +54,47 @@
 		<td>
 			<table>
 				<tr>
-					<td><h2>Search Content Fund</h2></td>
-					<td style="font-family:arial;font-size:13px"><i><sub> updated on 2017.12.12</sub></i></td>
+					<td><h2>Batch Search Keywords</h2></td>
+					<td style="font-family:arial;font-size:13px"><i><sub> updated on 2017.7.25</sub></i></td>
 				</tr>
 			</table>
 			<body>
-				<form action="/searchcontentfund" method="POST">
-					ProcessId:
-					: <br/>
-					<input type="text" name="processid" required="required">
-					<br/><br/>
-					Document Type:
+				<form action="/searchkeywords" method="POST">
+					<select name="searchtype">
+						<option value="document" selected>Document</option>
+						<option value="filing">Filing</option>
+					</select>:
 					<br/>
-					<select name="doctype">
-						<option value="2" selected>Supplement</option>
-						<option value="15">Supplement to SAI</option>
-						<option value="60">Supplement to Summary Prospectus</option>
-					</select>
+					<textarea name="ids" wrap="Virtual" style="height:160px;width:300px;resize:none" required="required"></textarea>
+					<br/>
+					注：HTML、TXT、PDF格式的Document ID可以混填，系统会自动识别。因为性能问题，请尽量不要一次过Search太多（20个左右比较好）PDF格式的Document。
 					<br/><br/>
-					<input type="submit" class="myButton" formtarget="_blank" value="Search">
+					Keywords: 
+					<br/>
+					<textarea name="keywords" wrap="Virtual" style="height:160px;width:500px;resize:none" required="required"></textarea>
+					<br/><br/>
+					<input type="radio" name="selecttype" value="string" checked>关键词
+					<span style="width:15px">&nbsp;</span>
+					<span style="width:15px">&nbsp;</span>
+					<input type="radio" name="selecttype" value="regex">正则表达式
+					<br/><br/>
+					Worker Number:
+					<br/>
+					<input type="text" name="ThreadNumber" value="50" style="height:15px;width:50px;resize:none" required="required">
+					<br/>
+					注：如果全部都是PDF格式的Document，因为解析PDF文件比较慢，所以请尽量填小于10的整数值。
+					<br/><br/>
+					<input type="submit" class="myButton" formtarget="_blank" value="Search !">
 					<br/><br/>
 				</form>
 				<table>
 					<tr>
 						<td style="font-family:arial;color:red;font-size:13px;"><b>Note: </b></td>
-						<td style="font-family:arial;font-size:13px;">Developed by <b><i>Kim Liu, Lychee Li, Christy Lin, Viki Chen</i></b>.</td>
+						<td style="font-family:arial;font-size:13px;">Developed by <b><i>Jeffrey Yu</i></b>.</td>
 					</tr>
 					<tr>
 						<td style="font-family:arial;font-size:13px;"></td>
-						<td style="font-family:arial;font-size:13px;">SQL code provided by <b><i>Kim Liu</i></b>.</td>
+						<td style="font-family:arial;font-size:13px;">温馨提示：结果中显示有关键词的就代表一定有；但如果显示没有的话，最好还是亲自去文中Ctrl + F搜一下。</td>
 					</tr>
 				</table>
 			</body>
