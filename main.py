@@ -3,7 +3,7 @@
 #------------------------------------
 #--Author:        Jeffrey Yu
 #--CreationDate:  2017/10/16 10:53
-#--RevisedDate:   2017/11/20
+#--RevisedDate:   2017/12/21
 #------------------------------------
 
 import os
@@ -21,6 +21,7 @@ import SearchContentFund
 import ContractIdFiling
 import Rename
 import Web_API
+import InternalAuditSampling
 
 #
 #                       _oo0oo_
@@ -124,6 +125,13 @@ def maobydocfromcik_show():
 @app.route('/searchcontentfund')
 def searchcontentfund_show():
     location_page = 'SearchContentFund.html'
+    IPTracking.log_IP(request, location_page)
+    return render_template(location_page)
+
+
+@app.route('/internalauditsampling')
+def internalauditsampling_show():
+    location_page = 'InternalAuditSampling.html'
     IPTracking.log_IP(request, location_page)
     return render_template(location_page)
 
@@ -262,6 +270,14 @@ def searchbyfundticker():
     else:
         ignore = 0
     return SearchByFundTicker.run(regex, processid, content, ignore)
+
+
+@app.route('/internalauditsampling', methods=['POST'])
+def internalauditsampling():
+    monthdiff = int(request.form['monthdiff'])
+    last_secid = str(request.form['last_secid'])
+    result = InternalAuditSampling.run(monthdiff, last_secid)
+    return send_from_directory(directory=common.temp_path, filename=result, as_attachment=True)
 
 
 @app.route('/rename', methods=['POST'])
