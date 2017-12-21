@@ -102,6 +102,14 @@
 						<td style="font-family:arial;color:red;font-size:13px;"><b>Note: </b></td>
 						<td style="font-family:arial;font-size:13px;">Developed by <b><i>Jeffrey Yu</i></b>.</td>
 					</tr>
+					<tr>
+						<td valign="top" style="font-family:arial;color:red;font-size:13px;"><p><b>抽样逻辑: </b></p></td>
+						<td valign="top" style="font-family:arial;font-size:13px;"><p>1. 以上个月（1-31号）发生过变动的SecId为sample pool。</p>
+<p>2. 从中抽出map上个月Pros、SAI、SP最多的前20个SecId。</p>
+<p>3. 从中抽出map上个月AR、SAR最多的前20个SecId（跟上面20个不重复）。</p>
+<p>4. 从中抽出map上个月Sup、Sup to SAI、Sup to SP最多的前20个SecId（跟上面40个不重复）。</p>
+<p>5. 用这60个SecId找他们目前最新的CurrentDoc。</p></td>
+					</tr>
 				</table>
 			</body>
 		</td>
