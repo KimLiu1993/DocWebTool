@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Search Content Fund</title>
+	<title>Internal Audit Sampling</title>
 	<link rel="shortcut icon" href="/images/Favicon.ico" type="image/x-icon"/>
 	<style>
 		.myButton {
@@ -80,35 +80,27 @@
 		<td>
 			<table>
 				<tr>
-					<td><h2>Search Content Fund</h2></td>
-					<td style="font-family:arial;font-size:13px"><i><sub> updated on 2017.12.12</sub></i></td>
+					<td><h2>Internal Audit Sampling</h2></td>
+					<td style="font-family:arial;font-size:13px"><i><sub> updated on 2017.12.18</sub></i></td>
 				</tr>
 			</table>
 			<body>
-				<form action="/searchcontentfund" method="POST">
-					ProcessId:
-					: <br/>
-					<input type="text" name="processid" required="required">
-					<br/><br/>
-					Document Type:
+				<form action="/internalauditsampling" method="POST">
+					您想抽前多少个月（范围：一个月内）的SecId作为样本（请输入阿拉伯整数）:
 					<br/>
-					<select name="doctype">
-						<option value="2" selected>Supplement</option>
-						<option value="15">Supplement to SAI</option>
-						<option value="60">Supplement to Summary Prospectus</option>
-					</select>
+					<input type="text" name="monthdiff" required="required" value="1">
 					<br/><br/>
-					<input type="submit" class="myButton" formtarget="_blank" value="Search">
+					上一期抽过的SecId（这一期将会被排除，换行隔开）:
+					<br/>
+					<textarea name="last_secid" style="height:400px;width:250px;resize:none" wrap="physical"></textarea>
+
+					<input type="submit" class="myButton" formtarget="_blank" value="Go!">
 					<br/><br/>
 				</form>
 				<table>
 					<tr>
 						<td style="font-family:arial;color:red;font-size:13px;"><b>Note: </b></td>
-						<td style="font-family:arial;font-size:13px;">Developed by <b><i>Kim Liu, Lychee Li, Christy Lin, Viki Chen</i></b>.</td>
-					</tr>
-					<tr>
-						<td style="font-family:arial;font-size:13px;"></td>
-						<td style="font-family:arial;font-size:13px;">SQL code provided by <b><i>Kim Liu</i></b>.</td>
+						<td style="font-family:arial;font-size:13px;">Developed by <b><i>Jeffrey Yu</i></b>.</td>
 					</tr>
 				</table>
 			</body>
