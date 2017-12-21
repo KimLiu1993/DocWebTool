@@ -164,6 +164,13 @@ def contractidfiling_show():
     return render_template(location_page)
 
 
+@app.route('batchsearthkeywords')
+def batchsearthkeywords_show():
+    location_page = 'BatchSearchKeywords.html'
+    IPTracking.log_IP(request, location_page)
+    return render_template(location_page)
+
+
 @app.route('/searchbyfundticker')
 def searchbyfundticker_show():
     location_page = 'SearchByFundTicker.html'
@@ -258,6 +265,16 @@ def doctracking():
 def contractidfiling():
     contractid = str(request.form['contractid'])
     return ContractIdFiling.run_contractid(contractid)
+
+
+@app.route('/batchsearthkeywords', methods=['POST'])
+def batchsearchkeywords():
+    ids = str(request.form['ids'])
+    idype = str(request.form['idtype'])
+    keywords = str(request.form['keywords'])
+    keywordtyp = str(request.form['keywordtype'])
+    ThreadNumber = str(request.form['ThreadNumber'])
+    return BatchSearchKeywords.run(ids, Idtype, keywords, keywordtype, ThreadNumber)
 
 
 @app.route('/searchbyfundticker', methods=['POST'])
