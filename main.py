@@ -280,9 +280,9 @@ def contractidfiling():
 @app.route('/batchsearthkeywords', methods=['POST'])
 def batchsearchkeywords():
     ids = str(request.form['ids'])
-    idype = str(request.form['idtype'])
+    idtype = str(request.form['idtype'])
     keywords = str(request.form['keywords'])
-    keywordtyp = str(request.form['keywordtype'])
+    keywordtype = str(request.form['keywordtype'])
     ThreadNumber = str(request.form['ThreadNumber'])
     result = BatchSearchKeywords.run(ids, idtype, keywords, keywordtype, ThreadNumber)
     return send_from_directory(directory=result[0], filename=result[1], as_attachment=True)

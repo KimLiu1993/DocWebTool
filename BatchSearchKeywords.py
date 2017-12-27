@@ -182,7 +182,9 @@ def run(ids, idtype, keywords, keywordtype, ThreadNumber):
     total_result = []
 
     num = len(id_list)
-    gap = int(float(num) / totalThread)
+    if num < 20:
+        totalThread = num
+    gap = int(float(num) / float(totalThread))
 
 
     mutex = threading.Lock()
