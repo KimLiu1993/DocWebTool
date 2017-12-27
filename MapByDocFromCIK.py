@@ -102,20 +102,25 @@ def run(filingorcik, filingid, doctype, selecttype):
         connection = pyodbc.connect(common.connection_string_multithread)
 
         secid = get_secid(connection, filingorcik, filingid)
-        # 设置每个线程的任务量
-        totalThread = 30
-        num = len(secid)
-        gap = math.ceil(float(num) / totalThread)
+        if len(secid) < 1 :
+            list_currentdocid = []
+        else:
+            # 设置每个线程的任务量
+            totalThread = 30
+            num = len(secid)
+            if num < 30:
+                totalThread = num
+            gap = math.ceil(float(num) / totalThread)
 
-        list_currentdocid = []
-        # 多线程，取currentdoc
-        mutex = threading.Lock()
-        threadlist = [threading.Thread(target=getrange, args=(i, i+gap, connection, secid, num, doctype, list_currentdocid, selecttype, mutex,)) for i in range(0,num,gap)]
-        for t in threadlist:
-            t.setDaemon(True)
-            t.start()
-        for i in threadlist:
-            i.join()
+            list_currentdocid = []
+            # 多线程，取currentdoc
+            mutex = threading.Lock()
+            threadlist = [threading.Thread(target=getrange, args=(i, i+gap, connection, secid, num, doctype, list_currentdocid, selecttype, mutex,)) for i in range(0,num,gap)]
+            for t in threadlist:
+                t.setDaemon(True)
+                t.start()
+            for i in threadlist:
+                i.join()
         
         html_code ='''
             <!DOCTYPE HTML>

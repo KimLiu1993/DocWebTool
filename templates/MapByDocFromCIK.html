@@ -118,6 +118,10 @@
 						<td style="font-family:arial;font-size:13px;"></td>
 						<td style="font-family:arial;font-size:13px;">SQL code for Current & All Documents provided by <b><i>Sharol Liu</i></b>.</td>
 					</tr>
+					<tr>
+						<td style="font-family:arial;font-size:13px;"></td>
+						<td style="font-family:arial;font-size:13px;">原理：根据FilingId找该Filing所有CIK下的所有Active和Pending的ShareId，再根据shareid找CurrentDoc.如Filing有被Junked的Doc,则被Junked的Doc的CIK也会被找全.</td>
+					</tr>
 				</table>
 			</body>
 		</td>
