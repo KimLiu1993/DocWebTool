@@ -150,7 +150,7 @@ def search_keyword(Id, idtype, keyword_list, keywordtype, workernumber, mutex, t
 def getrange(l, r, id_list, idtype, keyword_list, keywordtype, workernumber, mutex, total_result, num):
     for i in range(l, r):
         if i < num:
-            Id = Id_list[i]
+            Id = id_list[i]
             try:
                 search_keyword(Id, idtype, keyword_list, keywordtype, workernumber, mutex, total_result)
             except:
@@ -169,7 +169,7 @@ def run(ids, idtype, keywords, keywordtype, ThreadNumber):
         id_list.append(line)
 
     keyword_list = []
-    kw1 = keyword_list.split('\n')
+    kw1 = keywords.split('\n')
     for line in kw1:
         line = line.strip('\n')
         line = line.strip('\r')
@@ -181,8 +181,10 @@ def run(ids, idtype, keywords, keywordtype, ThreadNumber):
     totalThread = ThreadNumber
     total_result = []
 
-    num = len(Id_list)
-    gap = int(float(num) / totalThread)
+    num = len(id_list)
+    if num < 20:
+        totalThread = num
+    gap = int(float(num) / float(totalThread))
 
 
     mutex = threading.Lock()

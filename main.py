@@ -3,7 +3,7 @@
 #------------------------------------
 #--Author:        Jeffrey Yu
 #--CreationDate:  2017/10/16 10:53
-#--RevisedDate:   2017/12/21
+#--RevisedDate:   2017/12/27
 #------------------------------------
 
 import os
@@ -22,6 +22,9 @@ import ContractIdFiling
 import Rename
 import Web_API
 import InternalAuditSampling
+import BatchSearchKeywords
+import MappingTool
+
 
 #
 #                       _oo0oo_
@@ -164,7 +167,7 @@ def contractidfiling_show():
     return render_template(location_page)
 
 
-@app.route('batchsearthkeywords')
+@app.route('/batchsearthkeywords')
 def batchsearthkeywords_show():
     location_page = 'BatchSearchKeywords.html'
     IPTracking.log_IP(request, location_page)
@@ -174,6 +177,13 @@ def batchsearthkeywords_show():
 @app.route('/searchbyfundticker')
 def searchbyfundticker_show():
     location_page = 'SearchByFundTicker.html'
+    IPTracking.log_IP(request, location_page)
+    return render_template(location_page)
+
+
+@app.route('/mappingtool')
+def mappingtool_show():
+    location_page = 'MappingTool.html'
     IPTracking.log_IP(request, location_page)
     return render_template(location_page)
 
@@ -270,9 +280,9 @@ def contractidfiling():
 @app.route('/batchsearthkeywords', methods=['POST'])
 def batchsearchkeywords():
     ids = str(request.form['ids'])
-    idype = str(request.form['idtype'])
+    idtype = str(request.form['idtype'])
     keywords = str(request.form['keywords'])
-    keywordtyp = str(request.form['keywordtype'])
+    keywordtype = str(request.form['keywordtype'])
     ThreadNumber = str(request.form['ThreadNumber'])
     result = BatchSearchKeywords.run(ids, idtype, keywords, keywordtype, ThreadNumber)
     return send_from_directory(directory=result[0], filename=result[1], as_attachment=True)
@@ -296,6 +306,12 @@ def internalauditsampling():
     last_secid = str(request.form['last_secid'])
     result = InternalAuditSampling.run(monthdiff, last_secid)
     return send_from_directory(directory=common.temp_path, filename=result, as_attachment=True)
+
+
+@app.route('/mappingtool', methods=['POST'])
+def mappingtool():
+    filingid = str(request.form['filingid'])
+    return MappingTool.run(filingid)
 
 
 @app.route('/rename', methods=['POST'])
@@ -325,6 +341,8 @@ def api_import_doc_mapping():
     else:
         return_info = Web_API.mapping(request, processid, secid)
         return return_info
+
+
 
 
 if __name__ == '__main__':

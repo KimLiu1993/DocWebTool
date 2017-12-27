@@ -1,47 +1,27 @@
 #!/usr/bin/env python
-# -*- Coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 #------------------------------------
-#--Author:        Lychee Li
-#--CreationDate:  2017/10/25
-#--RevisedDate:   
+#--Author:        Sharol Liu
+#--CreationDate:  2017/12/21
+#--RevisedDate:   2017/12/21
 #------------------------------------
 
-import common
+
 import pyodbc
+import common
 import pandas as pd
 
 
-with open(common.sql_path + '\\MappingTool.sql','r') as MappingTool_code:
-    mappingtool_code = MappingTool_code.read()
+# 读取SQL代码
+with open(common.sql_path + '\\MappingTool.sql', 'r', encoding='UTF-8') as mappingtool_code:
+    mappingtool_code = mappingtool_code.read()
 
 
-
-def get_secid(connection,filingid):
-    cursor = connection.cursor()
-    result = cursor.execute(mappingtool_code % (filingid)).fetchall()
-    
-    total_result = []
-    for each in result:
-        investmenid = each[0]
-        doccount = each[1]
-        securityname = each[2]
-        secidstatus = each[3]
-        universe = each[4]
-        total = [str(investmenid) + str(doccount) + str(securityname) + str(secidstatus) + str(universe)]
-        total_result.append(total)
-    cursor.close()
-    connection.close()
-    return total_result
-
-def run_contractid(filingid):
-    total_result = get_secid(connection,filingid)
-    pd_result = pd.DataFrame(total_result, columns=['InvestmenId', 'DocCount', 'SecurityName', 'SecidStatus', 'Universe'])
-    pd.set_option('display.max_colwidth', -1)
-    html_code = pd_result.to_html(classes='tablestyle', index=False)
-    html_code = '<p>FilingId: ' + filingid + '</p>' + common.css_code + html_code
+# 主函数
+def run(filingid):
+    connection = pyodbc.connect(common.connection_string_multithread)
+    result = pd.read_sql(mappingtool_code %(filingid), connection)
+    html_table = result.to_html(classes = 'tablestyle', index = False)
+    html_code = '<p>FilingId: ' + filingid + '</p>' + common.css_code + html_table
+    # html_code = html_code.replace('class="dataframe tablestyle"', 'class="tablestyle"'
     return html_code
-    
-# filingid = 38601728
-# connection = pyodbc.connect(common.connection_string_multithread)
-# result = get_secid(connection,filingid)
-# print(result)
