@@ -35,7 +35,11 @@ def get_doc_type(x):
         if len(string) > 0:
             return 'HTML'
         else:
-            return 'TXT'
+            string = re.findall(re.compile('MS_RAW.*\.txt'), x)
+            if len(string) > 0:
+                return 'TXT'
+            else:
+                return 'HTML'
 
 
 # 获取filingid在SEC上的内容，并识别formattype
@@ -58,16 +62,17 @@ def keyword_count(Id, kw_list, keywordtype, content, formtype):
                 result.append(each_result)
             else:
                 if keywordtype == 'string':
-                    re_keyword = re.compile(keyword, re.IGNORECASE)
-                    result_list = re.findall(re_keyword, content)
-                    result_num = len(result_list)
+                    # re_keyword = re.compile(keyword, re.IGNORECASE)
+                    # result_list = re.findall(keyword.lower(), content.lower())
+                    # result_num = len(result_list)
+                    result_num = content.lower().count(keyword.lower())
                     each_result = [Id, keyword, result_num, formtype, '']
                 else:
                     regex = re.compile(keyword)
                     result_list = re.findall(regex, content)
                     result_num = len(result_list)
                     each_result = [Id, keyword, result_num, formtype, result_list]
-            result.append(each_result)
+                result.append(each_result)
         else:
             pass
     return result
