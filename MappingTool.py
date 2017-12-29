@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 #------------------------------------
 #--Author:        Sharol Liu
-#--CreationDate:  2017/12/21
-#--RevisedDate:   2017/12/21
+#--CreationDate:  2017/12/27
+#--RevisedDate:   2017/12/27
 #------------------------------------
 
 
@@ -19,9 +19,12 @@ with open(common.sql_path + '\\MappingTool.sql', 'r', encoding='UTF-8') as mappi
 
 # 主函数
 def run(filingid):
-    connection = pyodbc.connect(common.connection_string_multithread)
-    result = pd.read_sql(mappingtool_code %(filingid), connection)
-    html_table = result.to_html(classes = 'tablestyle', index = False)
-    html_code = '<p>FilingId: ' + filingid + '</p>' + common.css_code + html_table
-    # html_code = html_code.replace('class="dataframe tablestyle"', 'class="tablestyle"'
-    return html_code
+    try:
+        connection = pyodbc.connect(common.connection_string_multithread)
+        result = pd.read_sql(mappingtool_code %(filingid), connection)
+        html_table = result.to_html(classes = 'tablestyle', index = False)
+        html_code = '<p>FilingId: ' + filingid + '</p>' + common.css_code + html_table
+        # html_code = html_code.replace('class="dataframe tablestyle"', 'class="tablestyle"'
+        return html_code
+    except Exception as e:
+        return str(e)
