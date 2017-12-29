@@ -163,53 +163,56 @@ def getrange(l, r, id_list, idtype, keyword_list, keywordtype, workernumber, mut
 
 # 主函数
 def run(ids, idtype, keywords, keywordtype, ThreadNumber):
-    result_file = 'Reslut-' + time.strftime('%Y%m%d') + time.strftime('%H%M%S') + '.csv'
-    result_path = common.cur_file_dir() + '\\Results\\'
-
-    id_list = []
-    ids1 = ids.split('\n')
-    for line in ids1:
-        line = line.strip('\n')
-        line = line.strip('\r')
-        id_list.append(line)
-
-    keyword_list = []
-    kw1 = keywords.split('\n')
-    for line in kw1:
-        line = line.strip('\n')
-        line = line.strip('\r')
-        keyword_list.append(line)
-
-    if not os.path.exists(result_path):
-        os.makedirs(result_path)
-
-    totalThread = ThreadNumber
-    total_result = []
-
-    num = len(id_list)
-    if num < 20:
-        totalThread = num
-    gap = int(float(num) / float(totalThread))
-
-
-    mutex = threading.Lock()
-    threadlist = [threading.Thread(target=getrange, args=(i, i+gap, id_list, idtype, keyword_list, keywordtype, ThreadNumber, mutex, total_result, num,)) for i in range(0, num, gap)]
-    for t in threadlist:
-        t.setDaemon(True)
-        t.start()
-    for i in threadlist:
-        i.join()
-
-
-    df = pd.DataFrame(total_result, columns=['Id', 'KeyWord', 'Count', 'Format', ' '])
-
     try:
-        if os.path.isfile(result_path + result_file):
-            os.remove(result_path + result_file)
-        df.to_csv(result_path + result_file, encoding='UTF-8')
-    except:
-        if os.path.isfile(result_path + result_file):
-            os.remove(result_path + result_file)
-        df.to_csv(result_path + result_file, encoding='GB18030')
+        result_file = 'Reslut-' + time.strftime('%Y%m%d') + time.strftime('%H%M%S') + '.csv'
+        result_path = common.cur_file_dir() + '\\Results\\'
 
-    return result_path, result_file
+        id_list = []
+        ids1 = ids.split('\n')
+        for line in ids1:
+            line = line.strip('\n')
+            line = line.strip('\r')
+            id_list.append(line)
+
+        keyword_list = []
+        kw1 = keywords.split('\n')
+        for line in kw1:
+            line = line.strip('\n')
+            line = line.strip('\r')
+            keyword_list.append(line)
+
+        if not os.path.exists(result_path):
+            os.makedirs(result_path)
+
+        totalThread = ThreadNumber
+        total_result = []
+
+        num = len(id_list)
+        if num < 20:
+            totalThread = num
+        gap = int(float(num) / float(totalThread))
+
+
+        mutex = threading.Lock()
+        threadlist = [threading.Thread(target=getrange, args=(i, i+gap, id_list, idtype, keyword_list, keywordtype, ThreadNumber, mutex, total_result, num,)) for i in range(0, num, gap)]
+        for t in threadlist:
+            t.setDaemon(True)
+            t.start()
+        for i in threadlist:
+            i.join()
+
+
+        df = pd.DataFrame(total_result, columns=['Id', 'KeyWord', 'Count', 'Format', ' '])
+
+        try:
+            if os.path.isfile(result_path + result_file):
+                os.remove(result_path + result_file)
+            df.to_csv(result_path + result_file, encoding='UTF-8')
+        except:
+            if os.path.isfile(result_path + result_file):
+                os.remove(result_path + result_file)
+            df.to_csv(result_path + result_file, encoding='GB18030')
+
+        return result_path, result_file
+    except Exception as e:
+        return str(e)
