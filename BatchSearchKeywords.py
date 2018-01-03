@@ -170,7 +170,7 @@ def run(ids, idtype, keywords, keywordtype, ThreadNumber):
         id_list = []
         ids1 = ids.split('\n')
         for line in ids1:
-            if len(line) > 1:
+            if len(line) > 0:
                 line = line.strip()
                 line = line.strip('\r')
                 id_list.append(line)
@@ -178,9 +178,9 @@ def run(ids, idtype, keywords, keywordtype, ThreadNumber):
         keyword_list = []
         kw1 = keywords.split('\n')
         for line in kw1:
-            if len(line) > 1:
+            if len(line) > 0:
                 # line = line.strip()
-                line = line.strip('\r')
+                line = line.rstrip('\r')
                 keyword_list.append(line)
 
         if not os.path.exists(result_path):
