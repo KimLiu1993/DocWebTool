@@ -3,7 +3,7 @@
 #------------------------------------
 #--Author:        Jeffrey Yu
 #--CreationDate:  2017/10/16 10:53
-#--RevisedDate:   2017/12/27
+#--RevisedDate:   2017/12/29
 #------------------------------------
 
 import os
@@ -285,7 +285,10 @@ def batchsearchkeywords():
     keywordtype = str(request.form['keywordtype'])
     ThreadNumber = str(request.form['ThreadNumber'])
     result = BatchSearchKeywords.run(ids, idtype, keywords, keywordtype, ThreadNumber)
-    return send_from_directory(directory=result[0], filename=result[1], as_attachment=True)
+    if not isinstance(result, str):
+        return send_from_directory(directory=result[0], filename=result[1], as_attachment=True)
+    else:
+        return result
 
 
 @app.route('/searchbyfundticker', methods=['POST'])

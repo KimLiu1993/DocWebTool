@@ -3,7 +3,7 @@
 #------------------------------------
 #--Author:        Sharol Liu
 #--CreationDate:  2017/12/18
-#--RevisedDate:   2017/12/28
+#--RevisedDate:   2017/12/29
 #------------------------------------
 
 
@@ -215,6 +215,6 @@ def run(ids, idtype, keywords, keywordtype, ThreadNumber):
                 os.remove(result_path + result_file)
             df.to_csv(result_path + result_file, encoding='GB18030')
 
-        return result_path, result_file
+        return (result_path, result_file)
     except Exception as e:
         return str(e)
