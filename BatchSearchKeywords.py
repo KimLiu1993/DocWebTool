@@ -159,7 +159,7 @@ def getrange(l, r, id_list, idtype, keyword_list, keywordtype, workernumber, mut
             try:
                 search_keyword(Id, idtype, keyword_list, keywordtype, workernumber, mutex, total_result)
             except:
-                total_result.extend([Id + ' (error)', '', '', '', ''])
+                total_result.append([Id + ' (error)', ' ', ' ', ' ', ' '])
 
 # 主函数
 def run(ids, idtype, keywords, keywordtype, ThreadNumber):
@@ -170,16 +170,18 @@ def run(ids, idtype, keywords, keywordtype, ThreadNumber):
         id_list = []
         ids1 = ids.split('\n')
         for line in ids1:
-            line = line.strip('\n')
-            line = line.strip('\r')
-            id_list.append(line)
+            if len(line) > 1:
+                line = line.strip()
+                line = line.strip('\r')
+                id_list.append(line)
 
         keyword_list = []
         kw1 = keywords.split('\n')
         for line in kw1:
-            line = line.strip('\n')
-            line = line.strip('\r')
-            keyword_list.append(line)
+            if len(line) > 1:
+                # line = line.strip()
+                line = line.strip('\r')
+                keyword_list.append(line)
 
         if not os.path.exists(result_path):
             os.makedirs(result_path)
@@ -188,7 +190,7 @@ def run(ids, idtype, keywords, keywordtype, ThreadNumber):
         total_result = []
 
         num = len(id_list)
-        if num < 20:
+        if num < int(totalThread):
             totalThread = num
         gap = int(float(num) / float(totalThread))
 
