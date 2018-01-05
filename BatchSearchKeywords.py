@@ -7,14 +7,14 @@
 #------------------------------------
 
 
-import File_OP as fo
-import common
 import re
-import requests
-import pandas as pd
 import os
 import time
 import threading
+import requests
+import pandas as pd
+import File_OP as fo
+import common
 
 
 # 获取docid在MDL上的doc

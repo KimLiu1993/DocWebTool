@@ -3,7 +3,7 @@
 #------------------------------------
 #--Author:        Jeffrey Yu
 #--CreationDate:  2017/10/16 10:53
-#--RevisedDate:   2017/12/29
+#--RevisedDate:   2018/01/04
 #------------------------------------
 
 import os
@@ -24,6 +24,7 @@ import Web_API
 import InternalAuditSampling
 import BatchSearchKeywords
 import MappingTool
+import Timeliness
 
 
 #
@@ -195,6 +196,13 @@ def rename_show():
     return render_template(location_page)
 
 
+@app.route('/timeliness')
+def timeliness_show():
+    location_page = 'Timeliness.html'
+    IPTracking.log_IP(request, location_page)
+    return render_template(location_page)
+
+
 @app.route('/miumiu')
 def miumiu_show():
     location_page = 'MiuMiu.html'
@@ -317,6 +325,29 @@ def mappingtool():
     return MappingTool.run(filingid)
 
 
+@app.route('/timeliness', methods=['POST'])
+def timeliness():
+    begin_date = request.form['begindate']
+    end_date = request.form['enddate']
+    process = str(request.form['process'])
+    resulttype = str(request.form['resulttype'])
+    if request.form["action"] == 'Get Raw Data (All)':
+        html_code = Timeliness.get_raw_data(begin_date, end_date, process, resulttype, data_type='All')
+        if resulttype == 'HTML':
+            return html_code
+        else:
+            return send_from_directory(directory=common.temp_path, filename=html_code, as_attachment=True)
+    elif request.form["action"] ==  'Get Raw Data (>24BHr)':
+        html_code = Timeliness.get_raw_data(begin_date, end_date, process, resulttype, data_type='Defect')
+        if resulttype == 'HTML':
+            return html_code
+        else:
+            return send_from_directory(directory=common.temp_path, filename=html_code, as_attachment=True)
+    elif request.form["action"] == 'Get Pivot Table':
+        html_code = Timeliness.get_Pivot_Table(begin_date, end_date, process)
+        return html_code
+
+
 @app.route('/rename', methods=['POST'])
 def rename():
     content = str(request.form['content'])
@@ -346,12 +377,11 @@ def api_import_doc_mapping():
         return return_info
 
 
-
-
 if __name__ == '__main__':
     # app.debug = True
-    if len(common.domain.split(':')) > 2:
-        port = common.domain.split(':')[2]
-    else:
-        port = 80
-    app.run(host='0.0.0.0', port=port, threaded=True)
+    # if len(common.domain.split(':')) > 2:
+    #     port = common.domain.split(':')[2]
+    # else:
+    #     port = 80
+    # app.run(host='0.0.0.0', port=port, threaded=True)
+    app.run(host='0.0.0.0', threaded=True)
