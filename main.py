@@ -3,12 +3,13 @@
 #------------------------------------
 #--Author:        Jeffrey Yu
 #--CreationDate:  2017/10/16 10:53
-#--RevisedDate:   2018/01/04
+#--RevisedDate:   2018/01/05
 #------------------------------------
 
 import os
 import random
 import datetime
+from dateutil.relativedelta import relativedelta
 from flask import Flask, render_template, request, send_from_directory, abort
 import common
 import IPTracking
@@ -116,8 +117,7 @@ def hi_show():
     after60 = (filingdate + datetime.timedelta(days=60)).strftime('%Y-%m-%d')
     after75 = (filingdate + datetime.timedelta(days=75)).strftime('%Y-%m-%d')
 
-    return render_template(location_page, today=today_str, weekday=weekday_str, filingdate=filingdate_str,
-                           after60=after60, after75=after75)
+    return render_template(location_page, today=today_str, weekday=weekday_str, filingdate=filingdate_str, after60=after60, after75=after75)
 
 @app.route('/mapbydocfromcik')
 def maobydocfromcik_show():
@@ -200,7 +200,11 @@ def rename_show():
 def timeliness_show():
     location_page = 'Timeliness.html'
     IPTracking.log_IP(request, location_page)
-    return render_template(location_page)
+    today = datetime.date.today()
+    d = today - relativedelta(months=1)
+    d1 = datetime.date(d.year,d.month,1).strftime('%Y-%m-%d')
+    d2 = (datetime.date(today.year,today.month,1) - relativedelta(days=1)).strftime('%Y-%m-%d')
+    return render_template(location_page, content1=str(d1), content2=str(d2))
 
 
 @app.route('/miumiu')
