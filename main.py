@@ -3,12 +3,13 @@
 #------------------------------------
 #--Author:        Jeffrey Yu
 #--CreationDate:  2017/10/16 10:53
-#--RevisedDate:   2017/12/21
+#--RevisedDate:   2018/01/05
 #------------------------------------
 
 import os
 import random
 import datetime
+from dateutil.relativedelta import relativedelta
 from flask import Flask, render_template, request, send_from_directory, abort
 import common
 import IPTracking
@@ -22,6 +23,10 @@ import ContractIdFiling
 import Rename
 import Web_API
 import InternalAuditSampling
+import BatchSearchKeywords
+import MappingTool
+import Timeliness
+
 
 #
 #                       _oo0oo_
@@ -112,8 +117,7 @@ def hi_show():
     after60 = (filingdate + datetime.timedelta(days=60)).strftime('%Y-%m-%d')
     after75 = (filingdate + datetime.timedelta(days=75)).strftime('%Y-%m-%d')
 
-    return render_template(location_page, today=today_str, weekday=weekday_str, filingdate=filingdate_str,
-                           after60=after60, after75=after75)
+    return render_template(location_page, today=today_str, weekday=weekday_str, filingdate=filingdate_str, after60=after60, after75=after75)
 
 @app.route('/mapbydocfromcik')
 def maobydocfromcik_show():
@@ -164,9 +168,23 @@ def contractidfiling_show():
     return render_template(location_page)
 
 
+@app.route('/batchsearthkeywords')
+def batchsearthkeywords_show():
+    location_page = 'BatchSearchKeywords.html'
+    IPTracking.log_IP(request, location_page)
+    return render_template(location_page)
+
+
 @app.route('/searchbyfundticker')
 def searchbyfundticker_show():
     location_page = 'SearchByFundTicker.html'
+    IPTracking.log_IP(request, location_page)
+    return render_template(location_page)
+
+
+@app.route('/mappingtool')
+def mappingtool_show():
+    location_page = 'MappingTool.html'
     IPTracking.log_IP(request, location_page)
     return render_template(location_page)
 
@@ -176,6 +194,17 @@ def rename_show():
     location_page = 'Rename.html'
     IPTracking.log_IP(request, location_page)
     return render_template(location_page)
+
+
+@app.route('/timeliness')
+def timeliness_show():
+    location_page = 'Timeliness.html'
+    IPTracking.log_IP(request, location_page)
+    today = datetime.date.today()
+    d = today - relativedelta(months=1)
+    d1 = datetime.date(d.year,d.month,1).strftime('%Y-%m-%d')
+    d2 = (datetime.date(today.year,today.month,1) - relativedelta(days=1)).strftime('%Y-%m-%d')
+    return render_template(location_page, content1=str(d1), content2=str(d2))
 
 
 @app.route('/miumiu')
@@ -260,6 +289,20 @@ def contractidfiling():
     return ContractIdFiling.run_contractid(contractid)
 
 
+@app.route('/batchsearthkeywords', methods=['POST'])
+def batchsearchkeywords():
+    ids = str(request.form['ids'])
+    idtype = str(request.form['idtype'])
+    keywords = str(request.form['keywords'])
+    keywordtype = str(request.form['keywordtype'])
+    ThreadNumber = str(request.form['ThreadNumber'])
+    result = BatchSearchKeywords.run(ids, idtype, keywords, keywordtype, ThreadNumber)
+    if not isinstance(result, str):
+        return send_from_directory(directory=result[0], filename=result[1], as_attachment=True)
+    else:
+        return result
+
+
 @app.route('/searchbyfundticker', methods=['POST'])
 def searchbyfundticker():
     regex = str(request.form['regex'])
@@ -278,6 +321,35 @@ def internalauditsampling():
     last_secid = str(request.form['last_secid'])
     result = InternalAuditSampling.run(monthdiff, last_secid)
     return send_from_directory(directory=common.temp_path, filename=result, as_attachment=True)
+
+
+@app.route('/mappingtool', methods=['POST'])
+def mappingtool():
+    filingid = str(request.form['filingid'])
+    return MappingTool.run(filingid)
+
+
+@app.route('/timeliness', methods=['POST'])
+def timeliness():
+    begin_date = request.form['begindate']
+    end_date = request.form['enddate']
+    process = str(request.form['process'])
+    resulttype = str(request.form['resulttype'])
+    if request.form["action"] == 'Get Raw Data (All)':
+        html_code = Timeliness.get_raw_data(begin_date, end_date, process, resulttype, data_type='All')
+        if resulttype == 'HTML':
+            return html_code
+        else:
+            return send_from_directory(directory=common.temp_path, filename=html_code, as_attachment=True)
+    elif request.form["action"] ==  'Get Raw Data (>24BHr)':
+        html_code = Timeliness.get_raw_data(begin_date, end_date, process, resulttype, data_type='Defect')
+        if resulttype == 'HTML':
+            return html_code
+        else:
+            return send_from_directory(directory=common.temp_path, filename=html_code, as_attachment=True)
+    elif request.form["action"] == 'Get Pivot Table':
+        html_code = Timeliness.get_Pivot_Table(begin_date, end_date, process)
+        return html_code
 
 
 @app.route('/rename', methods=['POST'])
@@ -311,8 +383,9 @@ def api_import_doc_mapping():
 
 if __name__ == '__main__':
     # app.debug = True
-    if len(common.domain.split(':')) > 2:
-        port = common.domain.split(':')[2]
-    else:
-        port = 80
-    app.run(host='0.0.0.0', port=port, threaded=True)
+    # if len(common.domain.split(':')) > 2:
+    #     port = common.domain.split(':')[2]
+    # else:
+    #     port = 80
+    # app.run(host='0.0.0.0', port=port, threaded=True)
+    app.run(host='0.0.0.0', threaded=True)

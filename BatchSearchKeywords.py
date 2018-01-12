@@ -3,18 +3,18 @@
 #------------------------------------
 #--Author:        Sharol Liu
 #--CreationDate:  2017/12/18
-#--RevisedDate:   2017/
+#--RevisedDate:   2017/12/29
 #------------------------------------
 
 
-import File_OP as fo
-import common
 import re
-import requests
-import pandas as pd
 import os
 import time
 import threading
+import requests
+import pandas as pd
+import File_OP as fo
+import common
 
 
 # 获取docid在MDL上的doc
@@ -31,15 +31,15 @@ def get_doc_type(x):
         return 'PDF'
     else:
         x = str(x.text)
-        a = x.find('</HEAD>')
-        if a != -1:
-            string = x[0:a]
-        else:
-            string = ''
-        if '.txt--' in string:
-            return 'TXT'
-        else:
+        string = re.findall(re.compile('MS_RAW.*\.htm'), x)
+        if len(string) > 0:
             return 'HTML'
+        else:
+            string = re.findall(re.compile('MS_RAW.*\.txt'), x)
+            if len(string) > 0:
+                return 'TXT'
+            else:
+                return 'HTML'
 
 
 # 获取filingid在SEC上的内容，并识别formattype
@@ -62,16 +62,17 @@ def keyword_count(Id, kw_list, keywordtype, content, formtype):
                 result.append(each_result)
             else:
                 if keywordtype == 'string':
-                    re_keyword = re.compile(keyword, re.IGNORECASE)
-                    result_list = re.findall(re_keyword, content)
-                    result_num = len(result_list)
+                    # re_keyword = re.compile(keyword, re.IGNORECASE)
+                    # result_list = re.findall(keyword.lower(), content.lower())
+                    # result_num = len(result_list)
+                    result_num = content.lower().count(keyword.lower())
                     each_result = [Id, keyword, result_num, formtype, '']
                 else:
                     regex = re.compile(keyword)
                     result_list = re.findall(regex, content)
                     result_num = len(result_list)
                     each_result = [Id, keyword, result_num, formtype, result_list]
-            result.append(each_result)
+                result.append(each_result)
         else:
             pass
     return result
@@ -132,8 +133,8 @@ def search_keyword_filing(filingid, filing_data, kw_list, keywordtype, formtype)
 
 
 # 查找关键词的主要函数，分为document和filing
-def search_keyword(Id, Idtype, keyword_list, keywordtype, workernumber, mutex, total_result):
-    if Idtype == 'document':
+def search_keyword(Id, idtype, keyword_list, keywordtype, workernumber, mutex, total_result):
+    if idtype == 'document':
         doc = get_doc(Id)
         formtype = get_doc_type(doc)
         if formtype == 'TXT':
@@ -143,66 +144,77 @@ def search_keyword(Id, Idtype, keyword_list, keywordtype, workernumber, mutex, t
     else:
         filing = fo.get_filing(Id, source='SEC')
         filingtype = get_filing_type(filing)
-        result_list = search_keyword_filing(Id, filing, keyword_list, keywordtype, formtype)
+        result_list = search_keyword_filing(Id, filing, keyword_list, keywordtype, filingtype)
         
     mutex.acquire()
     total_result.extend(result_list)
-    print(str(Id) + 'Done!')
     mutex.release()
 
 
 # 多线程的执行函数
-def getrange(l, r, Id_list, Idtype, keyword_list, keywordtype, workernumber, mutex, total_result, num):
+def getrange(l, r, id_list, idtype, keyword_list, keywordtype, workernumber, mutex, total_result, num):
     for i in range(l, r):
         if i < num:
-            Id = Id_list[i]
-            search_keyword(Id, Idtype, keyword_list, keywordtype, workernumber, mutex, total_result)
-
+            Id = id_list[i]
+            try:
+                search_keyword(Id, idtype, keyword_list, keywordtype, workernumber, mutex, total_result)
+            except:
+                total_result.append([Id + ' (error)', ' ', ' ', ' ', ' '])
 
 # 主函数
-def run(Id_list, Idtype, keyword_list, keywordtype, ThreadNumber):
-    result_file = 'Reslut-' + time.strftime('%Y%m%d') + time.strftime('%H%M%S') + '.csv'
-    result_path = common.cur_file_dir() + '\\Results\\'
-
-    if not os.path.exists(result_path):
-        os.makedirs(result_path)
-
-    totalThread = ThreadNumber
-    total_result = []
-
-    num = len(Id_list)
-    gap = int(float(num) / totalThread)
-
-
-    mutex = threading.Lock()
-    threadlist = [threading.Thread(target=getrange,args=(i, i+gap, Id_list, Idtype, keyword_list, keywordtype, ThreadNumber, mutex, total_result, num,)) for i in range(0, num, gap)]
-    for t in threadlist:
-        t.setDaemon(True)
-        t.start()
-    for i in threadlist:
-        i.join()
-
-
-    df = pd.DataFrame(total_result, columns=['Id','KeyWord','Count','Format', ' '])
-
+def run(ids, idtype, keywords, keywordtype, ThreadNumber):
     try:
-        if os.path.isfile(result_path + result_file):
-            os.remove(result_path + result_file)
-        df.to_csv(result_path + result_file,encoding='UTF-8')
-    except:
-        if os.path.isfile(result_path + result_file):
-            os.remove(result_path + result_file)
-        df.to_csv(result_path + result_file,encoding='GB18030')
+        result_file = 'Reslut-' + time.strftime('%Y%m%d') + time.strftime('%H%M%S') + '.csv'
+        result_path = common.cur_file_dir() + '\\Results\\'
 
-    return result_path, result_file
+        id_list = []
+        ids1 = ids.split('\n')
+        for line in ids1:
+            if len(line) > 0:
+                line = line.strip()
+                line = line.strip('\r')
+                id_list.append(line)
+
+        keyword_list = []
+        kw1 = keywords.split('\n')
+        for line in kw1:
+            if len(line) > 0:
+                # line = line.strip()
+                line = line.rstrip('\r')
+                keyword_list.append(line)
+
+        if not os.path.exists(result_path):
+            os.makedirs(result_path)
+
+        totalThread = ThreadNumber
+        total_result = []
+
+        num = len(id_list)
+        if num < int(totalThread):
+            totalThread = num
+        gap = int(float(num) / float(totalThread))
 
 
-Id_list = ['154809306','155955907','155884653']
-# Id_list = ['47950748','48399298']
-Idtype = 'document'
-keyword_list = ['Income.*Policy']
-keywordtype = 'regex'
-ThreadNumber = 1
+        mutex = threading.Lock()
+        threadlist = [threading.Thread(target=getrange, args=(i, i+gap, id_list, idtype, keyword_list, keywordtype, ThreadNumber, mutex, total_result, num,)) for i in range(0, num, gap)]
+        for t in threadlist:
+            t.setDaemon(True)
+            t.start()
+        for i in threadlist:
+            i.join()
 
-a = run(Id_list, Idtype, keyword_list, keywordtype, ThreadNumber)
-print(a)
+
+        df = pd.DataFrame(total_result, columns=['Id', 'KeyWord', 'Count', 'Format', ' '])
+
+        try:
+            if os.path.isfile(result_path + result_file):
+                os.remove(result_path + result_file)
+            df.to_csv(result_path + result_file, encoding='UTF-8')
+        except:
+            if os.path.isfile(result_path + result_file):
+                os.remove(result_path + result_file)
+            df.to_csv(result_path + result_file, encoding='GB18030')
+
+        return (result_path, result_file)
+    except Exception as e:
+        return str(e)
