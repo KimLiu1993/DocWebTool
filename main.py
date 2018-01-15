@@ -26,6 +26,7 @@ import InternalAuditSampling
 import BatchSearchKeywords
 import MappingTool
 import Timeliness
+import NameChange
 
 
 #
@@ -168,6 +169,13 @@ def contractidfiling_show():
     return render_template(location_page)
 
 
+@app.route('/namechange')
+def namechange_show():
+    location_page = 'NameChange.html'
+    IPTracking.log_IP(request, location_page)
+    return render_template(location_page)
+
+
 @app.route('/batchsearthkeywords')
 def batchsearthkeywords_show():
     location_page = 'BatchSearchKeywords.html'
@@ -287,6 +295,13 @@ def doctracking():
 def contractidfiling():
     contractid = str(request.form['contractid'])
     return ContractIdFiling.run_contractid(contractid)
+
+
+@app.route('/namechange', methods=['POST'])
+def namechange():
+    processid = str(request.form['processid'])
+    keywords = str(request.form['keywords'])
+    return NameChange.run_result(processid, keywords)
 
 
 @app.route('/batchsearthkeywords', methods=['POST'])
