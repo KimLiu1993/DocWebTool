@@ -94,7 +94,7 @@ def run_result(processid, keywords):
         total_thread = 10
         num = len(docid_list)
 
-        if num < 11:
+        if num < 10:
             total_thread = num
         
         gap = int(float(num/total_thread))
