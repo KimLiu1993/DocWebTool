@@ -81,7 +81,7 @@
 			<table>
 				<tr>
 					<td><h2>Internal Audit Sampling</h2></td>
-					<td style="font-family:arial;font-size:13px"><i><sub> updated on 2017.12.18</sub></i></td>
+					<td style="font-family:arial;font-size:13px"><i><sub> updated on 2018.01.15</sub></i></td>
 				</tr>
 			</table>
 			<body>
@@ -90,7 +90,7 @@
 					<br/>
 					<input type="text" name="monthdiff" required="required" value="1">
 					<br/><br/>
-					上一期抽过的SecId（这一期将会被排除，换行隔开）:
+					上一期抽过的SecId（本期将会被排除，换行隔开）:
 					<br/>
 					<textarea name="last_secid" style="height:400px;width:250px;resize:none" wrap="physical"></textarea>
 
@@ -105,9 +105,9 @@
 					<tr>
 						<td valign="top" style="font-family:arial;color:red;font-size:13px;"><p><b>抽样逻辑: </b></p></td>
 						<td valign="top" style="font-family:arial;font-size:13px;"><p>1. 以上个月（1-31号）发生过变动的SecId为sample pool。</p>
-<p>2. 从中抽出map上个月Pros、SAI、SP最多的前20个SecId。</p>
-<p>3. 从中抽出map上个月AR、SAR最多的前20个SecId（跟上面20个不重复）。</p>
-<p>4. 从中抽出map上个月Sup、Sup to SAI、Sup to SP最多的前20个SecId（跟上面40个不重复）。</p>
+<p>2. 从中抽出map上个月Pros、SAI、SP、Supplement类最多的前50个SecId，再从中随机抽出20个SecId。</p>
+<p>3. 从中抽出map上个月AR最多的前50个SecId，再从中随机抽出20个SecId（跟上面20个不重复）。</p>
+<p>4. 从中抽出map上个月SAR最多的前50个SecId，再从中随机抽出20个SecId（跟上面40个不重复）。</p>
 <p>5. 用这60个SecId找他们目前最新的CurrentDoc。</p></td>
 					</tr>
 				</table>
