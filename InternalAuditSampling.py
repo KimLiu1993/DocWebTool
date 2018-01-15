@@ -311,6 +311,7 @@ def run(month_diff, Last_Checked_SecId):
         # target_secid_list = part1_secid_list + part2_secid_list
         # target_secid_list_string = str(target_secid_list).replace('[','').replace(']', '')
 
+        # 抽取60个SecId的Current Doc
         sql_code_get_doc = '''
             select ss.SecId,ss.SecurityName,cim.ContractId,ss.Ticker,cs.CIK,ss.FundId,ss.Universe,
                     sp.Value as [DocType],CONVERT(varchar(10),mp.EffectiveDate,120) as [EffectiveDate],mp.DocumentId,
@@ -332,7 +333,7 @@ def run(month_diff, Last_Checked_SecId):
                     --and mp.CreationDate<cast(convert(char(10),dateadd(dd,-day(getdate())+1,getdate()),120) as datetime)
                     --and
                     ss.SecId in (%s) and mp.Format='HTM'
-                    and mp.DocumentType in (1,2,3,4,5,14,15,17,60,62)
+                    and mp.DocumentType in (1,2,3,4,5,15,17,60,62)
             order by CONVERT(varchar(10),mp.DocumentDate,120) desc
         '''
         pd_doc_list = pd.read_sql(sql_code_get_doc %
