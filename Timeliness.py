@@ -3,7 +3,7 @@
 #------------------------------------
 #--Author:        Jeffrey Yu
 #--CreationDate:  2018/1/4 8:36
-#--RevisedDate:   2018/1/5
+#--RevisedDate:   2018/1/17
 #------------------------------------
 
 import time
@@ -40,12 +40,12 @@ def get_raw_data(begin_date, end_date, process, resulttype, data_type='Defect'):
         if data_type == 'All':
             sql_code = '''
                 select * from UITTimeliness as t
-                where t.CreationDateSZ between '%s' and '%s'
+                where t.DocCreationDate between '%s' and '%s'
             ''' % (begin_date, end_date)
         else:
             sql_code = '''
                 select * from UITTimeliness as t
-                where t.Flag != '<=24BHr' and t.CreationDateSZ between '%s' and '%s'
+                where t.Mapping_Flag != '0-24 BHs' and t.DocCreationDate between '%s' and '%s'
             ''' % (begin_date, end_date)
 
     Raw_data_detail_list = pd.read_sql(sql_code, conn)
@@ -119,21 +119,21 @@ def get_Pivot_Table(begin_date, end_date, process):
     else:
         sql_code = '''
             select * from UITTimeliness as t
-            where t.FixedCreationDateSZ between '%s' and '%s'
+            where t.DocCreationDate between '%s' and '%s'
         ''' % (begin_date, end_date)
 
         detail_list = pd.read_sql(sql_code, conn)
-        detail_list['Date'] = pd.to_datetime(detail_list['FixedCreationDateSZ'], errors='coerce').dt.strftime('%Y-%m')
+        detail_list['Date'] = pd.to_datetime(detail_list['DocCreationDate'], errors='coerce').dt.strftime('%Y-%m')
 
-        pivot_table = pd.pivot_table(detail_list, index=['Date'], columns=['Document_Flag'], values=['ProcessId'], aggfunc=len, fill_value=0, margins=True)
+        pivot_table = pd.pivot_table(detail_list, index=['Date'], columns=['Mapping_Flag'], values=['DocumentId'], aggfunc=len, fill_value=0, margins=True)
         pivot_table_bar = pivot_table
         pivot_table_bar.columns = pivot_table_bar.columns.droplevel(0)
         pivot_table_bar.columns.name = None
         pivot_table_bar = pivot_table_bar.rename_axis(None, axis=1)
 
-        pivot_table = pd.pivot_table(detail_list, index=['Date'], columns=['Document_Flag'], values=['ProcessId'], aggfunc=len, fill_value=0, margins=True)
+        pivot_table = pd.pivot_table(detail_list, index=['Date'], columns=['Mapping_Flag'], values=['DocumentId'], aggfunc=len, fill_value=0, margins=True)
         pivot_table_percentage = pivot_table.div(pivot_table.iloc[:, -1], axis=0)
-        pivot_table_percentage = pivot_table_percentage.loc[:, pivot_table_percentage.columns.get_level_values(1).isin(['<=15BHr', '>15BHr'])]
+        pivot_table_percentage = pivot_table_percentage.loc[:, pivot_table_percentage.columns.get_level_values(1).isin(['0-24 BHs', '>24 BHs'])]
         pivot_table_percentage = pivot_table_percentage[pivot_table_percentage.index != 'All']
         pivot_table_percentage_new = pivot_table_percentage
         pivot_table_percentage_new.columns = pivot_table_percentage.columns.droplevel(0)
