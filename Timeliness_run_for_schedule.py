@@ -3,7 +3,7 @@
 #------------------------------------
 #--Author:        Jeffrey Yu
 #--CreationDate:  2018/1/4 10:48
-#--RevisedDate:   2018/1/5
+#--RevisedDate:   2018/1/17
 #------------------------------------
 
 import sys
@@ -26,10 +26,16 @@ def create_db(db_path):
         code3 = code_reader3.read()
     # with open(common.sql_path + '\\VATimeliness_Create_Index.sql', encoding='UTF-8') as code_reader4:
     #     code4 = code_reader4.read()
+    with open(common.sql_path + '\\UITTimeliness_Create_DB.sql', encoding='UTF-8') as code_reader5:
+        code5 = code_reader5.read()
+    # with open(common.sql_path + '\\UITTimeliness_Create_Index.sql', encoding='UTF-8') as code_reader6:
+    #     code6 = code_reader6.read()
     c.execute(code1)
     # c.execute(code2)
     c.execute(code3)
     # c.execute(code4)
+    c.execute(code5)
+    # c.execute(code6)
     c.close()
     conn.commit()
     conn.close()
@@ -64,9 +70,15 @@ def input_to_sqlite3(db_path, data, process):
                 c.execute('insert into VATimeliness values (?,?,?,?,?,?,?,?,?,?,?,?)', item)
             except sqlite3.IntegrityError:
                 pass
-    else:
-        table_name = 'UITTimeliness'
-
+    elif process == 'UIT':
+        try:
+            c.executemany('insert into UITTimeliness values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)', data)
+        except:
+            for item in data:
+                try:
+                    c.execute('insert into UITTimeliness values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)', item)
+                except sqlite3.IntegrityError:
+                    pass
     c.close()
     conn.commit()
     conn.close()
@@ -77,6 +89,7 @@ if __name__ == '__main__':
         print('Reading Timeliness data from database...')
         MF_pd_sql_data = read_from_sql(common.sql_path + '\\MFTimeliness.sql')
         VA_pd_sql_data = read_from_sql(common.sql_path + '\\VATimeliness.sql')
+        UIT_pd_sql_data = read_from_sql(common.sql_path + '\\UITTimeliness.sql')
     except Exception as e:
         print('Error: ' + str(e))
         sys.exit()
@@ -85,6 +98,7 @@ if __name__ == '__main__':
     create_db(common.Timeliness_DB_path)
     input_to_sqlite3(common.Timeliness_DB_path, MF_pd_sql_data, 'MF')
     input_to_sqlite3(common.Timeliness_DB_path, VA_pd_sql_data, 'VA')
+    input_to_sqlite3(common.Timeliness_DB_path, UIT_pd_sql_data, 'UIT')
 
     print('Done!')
     sys.exit()

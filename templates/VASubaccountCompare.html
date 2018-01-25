@@ -2,8 +2,8 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Timeliness Report</title>
-	<link rel="shortcut icon" href="/static/img/Favicon.ico" type="image/x-icon"/>
+	<title>VA Subaccount Compare</title>
+	<link rel="shortcut icon" href="/images/Favicon.ico" type="image/x-icon"/>
 	<style>
 		.myButton {
 			-moz-box-shadow:inset 0px 1px 0px 0px #f5978e;
@@ -62,6 +62,16 @@
 		}
 	-->		
 </style>
+<script type="text/javascript" language="javascript" >
+	<!--
+	function display(){
+		document.getElementById("box").style.display="block"; 
+	}
+	function disappear(){
+		document.getElementById("box").style.display="none"; 
+	}
+-->
+</script>
 </head>
 <table>
 	<tr>
@@ -70,53 +80,35 @@
 		<td>
 			<table>
 				<tr>
-					<td><h2>Timeliness Report</h2></td>
-					<td style="font-family:arial;font-size:13px"><i><sub> updated on 2018.01.17</sub></i></td>
+					<td><h2>VA Subaccount Compare</h2></td>
+					<td style="font-family:arial;font-size:13px"><i><sub> updated on 2018.01.25</sub></i></td>
 				</tr>
 			</table>
 			<body>
-				<form action="/timeliness" method="POST">
-					Begin Date (MM/DD/YYYY):
+				<form action="/vasubaccountcompare" method="POST">
+					DocumentId(只能填一个):
+					: <br/>
+					<input type="text" name="docid" required="required">
+					<br/><br/>
+					Fund Name(可多个，一行一个):
 					<br/>
-					<input type="date" name="begindate" value="{{ content1 }}" required="required">
+					<textarea name="fundname" wrap="Virtual" style="height:600px;width:800px;resize:none" required="required"></textarea>
 					<br/><br/>
-					End Date (MM/DD/YYYY):
-					<br/>
-					<input type="date" name="enddate" value="{{ content2 }}" required="required">
+					<input type="submit" class="myButton" formtarget="_blank" value="Compare!">
 					<br/><br/>
-					Process:
-					<select name="process">
-						<option value="1" selected>Mutual Fund</option>
-						<option value="2">Variable Annuity</option>
-						<option value="5">Unit Investment Trust</option>
-					</select>
-					<br/><br/>
-					Result Type:
-					<br/>
-					<input type="radio" name="resulttype" value="HTML" checked>HTML
-					<span style="width:15px">&nbsp;</span>
-					<span style="width:15px">&nbsp;</span>
-					<input type="radio" name="resulttype" value="CSV">CSV
-					<br/><br/>
-					<input type="submit" class="myButton" name="action" formtarget="_blank" value="Get Raw Data (All)">
-					<br/><br/>
-					<input type="submit" class="myButton" name="action" formtarget="_blank" value="Get Raw Data (>24BHr)">
-					<br/><br/>
-					<input type="submit" class="myButton" name="action" formtarget="_blank" value="Get Pivot Table">
-					<br/><br/>
-					<!--<input type="submit" class="myButton" name="action" formtarget="_blank" value="Get Bar Chart">-->
-					<!--<br/><br/>-->
-					<!--<input type="submit" class="myButton" name="action" formtarget="_blank" value="Get Line Chart">-->
-					<!--<br/><br/>-->
 				</form>
 				<table>
 					<tr>
 						<td style="font-family:arial;color:red;font-size:13px;"><b>Note: </b></td>
-						<td style="font-family:arial;font-size:13px;">SQL code provided by <b><i>Viki Chen(MF), Violet Cai(VA), Max Chen(UIT)</i></b>.</td>
+						<td style="font-family:arial;font-size:13px;">结果会以Excel文件形式下载。</td>
 					</tr>
 					<tr>
-						<td style="font-family:arial;color:red;font-size:13px;"><b></b></td>
-						<td style="font-family:arial;font-size:13px;">Developed by <b><i>Jeffrey Yu</i></b>.</td>
+						<td style="font-family:arial;font-size:13px;"></td>
+						<td style="font-family:arial;font-size:13px;">Logic builded by <b><i>Lychee Li</i></b>.</td>
+					</tr>
+					<tr>
+						<td style="font-family:arial;font-size:13px;"></td>
+						<td style="font-family:arial;font-size:13px;">UI designed by <b><i>Jeffrey Yu</i></b>.</td>
 					</tr>
 				</table>
 			</body>
