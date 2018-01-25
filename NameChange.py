@@ -7,25 +7,61 @@ from bs4 import BeautifulSoup
 import common
 
 
-def get_filing(processid, connection):
-    code = '''
-    select Comment,mp.ContainerId as filingid
-    from DocumentAcquisition..MasterProcess as mp
-    where mp.Category=1
-    and mp.ProcessId=%s
-        ''' % (processid)
-    cursor = connection.cursor()
-    result = cursor.execute(code).fetchall()
-    comment_result = result[0][0]
-    filingid = result[0][1]
+# def get_filing(processid, connection):
+#     code = '''
+#     select Comment,mp.ContainerId as filingid
+#     from DocumentAcquisition..MasterProcess as mp
+#     where mp.Category=1
+#     and mp.ProcessId=%s
+#         ''' % (processid)
+#     cursor = connection.cursor()
+#     result = cursor.execute(code).fetchall()
+#     comment_result = result[0][0]
+#     filingid = result[0][1]
 
-    if comment_result is not None:
-        regex = re.compile('\d{8}') # 会随着时间的改变而改变
-        duplicat_result = re.findall(regex, comment_result)
-        duplicat_result.append(str(filingid))
-        filingid_list = list(set(duplicat_result))
+#     if comment_result is not None:
+#         regex = re.compile('\d{8}') # 会随着时间的改变而改变
+#         duplicat_result = re.findall(regex, comment_result)
+#         duplicat_result.append(str(filingid))
+#         filingid_list = list(set(duplicat_result))
+#     else:
+#         filingid_list = [str(filingid)]
+#     return filingid_list
+
+
+def get_filing(processid):
+    url = 'http://dcweb613/GED/Sec/findSECFundDocumentList.action'
+    data = {
+            "form.category": "",
+            "form.docType": "",
+            "form.status": "",
+            "form.format": "",
+            "form.filingId": "",
+            "form.processId": processid,
+            "form.documentId": "",
+            "form.formType": "",
+            "form.accessionNumber": "",
+            "form.cik": "",
+            "form.from": "",
+            "form.to": "",
+            "form.cusip": "",
+            "form.companyName": "",
+            "form.investmentId": "",
+            "form.specialStatus": "0",
+            "form.policyId": ""
+        }
+    request = requests.get(url, timeout=300, params=data)
+    json_result = request.json()['metaData']['rows'][0]
+    comment = json_result['comment']
+    filingid = str(json_result['filingId'])
+
+    if comment is not None:
+        regex = re.compile('\d{8}')
+        duplicate_filing = re.findall(regex, comment)
+        duplicate_filing.append(filingid)
+        filingid_list = list(set(duplicate_filing))
     else:
-        filingid_list = [str(filingid)]
+        filingid_list = [filingid]
     return filingid_list
 
 
@@ -83,7 +119,7 @@ def name_change(range_start, range_end, num, filing_list, docid_list, keywords, 
 def run_result(processid, keywords):
     connection = pyodbc.connect(common.connection_string_multithread)
 
-    filing_list = get_filing(processid, connection)
+    filing_list = get_filing(processid)
     docid_list = get_doc(connection, filing_list)
     mutex = threading.Lock()
 
@@ -137,7 +173,7 @@ def run_result(processid, keywords):
 
     if total_result == []:
         html_code = html_code + '</tbody></table></body></html>'
-        html_code = ('' + common.css_code + html_code).replace('class="dataframe tablestyle"','class="tablestyle" target="_blank"></a></td>') % (result)
+        html_code = ('' + common.css_code + html_code).replace('class="dataframe tablestyle"','class="tablestyle" target="_blank"></a></td>')
     else:
         for row in range(len(total_result)):
             html_code = html_code + '<tr><td>%s</td>' % str(row + 1)
