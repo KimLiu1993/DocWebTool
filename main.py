@@ -3,7 +3,7 @@
 #------------------------------------
 #--Author:        Jeffrey Yu
 #--CreationDate:  2017/10/16 10:53
-#--RevisedDate:   2018/01/05
+#--RevisedDate:   2018/01/25
 #------------------------------------
 
 import os
@@ -27,6 +27,7 @@ import BatchSearchKeywords
 import MappingTool
 import Timeliness
 import NameChange
+import VASubaccountCompare
 
 
 #
@@ -193,6 +194,13 @@ def searchbyfundticker_show():
 @app.route('/mappingtool')
 def mappingtool_show():
     location_page = 'MappingTool.html'
+    IPTracking.log_IP(request, location_page)
+    return render_template(location_page)
+
+
+@app.route('/vasubaccountcompare')
+def vasubaccountcompare_show():
+    location_page = 'VASubaccountCompare.html'
     IPTracking.log_IP(request, location_page)
     return render_template(location_page)
 
@@ -365,6 +373,14 @@ def timeliness():
     elif request.form["action"] == 'Get Pivot Table':
         html_code = Timeliness.get_Pivot_Table(begin_date, end_date, process)
         return html_code
+
+
+@app.route('/vasubaccountcompare', methods=['POST'])
+def vasubaccountcompare():
+    docid = request.form['docid']
+    fund_content_name_list_string = request.form['fundname']
+    excel_name = VASubaccountCompare.run(docid, fund_content_name_list_string)
+    return send_from_directory(directory=common.temp_path, filename=excel_name, as_attachment=True)
 
 
 @app.route('/rename', methods=['POST'])
