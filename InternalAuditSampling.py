@@ -3,10 +3,11 @@
 #------------------------------------
 #--Author:        Jeffrey Yu
 #--CreationDate:  2017/12/18 17:51
-#--RevisedDate:   2017/12/21
+#--RevisedDate:   2018/01/15
 #------------------------------------
 
 import datetime
+import random
 import pyodbc
 import pandas as pd
 import common
@@ -120,10 +121,10 @@ def run(month_diff, Last_Checked_SecId):
             if secid not in last_check_secid_list
             ]
 
-        # 从样本池中取Map过Pros、SAI、SP总数最多的20个SecId
+        # 从样本池中取Map过Pros、SAI、SP、Supplement类总数最多的50个SecId
         target_secid_list_string = str(target_all_secid_no_last_check).replace('[', '').replace(']', '')
         sql_code_pros_sai_sp = '''
-            select distinct top 20 ss.SecId,count(distinct mp.ProcessId) as [DocNum]
+            select distinct top 50 ss.SecId,count(distinct mp.ProcessId) as [DocNum]
             from SecurityData..SecuritySearch ss
             left join DocumentAcquisition..SECCurrentDocument cd on cd.InvestmentId=ss.SecId
             left join DocumentAcquisition..MasterProcess mp on mp.DocumentId=cd.DocumentId
@@ -155,7 +156,7 @@ def run(month_diff, Last_Checked_SecId):
                     and mp.Status=10
                     and mp.Category=1
                     and mp.Format!='PDF'
-                    and mp.DocumentType in (1,3,17)
+                    and mp.DocumentType in (1,2,3,15,17,60)
                     and mp.CreationDate>=cast(convert(char(10),dateadd(dd,-day(dateadd(month,-%d,getdate()))+1,dateadd(month,-%d,getdate())),120) as datetime)
                     and mp.CreationDate<cast(convert(char(10),dateadd(dd,-day(getdate())+1,getdate()),120) as datetime)
                     and ss.SecId in (%s)
@@ -163,22 +164,25 @@ def run(month_diff, Last_Checked_SecId):
             order by count(distinct mp.ProcessId) desc
         '''
         cursor = connection.cursor()
-        pros_secid_list = [
+        pros_secid_list_50 = [
             row[0]
             for row in cursor.execute(sql_code_pros_sai_sp % (
                 month_diff, month_diff, month_diff, month_diff, target_secid_list_string)).fetchall()
             ]
+
+        # 50个SecId中随机抽20个
+        pros_secid_list = random.sample(pros_secid_list_50, 20)
 
         target_all_secid_no_last_check_1 = [
             secid for secid in target_all_secid_no_last_check
             if secid not in pros_secid_list
             ]
 
-        # 从样本池中取Map过AR、SAR总数最多的20个SecId
+        # 从样本池中取Map过AR总数最多的50个SecId
         if len(pros_secid_list) < 20:
-            ar_num = (20 - len(pros_secid_list)) + 20
+            ar_num = (20 - len(pros_secid_list)) + 50
         else:
-            ar_num = 20
+            ar_num = 50
         target_secid_list_string = str(target_all_secid_no_last_check_1).replace('[', '').replace(']', '')
         sql_code_ar_sar = '''
             select distinct top %d ss.SecId,count(distinct mp.ProcessId) as [DocNum]
@@ -213,7 +217,7 @@ def run(month_diff, Last_Checked_SecId):
                     and mp.Status=10
                     and mp.Category=1
                     and mp.Format!='PDF'
-                    and mp.DocumentType in (4,5)
+                    and mp.DocumentType=4
                     and mp.CreationDate>=cast(convert(char(10),dateadd(dd,-day(dateadd(month,-%d,getdate()))+1,dateadd(month,-%d,getdate())),120) as datetime)
                     and mp.CreationDate<cast(convert(char(10),dateadd(dd,-day(getdate())+1,getdate()),120) as datetime)
                     and ss.SecId in (%s)
@@ -221,22 +225,25 @@ def run(month_diff, Last_Checked_SecId):
             order by count(distinct mp.ProcessId) desc
         '''
         cursor = connection.cursor()
-        AR_secid_list = [
+        AR_secid_list_50 = [
             row[0]
             for row in cursor.execute(sql_code_ar_sar % (
                 ar_num, month_diff, month_diff, month_diff, month_diff, target_secid_list_string)).fetchall()
             ]
+
+        # 50个SecId中随机抽20个
+        AR_secid_list = random.sample(AR_secid_list_50, 20)
 
         target_all_secid_no_last_check_2 = [
             secid for secid in target_all_secid_no_last_check_1
             if secid not in AR_secid_list
             ]
 
-        # 从样本池中取Map过Supplement总数最多的20个SecId
+        # 从样本池中取Map过SAR总数最多的50个SecId
         if len(AR_secid_list) + len(pros_secid_list) < 40:
-            sup_num = (40 - (len(AR_secid_list) + len(pros_secid_list))) + 20
+            sup_num = (40 - (len(AR_secid_list) + len(pros_secid_list))) + 50
         else:
-            sup_num = 20
+            sup_num = 50
         target_secid_list_string = str(target_all_secid_no_last_check_2).replace('[', '').replace(']', '')
         sql_code_sup = '''
             select distinct top %d ss.SecId,count(distinct mp.ProcessId) as [DocNum]
@@ -271,7 +278,7 @@ def run(month_diff, Last_Checked_SecId):
                     and mp.Status=10
                     and mp.Category=1
                     and mp.Format!='PDF'
-                    and mp.DocumentType in (2,15,60)
+                    and mp.DocumentType=5
                     and mp.CreationDate>=cast(convert(char(10),dateadd(dd,-day(dateadd(month,-%d,getdate()))+1,dateadd(month,-%d,getdate())),120) as datetime)
                     and mp.CreationDate<cast(convert(char(10),dateadd(dd,-day(getdate())+1,getdate()),120) as datetime)
                     and ss.SecId in (%s)
@@ -279,13 +286,16 @@ def run(month_diff, Last_Checked_SecId):
             order by count(distinct mp.ProcessId) desc
         '''
         cursor = connection.cursor()
-        sup_secid_list = [
+        SAR_secid_list_50 = [
             row[0]
             for row in cursor.execute(sql_code_sup % (
                 sup_num, month_diff, month_diff, month_diff, month_diff, target_secid_list_string)).fetchall()
             ]
 
-        target_secid_list = pros_secid_list + AR_secid_list + sup_secid_list
+        # 50个SecId中随机抽20个
+        SAR_secid_list = random.sample(SAR_secid_list_50, 20)
+
+        target_secid_list = pros_secid_list + AR_secid_list + SAR_secid_list
         target_secid_list_string = str(target_secid_list).replace('[', '').replace(']', '')
 
         # # 取Map Doc数量最多的40个SecId
@@ -301,6 +311,7 @@ def run(month_diff, Last_Checked_SecId):
         # target_secid_list = part1_secid_list + part2_secid_list
         # target_secid_list_string = str(target_secid_list).replace('[','').replace(']', '')
 
+        # 抽取60个SecId的Current Doc
         sql_code_get_doc = '''
             select ss.SecId,ss.SecurityName,cim.ContractId,ss.Ticker,cs.CIK,ss.FundId,ss.Universe,
                     sp.Value as [DocType],CONVERT(varchar(10),mp.EffectiveDate,120) as [EffectiveDate],mp.DocumentId,
@@ -322,23 +333,23 @@ def run(month_diff, Last_Checked_SecId):
                     --and mp.CreationDate<cast(convert(char(10),dateadd(dd,-day(getdate())+1,getdate()),120) as datetime)
                     --and
                     ss.SecId in (%s) and mp.Format='HTM'
-                    and mp.DocumentType in (1,2,3,4,5,14,15,17,60,62)
+                    and mp.DocumentType in (1,2,3,4,5,15,17,60,62)
             order by CONVERT(varchar(10),mp.DocumentDate,120) desc
         '''
         pd_doc_list = pd.read_sql(sql_code_get_doc %
                                   (month_diff, month_diff,
                                    target_secid_list_string), connection)
 
-        print('Saving the result CSV...\n')
-        csv_file = 'Audit Sample-' + datetime.datetime.now().strftime('%Y%m%d') + '.csv'
-        pd_doc_list.to_csv(common.temp_path + csv_file,
+        print('Saving the result Excel file...\n')
+        excel_file = 'Audit Sample-' + datetime.datetime.now().strftime('%Y%m%d') + '.xlsx'
+        pd_doc_list.to_excel(common.temp_path + excel_file,
             index=False,
             encoding='UTF-8')
         connection.close()
 
         print('All done! It will be closed in 10 seconds.')
 
-        return csv_file
+        return excel_file
     except Exception as e:
         print(str(e))
         return str(e)
