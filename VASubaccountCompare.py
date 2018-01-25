@@ -29,8 +29,9 @@ def get_doc_mapping(connection, docid):
 def get_subaccount_info(connection, policyid):
     cursor = connection.cursor()
     code = '''
-        select A.SubaccountId,A.LegalName,A.CloseToNewInvestorsDate,A.PolicyId
-        from [TimeSeries].[dbo].[Subaccount] as A
+        select A.SubaccountId,B.SecurityName,A.CloseToNewInvestorsDate,A.PolicyId
+        from [CurrentData].[dbo].[Subaccount] as A
+        Left join [SecurityData].[dbo].[SecuritySearch] as B on A.FundShareClassId=B.SecId
         where A.Status=1 and A.PolicyId='%s'
     ''' % (policyid)
     result = cursor.execute(code).fetchall()
@@ -53,8 +54,7 @@ def run(docid, fund_content_name_list_string):
             line = line.rstrip('\r')
             fund_content_name_list.append(line)
 
-    connection_string = 'Driver={SQL Server Native Client 11.0};Server=dcdrdb601\dminputdb;Database=DocumentAcquisition;Uid=xxx;Pwd=xxx;Trusted_Domain=msdomain1;Trusted_Connection=yes;MARS_Connection=yes;'
-    connection = pyodbc.connect(connection_string)
+    connection = pyodbc.connect(common.connection_string_multithread)
 
     policy_id_list = get_doc_mapping(connection, docid)
 
@@ -79,7 +79,7 @@ def run(docid, fund_content_name_list_string):
             print(result)
             total_result.append(result)
 
-    pd_result = pd.DataFrame.from_records(total_result, columns = ['FundName', 'PolicyId', 'SubaccountId', 'LegalName', 'CloseDate', 'Similarity'])
+    pd_result = pd.DataFrame.from_records(total_result, columns = ['FundName', 'PolicyId', 'SubaccountId', 'SecName', 'CloseDate', 'Similarity'])
     excel_name = 'VASubaccountCompareResult-' + datetime.datetime.now().strftime('%Y%m%d') + '.xlsx'
     pd_result.to_excel(common.temp_path + excel_name, encoding='UTF-8', index=False)
 
