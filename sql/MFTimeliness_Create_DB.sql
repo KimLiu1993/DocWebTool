@@ -1,0 +1,30 @@
+CREATE TABLE IF NOT EXISTS MFTimeliness (
+    [Year]                INTEGER,
+    [Month]               INTEGER,
+    ProcessId             INTEGER  PRIMARY KEY
+                                   UNIQUE
+                                   NOT NULL,
+    DocType               TEXT     NOT NULL,
+    CutTime,
+    [Chart/MapTime],
+    LinkTime,
+    [Total],
+    [Flag],
+    [QC]                  TEXT,
+    Owner                 TEXT,
+    [DocumentDate]        DATETIME,
+    [FixedDocumentDateSZ] DATETIME,
+    CreationDate          DATETIME,
+    CreationDateSZ        DATETIME,
+    FixedCreationDateSZ   DATETIME,
+    ChartingDate          DATETIME,
+    ChartingDateSZ        DATETIME,
+    MappingDate           DATETIME,
+    MappingDateSZ         DATETIME,
+    FixedMappingDateSZ    DATETIME,
+    TriggerDate           DATETIME,
+    TriggerDateSZ         DATETIME,
+    FixedTriggerDateSZ    DATETIME,
+    CompleteLinkDate      DATETIME,
+    CompleteLinkDateSZ    DATETIME
+);

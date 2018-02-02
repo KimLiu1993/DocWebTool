@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Produced by Beyond Compare 4 from Scooter Software -->
+<BCState Version="1" MinVersion="1">
+	<TBcState>
+		<FirstStartup Value="False"/>
+		<FormPositions>
+			<TFileFormatManagerDialog Value="1547;152;2292;871"/>
+			<TViewFrame Value="75;89;1163;923"/>
+		</FormPositions>
+	</TBcState>
+	<TCheckForUpdatesState>
+		<Build Value="21719"/>
+		<CheckID Value="217703302299648"/>
+		<LastChecked Value="2017-04-12 16:06:50"/>
+		<MsgDate Value="2016-11-23 00:00:00"/>
+		<MsgDaysDate Value="2016-11-23 00:00:00"/>
+	</TCheckForUpdatesState>
+	<TFileFormatManagerState>
+		<ListWidth Value="247"/>
+	</TFileFormatManagerState>
+	<THomeState>
+		<SessionType Value="TTextCompareSession"/>
+	</THomeState>
+	<TTextCompareState>
+		<LeftMRUSpecs>
+			<_0 Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\a47ee86c-e94a-4cca-86ab-60da6ef7db99-3A82621355C1A5379602A6CA6DD1794E186E5C8D.htm"/>
+			<_1 Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\088771e8-abfd-483e-8041-d0667868c168-2C90699C3573F5DDC9C8D722FB2B5A4F9EB8552B.htm"/>
+			<_2 Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\bd19b262-1faa-4693-b641-3aa359406e4a-2C90699C3573F5DDC9C8D722FB2B5A4F9EB8552B.htm"/>
+			<_3 Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\624999d1-8468-4964-9d95-d226f0a70330-5AEABE5E84D39C6F72731876C585C8D9F7CFC3DC.htm"/>
+			<_4 Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\5b73924e-9dfc-47ce-acfe-8c4c0e92a09d-CFA0A436F184EE7E00F508EB40AC4B1AA507C435.htm"/>
+			<_5 Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\dfc46517-71b7-4d4d-a60e-e9b9f7f70f4e-FD3224737B1A8F092DA44D52F277BE677CC88C30.htm"/>
+			<_6 Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\120342904.txt"/>
+			<_7 Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\cc810ad9-e22e-4f20-8498-14b9b6b0b93e-CC85E10A7A661FE24BFE473BD6AF193E7CFA2E15.htm"/>
+			<_8 Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\ee355dda-f2ce-42bb-986d-4514b09c122a-37B2CF581CAB84CEB1896864A776D53BF64B6E1D.htm"/>
+		</LeftMRUSpecs>
+		<MRUFonts>
+			<_0 Value="Consolas;10"/>
+			<_1 Value="Courier New;9"/>
+		</MRUFonts>
+		<RightMRUSpecs>
+			<_0 Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\34004336-4DE241FE95C822AA67561EEE9E7FDD7A2C84D312.htm"/>
+			<_1 Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\fd1a05d5-4a83-41e6-8c65-b40b85008c61-5D86CAF26532C1448ED65D9904F7D3445A94CE6A.htm"/>
+			<_2 Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\860845df-461e-4e6d-8b1e-bcf96e619c9c-9059340A5240BD5D226554CA767C7F8319E0F842.htm"/>
+			<_3 Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\a71fbba0-714d-4d92-aac5-9c8c398f4a7c-A80146870124FA7714896E3C9097B8129FF97905.htm"/>
+			<_4 Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\dc4057e4-ab1d-482a-8cb0-58d93cf1f666-9A124A61C9949D1279B6E0BFF84E5BBB5AC825CC.htm"/>
+			<_5 Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\a961fcf0-0b24-448a-8ba4-d80cc433e17a-7B32160BAFC1FDE1FFD96A1EC0DACCFA0F0E1D55.htm"/>
+			<_6 Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\120342911.txt"/>
+			<_7 Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\fb2ac119-f276-4cbc-ae0c-38f2b5716f1d-0C4E915FF2E94CEDD50B240A2F21CA71704408B1.htm"/>
+			<_8 Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\3a057332-b7c2-43a2-9dd2-f52a166808ac-31F3E85BD86FA6D84A732FDEB6E74BE7174D2175.htm"/>
+		</RightMRUSpecs>
+		<ShowDetails Value="False"/>
+		<ShowItemNum Value="True"/>
+	</TTextCompareState>
+</BCState>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>VA Subaccount Compare</title>
+	<link rel="shortcut icon" href="/images/Favicon.ico" type="image/x-icon"/>
+	<style>
+		.myButton {
+			-moz-box-shadow:inset 0px 1px 0px 0px #f5978e;
+			-webkit-box-shadow:inset 0px 1px 0px 0px #f5978e;
+			box-shadow:inset 0px 1px 0px 0px #f5978e;
+			background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f24537), color-stop(1, #c62d1f));
+			background:-moz-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+			background:-webkit-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+			background:-o-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+			background:-ms-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+			background:linear-gradient(to bottom, #f24537 5%, #c62d1f 100%);
+			filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f24537', endColorstr='#c62d1f',GradientType=0);
+			background-color:#f24537;
+			-moz-border-radius:6px;
+			-webkit-border-radius:6px;
+			border-radius:6px;
+			border:1px solid #d02718;
+			display:inline-block;
+			cursor:pointer;
+			color:#ffffff;
+			font-family:Arial;
+			font-size:15px;
+			font-weight:bold;
+			padding:6px 24px;
+			text-decoration:none;
+			text-shadow:0px 1px 0px #810e05;
+		}
+		.myButton:hover {
+			background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #c62d1f), color-stop(1, #f24537));
+			background:-moz-linear-gradient(top, #c62d1f 5%, #f24537 100%);
+			background:-webkit-linear-gradient(top, #c62d1f 5%, #f24537 100%);
+			background:-o-linear-gradient(top, #c62d1f 5%, #f24537 100%);
+			background:-ms-linear-gradient(top, #c62d1f 5%, #f24537 100%);
+			background:linear-gradient(to bottom, #c62d1f 5%, #f24537 100%);
+			filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#c62d1f', endColorstr='#f24537',GradientType=0);
+			background-color:#c62d1f;
+		}
+		.myButton:active {
+			position:relative;
+			top:1px;
+		}	
+		<!--
+		.link{
+			position: relative;
+		}
+		#box{
+			display: none;
+			width: 315px;
+			height: 180px;
+			border: 0;
+			padding: 12px;
+			text-align: left;
+			line-height: 175%;
+			text-indent: 2em;
+			position: absolute;left:200px;top:450px
+		}
+	-->		
+</style>
+<script type="text/javascript" language="javascript" >
+	<!--
+	function display(){
+		document.getElementById("box").style.display="block"; 
+	}
+	function disappear(){
+		document.getElementById("box").style.display="none"; 
+	}
+-->
+</script>
+</head>
+<table>
+	<tr>
+		<td width="30">
+		</td>
+		<td>
+			<table>
+				<tr>
+					<td><h2>VA Subaccount Compare</h2></td>
+					<td style="font-family:arial;font-size:13px"><i><sub> updated on 2018.01.25</sub></i></td>
+				</tr>
+			</table>
+			<body>
+				<form action="/vasubaccountcompare" method="POST">
+					DocumentId(只能填一个):
+					: <br/>
+					<input type="text" name="docid" required="required">
+					<br/><br/>
+					Fund Name(可多个，一行一个):
+					<br/>
+					<textarea name="fundname" wrap="Virtual" style="height:600px;width:800px;resize:none" required="required"></textarea>
+					<br/><br/>
+					<input type="submit" class="myButton" formtarget="_blank" value="Compare!">
+					<br/><br/>
+				</form>
+				<table>
+					<tr>
+						<td style="font-family:arial;color:red;font-size:13px;"><b>Note: </b></td>
+						<td style="font-family:arial;font-size:13px;">结果会以Excel文件形式下载。</td>
+					</tr>
+					<tr>
+						<td style="font-family:arial;font-size:13px;"></td>
+						<td style="font-family:arial;font-size:13px;">Logic builded by <b><i>Lychee Li</i></b>.</td>
+					</tr>
+					<tr>
+						<td style="font-family:arial;font-size:13px;"></td>
+						<td style="font-family:arial;font-size:13px;">UI designed by <b><i>Jeffrey Yu</i></b>.</td>
+					</tr>
+				</table>
+			</body>
+		</td>
+	</tr>
+</table>
+</html>

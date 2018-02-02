@@ -1,0 +1,631 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Produced by Beyond Compare 4 from Scooter Software -->
+<BCSessions Version="1" MinVersion="1">
+	<TSessionFolder>
+		<Items>
+			<TSessionFolder>
+				<Items>
+					<TTextCompareSession Value="a47ee86c-e94a-4cca-86ab-60da6ef7db99-3A82621355C1A5379602A6CA6DD1794E186E5C8D.htm &lt;--> 34004336-4DE241FE95C822AA67561EEE9E7FDD7A2C84D312.htm">
+						<LastModified Value="2017-04-13 14:57:00"/>
+						<Specs>
+							<Left Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\a47ee86c-e94a-4cca-86ab-60da6ef7db99-3A82621355C1A5379602A6CA6DD1794E186E5C8D.htm"/>
+							<Right Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\34004336-4DE241FE95C822AA67561EEE9E7FDD7A2C84D312.htm"/>
+						</Specs>
+						<State>
+							<ShowContext Value="True"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="088771e8-abfd-483e-8041-d0667868c168-2C90699C3573F5DDC9C8D722FB2B5A4F9EB8552B.htm &lt;--> fd1a05d5-4a83-41e6-8c65-b40b85008c61-5D86CAF26532C1448ED65D9904F7D3445A94CE6A.htm">
+						<LastModified Value="2017-04-12 16:26:16"/>
+						<Specs>
+							<Left Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\088771e8-abfd-483e-8041-d0667868c168-2C90699C3573F5DDC9C8D722FB2B5A4F9EB8552B.htm"/>
+							<Right Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\fd1a05d5-4a83-41e6-8c65-b40b85008c61-5D86CAF26532C1448ED65D9904F7D3445A94CE6A.htm"/>
+						</Specs>
+						<State>
+							<ShowContext Value="True"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="bd19b262-1faa-4693-b641-3aa359406e4a-2C90699C3573F5DDC9C8D722FB2B5A4F9EB8552B.htm &lt;--> 860845df-461e-4e6d-8b1e-bcf96e619c9c-9059340A5240BD5D226554CA767C7F8319E0F842.htm">
+						<LastModified Value="2017-04-12 16:23:02"/>
+						<Specs>
+							<Left Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\bd19b262-1faa-4693-b641-3aa359406e4a-2C90699C3573F5DDC9C8D722FB2B5A4F9EB8552B.htm"/>
+							<Right Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\860845df-461e-4e6d-8b1e-bcf96e619c9c-9059340A5240BD5D226554CA767C7F8319E0F842.htm"/>
+						</Specs>
+						<State>
+							<ShowContext Value="True"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="624999d1-8468-4964-9d95-d226f0a70330-5AEABE5E84D39C6F72731876C585C8D9F7CFC3DC.htm &lt;--> a71fbba0-714d-4d92-aac5-9c8c398f4a7c-A80146870124FA7714896E3C9097B8129FF97905.htm">
+						<LastModified Value="2017-04-12 16:19:19"/>
+						<Specs>
+							<Left Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\624999d1-8468-4964-9d95-d226f0a70330-5AEABE5E84D39C6F72731876C585C8D9F7CFC3DC.htm"/>
+							<Right Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\a71fbba0-714d-4d92-aac5-9c8c398f4a7c-A80146870124FA7714896E3C9097B8129FF97905.htm"/>
+						</Specs>
+						<State>
+							<ShowContext Value="True"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="5b73924e-9dfc-47ce-acfe-8c4c0e92a09d-CFA0A436F184EE7E00F508EB40AC4B1AA507C435.htm &lt;--> dc4057e4-ab1d-482a-8cb0-58d93cf1f666-9A124A61C9949D1279B6E0BFF84E5BBB5AC825CC.htm">
+						<LastModified Value="2017-04-12 16:08:33"/>
+						<Specs>
+							<Left Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\5b73924e-9dfc-47ce-acfe-8c4c0e92a09d-CFA0A436F184EE7E00F508EB40AC4B1AA507C435.htm"/>
+							<Right Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\dc4057e4-ab1d-482a-8cb0-58d93cf1f666-9A124A61C9949D1279B6E0BFF84E5BBB5AC825CC.htm"/>
+						</Specs>
+						<State>
+							<ShowContext Value="True"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="dfc46517-71b7-4d4d-a60e-e9b9f7f70f4e-FD3224737B1A8F092DA44D52F277BE677CC88C30.htm &lt;--> a961fcf0-0b24-448a-8ba4-d80cc433e17a-7B32160BAFC1FDE1FFD96A1EC0DACCFA0F0E1D55.htm">
+						<LastModified Value="2017-03-21 11:09:37"/>
+						<Specs>
+							<Left Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\dfc46517-71b7-4d4d-a60e-e9b9f7f70f4e-FD3224737B1A8F092DA44D52F277BE677CC88C30.htm"/>
+							<Right Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\a961fcf0-0b24-448a-8ba4-d80cc433e17a-7B32160BAFC1FDE1FFD96A1EC0DACCFA0F0E1D55.htm"/>
+						</Specs>
+						<State>
+							<ShowContext Value="True"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="120342904.txt &lt;--> 120342911.txt">
+						<LastModified Value="2016-12-27 17:37:00"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\120342904.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\120342911.txt"/>
+						</Specs>
+						<State>
+							<ShowContext Value="True"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="cc810ad9-e22e-4f20-8498-14b9b6b0b93e-CC85E10A7A661FE24BFE473BD6AF193E7CFA2E15.htm &lt;--> fb2ac119-f276-4cbc-ae0c-38f2b5716f1d-0C4E915FF2E94CEDD50B240A2F21CA71704408B1.htm">
+						<LastModified Value="2016-12-27 17:37:00"/>
+						<Specs>
+							<Left Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\cc810ad9-e22e-4f20-8498-14b9b6b0b93e-CC85E10A7A661FE24BFE473BD6AF193E7CFA2E15.htm"/>
+							<Right Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\fb2ac119-f276-4cbc-ae0c-38f2b5716f1d-0C4E915FF2E94CEDD50B240A2F21CA71704408B1.htm"/>
+						</Specs>
+						<State>
+							<ShowContext Value="True"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="ee355dda-f2ce-42bb-986d-4514b09c122a-37B2CF581CAB84CEB1896864A776D53BF64B6E1D.htm &lt;--> 3a057332-b7c2-43a2-9dd2-f52a166808ac-31F3E85BD86FA6D84A732FDEB6E74BE7174D2175.htm">
+						<LastModified Value="2016-12-26 09:33:11"/>
+						<Specs>
+							<Left Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\ee355dda-f2ce-42bb-986d-4514b09c122a-37B2CF581CAB84CEB1896864A776D53BF64B6E1D.htm"/>
+							<Right Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\3a057332-b7c2-43a2-9dd2-f52a166808ac-31F3E85BD86FA6D84A732FDEB6E74BE7174D2175.htm"/>
+						</Specs>
+						<State>
+							<ShowContext Value="True"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="00e3fcc1-a3be-40be-bbc6-9022e52971fb-A40F2D4914E8CDC4905C95837EA891B65CB4832F.htm &lt;--> e6081e74-cef4-4f69-96fb-6fc6eb37b0a9-F205FEF554BE74AE28F3DA3C5F664C625616C443.htm">
+						<LastModified Value="2016-12-21 11:16:43"/>
+						<Specs>
+							<Left Value="\\cndminputfs11\DataManagerXML\SEC\Filing\edgar\htm\00e3fcc1-a3be-40be-bbc6-9022e52971fb-A40F2D4914E8CDC4905C95837EA891B65CB4832F.htm"/>
+							<Right Value="\\cndminputfs11\DataManagerXML\SEC\Filing\edgar\htm\e6081e74-cef4-4f69-96fb-6fc6eb37b0a9-F205FEF554BE74AE28F3DA3C5F664C625616C443.htm"/>
+						</Specs>
+						<State>
+							<ShowContext Value="True"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="00e3fcc1-a3be-40be-bbc6-9022e52971fb-A40F2D4914E8CDC4905C95837EA891B65CB4832F.htm &lt;--> e6081e74-cef4-4f69-96fb-6fc6eb37b0a9-F205FEF554BE74AE28F3DA3C5F664C625616C443.htm">
+						<LastModified Value="2016-12-21 11:16:20"/>
+						<Specs>
+							<Left Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\00e3fcc1-a3be-40be-bbc6-9022e52971fb-A40F2D4914E8CDC4905C95837EA891B65CB4832F.htm"/>
+							<Right Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\e6081e74-cef4-4f69-96fb-6fc6eb37b0a9-F205FEF554BE74AE28F3DA3C5F664C625616C443.htm"/>
+						</Specs>
+						<State>
+							<ShowContext Value="True"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="65550054-69f1-4973-af29-b3fc77896cf3-473F90F6A36D9732D207ADC93B7BB5833CF15400.htm &lt;--> 79268c73-dcca-4484-8d4e-83ec5211d385-DE61762A3A7CA5B5E677E9336151C9B9EDDEFB52.htm">
+						<LastModified Value="2016-12-07 18:08:38"/>
+						<Specs>
+							<Left Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\65550054-69f1-4973-af29-b3fc77896cf3-473F90F6A36D9732D207ADC93B7BB5833CF15400.htm"/>
+							<Right Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\79268c73-dcca-4484-8d4e-83ec5211d385-DE61762A3A7CA5B5E677E9336151C9B9EDDEFB52.htm"/>
+						</Specs>
+						<State>
+							<ShowContext Value="True"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="2aabb10e-fa85-4622-8cb4-4fb630448283-4B7A187F42FCC1B1128D229D16C9BE4211247A25.htm &lt;--> d54a662e-2ca7-45d5-a9f8-d9ae1661875f-B5867E40FFB557CF29E68AA44D5C21F5F95BDDE1.htm">
+						<LastModified Value="2016-11-30 13:48:02"/>
+						<Specs>
+							<Left Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\2aabb10e-fa85-4622-8cb4-4fb630448283-4B7A187F42FCC1B1128D229D16C9BE4211247A25.htm"/>
+							<Right Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\d54a662e-2ca7-45d5-a9f8-d9ae1661875f-B5867E40FFB557CF29E68AA44D5C21F5F95BDDE1.htm"/>
+						</Specs>
+						<State>
+							<ShowContext Value="True"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="temp1-121065607-201611291131509154988.txt &lt;--> temp2-121953716-201611291131509154988.txt">
+						<LastModified Value="2016-11-29 11:32:39"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\Dropbox\Coding\Python\test project\temp1-121065607-201611291131509154988.txt"/>
+							<Right Value="C:\Users\jyu\Dropbox\Coding\Python\test project\temp2-121953716-201611291131509154988.txt"/>
+						</Specs>
+						<State>
+							<ShowContext Value="True"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="d0dce8f2-e62f-4995-859b-85e7d7f1811c-B21FDC727A571FBF1815B3D9E175413D19465EFD.htm &lt;--> 2da00b3d-321a-4c50-8f1d-3e88c08b57eb-748F4CFF05071DCDD951AFDFFDE0B877EEB0C2E5.htm">
+						<LastModified Value="2016-11-29 11:31:35"/>
+						<Specs>
+							<Left Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\d0dce8f2-e62f-4995-859b-85e7d7f1811c-B21FDC727A571FBF1815B3D9E175413D19465EFD.htm"/>
+							<Right Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\2da00b3d-321a-4c50-8f1d-3e88c08b57eb-748F4CFF05071DCDD951AFDFFDE0B877EEB0C2E5.htm"/>
+						</Specs>
+						<State>
+							<ShowContext Value="True"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="temp1-121065607-201611291125375599716.txt &lt;--> temp2-121953716-201611291125375599716.txt">
+						<LastModified Value="2016-11-29 11:31:34"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\Dropbox\Coding\Python\test project\temp1-121065607-201611291125375599716.txt"/>
+							<Right Value="C:\Users\jyu\Dropbox\Coding\Python\test project\temp2-121953716-201611291125375599716.txt"/>
+						</Specs>
+						<State>
+							<ShowContext Value="True"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="temp1-118862021-201611281643072499389.txt &lt;--> temp2-121867918-201611281643072499389.txt">
+						<LastModified Value="2016-11-28 16:44:23"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\Dropbox\Coding\Python\test project\temp1-118862021-201611281643072499389.txt"/>
+							<Right Value="C:\Users\jyu\Dropbox\Coding\Python\test project\temp2-121867918-201611281643072499389.txt"/>
+						</Specs>
+						<State>
+							<ShowContext Value="True"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="temp1-121180197-201611281607172585625.txt &lt;--> temp2-121180197-201611281607172585625.txt">
+						<LastModified Value="2016-11-28 16:30:32"/>
+						<Specs>
+							<Left Value="\\SZVM20152\temp\temp1-121180197-201611281607172585625.txt"/>
+							<Right Value="\\SZVM20152\temp\temp2-121180197-201611281607172585625.txt"/>
+						</Specs>
+						<State>
+							<ShowContext Value="True"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="temp1-121180197-201611281607172585625.txt &lt;--> temp2-121180569-201611281607172585625.txt">
+						<LastModified Value="2016-11-28 16:30:32"/>
+						<Specs>
+							<Left Value="\\SZVM20152\temp\temp1-121180197-201611281607172585625.txt"/>
+							<Right Value="\\SZVM20152\temp\temp2-121180569-201611281607172585625.txt"/>
+						</Specs>
+						<State>
+							<ShowContext Value="True"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="121180197.txt &lt;--> 121181250.txt">
+						<LastModified Value="2016-11-28 14:21:24"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\121180197.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\121181250.txt"/>
+						</Specs>
+						<State>
+							<DisplayFilter Value="[showLeftMod, showRightMod, showDiffMod]"/>
+							<ShowContext Value="True"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="34025829-92EE8788A2A4930CC2B7F045C2BE83033F46D977.htm &lt;--> 51d81e5d-989c-47e2-a53f-181d58bb0d91-869B674346E71A528CAEA1D2DDE96C20FC66A01A.htm">
+						<LastModified Value="2016-11-28 11:29:05"/>
+						<Specs>
+							<Left Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\34025829-92EE8788A2A4930CC2B7F045C2BE83033F46D977.htm"/>
+							<Right Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\51d81e5d-989c-47e2-a53f-181d58bb0d91-869B674346E71A528CAEA1D2DDE96C20FC66A01A.htm"/>
+						</Specs>
+						<State>
+							<DisplayFilter Value="[showLeftMod, showRightMod, showDiffMod]"/>
+							<ShowContext Value="True"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="444a8b08-8e10-489d-b6ad-9a24709e7f3a-195E1F0A27581B04F98C579C4CFD9031B5664694.htm &lt;--> f70de66c-dfbb-4f22-9f64-418c9fb1753d-718987AEB27F84C1F256F7BF510205E4932F9918.htm">
+						<LastModified Value="2016-11-23 16:43:27"/>
+						<Specs>
+							<Left Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\444a8b08-8e10-489d-b6ad-9a24709e7f3a-195E1F0A27581B04F98C579C4CFD9031B5664694.htm"/>
+							<Right Value="\\CNDMINPUTFS11\DataManagerXML\SEC\Filing\edgar\htm\f70de66c-dfbb-4f22-9f64-418c9fb1753d-718987AEB27F84C1F256F7BF510205E4932F9918.htm"/>
+						</Specs>
+						<State>
+							<DisplayFilter Value="[showLeftMod, showRightMod, showDiffMod]"/>
+							<ShowContext Value="True"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="111796176.txt &lt;--> 120617550.txt">
+						<LastModified Value="2016-11-07 16:07:30"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\111796176.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\120617550.txt"/>
+						</Specs>
+						<State>
+							<ShowContext Value="True"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="106785747.txt &lt;--> 120617550.txt">
+						<LastModified Value="2016-11-07 16:03:45"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\106785747.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\120617550.txt"/>
+						</Specs>
+						<State>
+							<ShowContext Value="True"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="118860912.txt &lt;--> 120527896.txt">
+						<LastModified Value="2016-11-04 13:49:30"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\118860912.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\120527896.txt"/>
+						</Specs>
+						<State>
+							<ShowContext Value="True"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="120306825.txt &lt;--> 120526649.txt">
+						<LastModified Value="2016-11-04 11:02:17"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\120306825.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\120526649.txt"/>
+						</Specs>
+						<State>
+							<ShowContext Value="True"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="120307461.txt &lt;--> 120343861.txt">
+						<LastModified Value="2016-11-01 12:28:41"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\120307461.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\120343861.txt"/>
+						</Specs>
+						<State>
+							<ShowContext Value="True"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="118934044.txt &lt;--> 119942049.txt">
+						<LastModified Value="2016-10-24 10:58:20"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\118934044.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\119942049.txt"/>
+						</Specs>
+						<State>
+							<ShowContext Value="True"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="117173909.txt &lt;--> 119487190.txt">
+						<LastModified Value="2016-10-17 17:27:51"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\117173909.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\119487190.txt"/>
+						</Specs>
+						<State>
+							<ShowContext Value="True"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="119229157.txt &lt;--> 119229160.txt">
+						<LastModified Value="2016-10-12 09:42:53"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\119229157.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\119229160.txt"/>
+						</Specs>
+						<State>
+							<ShowContext Value="True"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="117175085.txt &lt;--> 118934627.txt">
+						<LastModified Value="2016-10-06 10:52:07"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\117175085.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\118934627.txt"/>
+						</Specs>
+						<State>
+							<ShowContext Value="True"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="118814539.txt &lt;--> 118814534.txt">
+						<LastModified Value="2016-10-03 14:04:32"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\118814539.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\118814534.txt"/>
+						</Specs>
+						<State>
+							<ShowContext Value="True"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="118813816.txt &lt;--> 118815300.txt">
+						<LastModified Value="2016-10-03 12:56:04"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\118813816.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\118815300.txt"/>
+						</Specs>
+						<State>
+							<ShowContext Value="True"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="118199453 .txt &lt;--> 118200195.txt">
+						<LastModified Value="2016-09-26 18:06:10"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\118199453 .txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\118200195.txt"/>
+						</Specs>
+						<State>
+							<ShowContext Value="True"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="118200195.txt &lt;--> 118200264 .txt">
+						<LastModified Value="2016-09-26 17:59:25"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\118200195.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\118200264 .txt"/>
+						</Specs>
+						<State>
+							<ShowContext Value="True"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="117290854.txt &lt;--> 117290852.txt">
+						<LastModified Value="2016-09-05 11:18:32"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\117290854.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\117290852.txt"/>
+						</Specs>
+						<State>
+							<ShowContext Value="True"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="117290854.txt &lt;--> 117290942.txt">
+						<LastModified Value="2016-09-05 11:12:44"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\117290854.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\117290942.txt"/>
+						</Specs>
+						<State>
+							<ShowContext Value="True"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="7690488.txt &lt;--> 7690481.txt">
+						<LastModified Value="2016-09-05 10:17:40"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\7690488.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\7690481.txt"/>
+						</Specs>
+						<State>
+							<ShowContext Value="True"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="101062731.txt &lt;--> 117011172.txt">
+						<LastModified Value="2016-09-01 13:59:36"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\101062731.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\117011172.txt"/>
+						</Specs>
+						<State>
+							<ShowContext Value="True"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="115567374.txt &lt;--> 116729560.txt">
+						<LastModified Value="2016-08-24 10:51:28"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\115567374.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\116729560.txt"/>
+						</Specs>
+						<State>
+							<ShowContext Value="True"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="116578105.txt &lt;--> 116578569.txt">
+						<LastModified Value="2016-08-22 15:12:50"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\116578105.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\116578569.txt"/>
+						</Specs>
+						<State>
+							<ShowContext Value="True"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="a.txt &lt;--> b.txt">
+						<LastModified Value="2016-08-19 16:58:52"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\Desktop\a.txt"/>
+							<Right Value="C:\Users\jyu\Desktop\b.txt"/>
+						</Specs>
+						<State>
+							<ShowContext Value="True"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="1.txt &lt;--> 2.txt">
+						<LastModified Value="2016-08-19 13:28:08"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\Desktop\1.txt"/>
+							<Right Value="C:\Users\jyu\Desktop\2.txt"/>
+						</Specs>
+						<State>
+							<ShowContext Value="True"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="116182992.txt &lt;--> 116183113.txt">
+						<LastModified Value="2016-08-16 17:35:26"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\116182992.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\116183113.txt"/>
+						</Specs>
+					</TTextCompareSession>
+					<TTextCompareSession Value="106784524.txt &lt;--> 116000548.txt">
+						<LastModified Value="2016-08-11 10:47:05"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\106784524.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\116000548.txt"/>
+						</Specs>
+					</TTextCompareSession>
+					<TTextCompareSession Value="110372551.txt &lt;--> 116000181.txt">
+						<LastModified Value="2016-08-11 10:43:30"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\110372551.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\116000181.txt"/>
+						</Specs>
+					</TTextCompareSession>
+					<TTextCompareSession Value="115670811.txt &lt;--> 115369029.txt">
+						<LastModified Value="2016-08-04 13:58:24"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\115670811.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\115369029.txt"/>
+						</Specs>
+					</TTextCompareSession>
+					<TTextCompareSession Value="115567840.txt &lt;--> 115567003.txt">
+						<LastModified Value="2016-08-02 11:53:52"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\115567840.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\115567003.txt"/>
+						</Specs>
+					</TTextCompareSession>
+					<TTextCompareSession Value="115239577.txt &lt;--> 115567379.txt">
+						<LastModified Value="2016-08-02 11:45:53"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\115239577.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\115567379.txt"/>
+						</Specs>
+					</TTextCompareSession>
+					<TTextCompareSession Value="113774494.txt &lt;--> 115239577.txt">
+						<LastModified Value="2016-08-02 11:33:51"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\113774494.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\115239577.txt"/>
+						</Specs>
+					</TTextCompareSession>
+					<TTextCompareSession Value="112599238.txt &lt;--> 115239301.txt">
+						<LastModified Value="2016-07-26 16:11:03"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\112599238.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\115239301.txt"/>
+						</Specs>
+					</TTextCompareSession>
+					<TTextCompareSession Value="112599349.txt &lt;--> 115239530.txt">
+						<LastModified Value="2016-07-26 15:57:54"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\112599349.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\115239530.txt"/>
+						</Specs>
+					</TTextCompareSession>
+					<TTextCompareSession Value="112597620.txt &lt;--> 115207936.txt">
+						<LastModified Value="2016-07-26 14:25:11"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\112597620.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\115207936.txt"/>
+						</Specs>
+					</TTextCompareSession>
+					<TTextCompareSession Value="112597631.txt &lt;--> 115207969.txt">
+						<LastModified Value="2016-07-26 14:23:15"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\112597631.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\115207969.txt"/>
+						</Specs>
+					</TTextCompareSession>
+					<TTextCompareSession Value="115176086.txt &lt;--> 115176230.txt">
+						<LastModified Value="2016-07-25 17:07:51"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\115176086.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\115176230.txt"/>
+						</Specs>
+					</TTextCompareSession>
+					<TTextCompareSession Value="114811524.txt &lt;--> 114811537.txt">
+						<LastModified Value="2016-07-19 17:13:44"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\114811524.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\114811537.txt"/>
+						</Specs>
+					</TTextCompareSession>
+					<TTextCompareSession Value="7602076.txt &lt;--> 7602075.txt">
+						<LastModified Value="2016-07-18 09:36:25"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\7602076.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\7602075.txt"/>
+						</Specs>
+					</TTextCompareSession>
+					<TTextCompareSession Value="114674102.txt &lt;--> 114741642.txt">
+						<LastModified Value="2016-07-18 08:29:10"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\114674102.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\114741642.txt"/>
+						</Specs>
+					</TTextCompareSession>
+					<TTextCompareSession Value="114388115.txt &lt;--> 114388114.txt">
+						<LastModified Value="2016-07-13 15:13:28"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\114388115.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\114388114.txt"/>
+						</Specs>
+					</TTextCompareSession>
+					<TTextCompareSession Value="113962351.txt &lt;--> 113962375.txt">
+						<LastModified Value="2016-07-05 13:44:05"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\113962351.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\113962375.txt"/>
+						</Specs>
+					</TTextCompareSession>
+					<TTextCompareSession Value="110677931.txt &lt;--> 114005934.txt">
+						<LastModified Value="2016-07-04 14:35:06"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\110677931.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\114005934.txt"/>
+						</Specs>
+					</TTextCompareSession>
+					<TTextCompareSession Value="114005534.txt &lt;--> 114006311.txt">
+						<LastModified Value="2016-07-04 13:40:20"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\114005534.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\114006311.txt"/>
+						</Specs>
+					</TTextCompareSession>
+					<TTextCompareSession Value="113774288.txt &lt;--> 113954101.txt">
+						<LastModified Value="2016-07-04 10:04:27"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\113774288.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\113954101.txt"/>
+						</Specs>
+					</TTextCompareSession>
+					<TTextCompareSession Value="110445393.txt &lt;--> 113899448.txt">
+						<LastModified Value="2016-07-01 11:01:02"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\110445393.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\113899448.txt"/>
+						</Specs>
+					</TTextCompareSession>
+					<TTextCompareSession Value="sql(1).sql &lt;--> sql(2t5).sql">
+						<LastModified Value="2016-06-30 17:37:04"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\Dropbox\Coding\Python\Python in Morningstar\AutoMailNotification in Morningstar(SZGADB02)\MissingCEDocsAlarm\sql(1).sql"/>
+							<Right Value="C:\Users\jyu\Dropbox\Coding\Python\Python in Morningstar\AutoMailNotification in Morningstar(SZGADB02)\MissingCEDocsAlarm\sql(2t5).sql"/>
+						</Specs>
+					</TTextCompareSession>
+					<TTextCompareSession Value="113838675.txt &lt;--> 113840154.txt">
+						<LastModified Value="2016-06-30 15:23:25"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\113838675.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\113840154.txt"/>
+						</Specs>
+						<State>
+							<DisplayFilter Value="[showLeftMod, showRightMod, showDiffMod]"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="7571380.txt &lt;--> 7571218.txt">
+						<LastModified Value="2016-06-29 09:06:55"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\7571380.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\7571218.txt"/>
+						</Specs>
+						<State>
+							<DisplayFilter Value="[showLeftMod, showRightMod, showDiffMod]"/>
+						</State>
+					</TTextCompareSession>
+					<TTextCompareSession Value="7572018.txt &lt;--> 7571663.txt">
+						<LastModified Value="2016-06-29 09:05:09"/>
+						<Specs>
+							<Left Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\7572018.txt"/>
+							<Right Value="C:\Users\jyu\AppData\Roaming\DocumentManager.NET\DocumentManager\Temp\7571663.txt"/>
+						</Specs>
+					</TTextCompareSession>
+				</Items>
+			</TSessionFolder>
+			<TTextCompareSession>
+				<State>
+					<ShowContext Value="True"/>
+				</State>
+			</TTextCompareSession>
+		</Items>
+	</TSessionFolder>
+</BCSessions>
