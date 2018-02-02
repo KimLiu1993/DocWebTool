@@ -32,7 +32,7 @@ def get_subaccount_info(connection, policyid):
         select A.SubaccountId,B.SecurityName,A.CloseToNewInvestorsDate,A.PolicyId
         from [CurrentData].[dbo].[Subaccount] as A
         Left join [SecurityData].[dbo].[SecuritySearch] as B on A.FundShareClassId=B.SecId
-        where A.Status=1 and A.PolicyId='%s'
+        where A.Status=1 and B.SecurityName is not null and A.PolicyId='%s'
     ''' % (policyid)
     result = cursor.execute(code).fetchall()
     cursor.close()
@@ -67,7 +67,16 @@ def run(docid, fund_content_name_list_string):
     for fundname in fund_content_name_list:
         for policyid in policy_id_list:
             subaccount_info = policy_subaccount_dict[policyid]
-            ratio_list = [compare(key[1], fundname) for key in subaccount_info]
+            ratio_list = []
+
+            for key in subaccount_info:
+                print(key)
+                print(fundname)
+                print('')
+                ratio = compare(key[1], fundname)
+                ratio_list.append(ratio)
+
+            # ratio_list = [compare(key[1], fundname) for key in subaccount_info]
             ratio = max(ratio_list)
             max_ratio_index = ratio_list.index(ratio)
             subaccount_list = subaccount_info[max_ratio_index]
