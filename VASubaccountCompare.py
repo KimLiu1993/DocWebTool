@@ -47,7 +47,7 @@ def get_subaccount_info(connection, policyid):
             i_list = ['', policyid, i[0], i[1], closedate, '']
             null_list.append(i_list)
         else:
-            i_list = ['', policyid, i[0], i[1], i[2], '']
+            i_list = ['', policyid, i[0], i[1], '', '']
             null_list.append(i_list)
     return null_list, subaccount_info
 
@@ -60,12 +60,15 @@ def compare(fundname, securityname):
 def run(docid, fundname_string):
 
     fund_name_list = []
-    fund = fundname_string.split('\n')
-    for line in fund:
-        if len(line) > 0:
-            line = line.strip()
-            line = line.rstrip('\r')
-            fund_name_list.append(line)
+    if '\n' in fundname_string:
+        fund = fundname_string.split('\n')
+        for line in fund:
+            if len(line) > 0:
+                line = line.strip()
+                line = line.rstrip('\r')
+                fund_name_list.append(line)
+    else:
+        fund_name_list.append(fundname_string)
 
     connection = pyodbc.connect(common.connection_string_multithread)
 
@@ -74,6 +77,7 @@ def run(docid, fundname_string):
     total_result = []
 
     for policyid in policy_id_list:
+        policyid_result = []
         subaccount_result = get_subaccount_info(connection, policyid)
         null_list = subaccount_result[0]
         subaccount_info = subaccount_result[1]
@@ -88,24 +92,29 @@ def run(docid, fundname_string):
             temp_security_name = temp_target[1]
             ratio = temp_target[2]
             subaccountid = subaccount_info[temp_security_name][0]
-            closedate = subaccount_info[temp_security_name][2]
+            
+            closedate = subaccount_info[temp_security_name][1]
 
             if closedate is not None:
                 closedate = closedate.strftime('%Y-%m-%d %H:%M:%S')
+            else:
+                closedate = ''
             
             result = (temp_fundname, policyid, subaccountid, temp_security_name, closedate, '{0:.2f}%'.format(ratio * 100))
-            total_result.append(result)
+            policyid_result.append(result)
+            temp_total_result = policyid_result[:]
+
             if pd_result.shape[0]>0:
                 pd_result = pd_result[pd_result['FundName'] != temp_fundname]
             if pd_result.shape[0]>0:
                 pd_result = pd_result[pd_result['SecurityName'] != temp_security_name]
 
         if len(fund_name_list) >= len(subaccount_info):
-            temp_list = [i for i in fund_name_list if i not in [items[0] for items in total_result]]
+            temp_list = [i for i in fund_name_list if i not in [items[0] for items in policyid_result]]
             temp_result = [(i, policyid, '', '', '', '0') for i in temp_list]
-            total_result = total_result + temp_list + null_list
+            total_result = total_result + temp_total_result + temp_result + null_list
         else:
-            temp_list = [i for i in securityname_list if i not in[items[3] for items in total_result] ]
+            temp_list = [i for i in securityname_list if i not in [items[3] for items in policyid_result]]
             temp_result = []
             for each in temp_list:
                 temp_subaccountid = subaccount_info[each][0]
@@ -116,15 +125,24 @@ def run(docid, fundname_string):
                 
                 temp = ('', policyid, temp_subaccountid, each, temp_closedate, '0')
                 temp_result.append(temp)
-            total_result = total_result + temp_result + null_list
+            total_result = total_result + temp_total_result + temp_result + null_list
 
     pd_total_result = pd.DataFrame.from_records(total_result, columns=['FundName', 'PolicyId', 'SubaccountId', 'SecName', 'CloseDate', 'Similarity'])
-    excel_name = 'VASubaccountCompareResult-' + datetime.datetime.now().strftime('%Y%m%d') + '.xlsx'
+    excel_name = 'VASubaccountCompareResult-' + str(docid) + '-' + datetime.datetime.now().strftime('%Y%m%d') + '.xlsx'
     pd_total_result.to_excel(common.temp_path + excel_name, encoding='UTF-8', index=False)
     connection.close()
 
     return excel_name
     
+
+# docid = 131338066
+# fundname_string = 'ALPS Variable Investment Trust - ALPS/Alerian Energy Infrastructure Portfolio: Class III\nALPS Variable Investment Trust - ALPS/Red Rocks Listed Private Equity Portfolio: Class III'
+# a = run(docid, fundname_string)
+# print(a)
+
+
+
+
     # connection.close()
 
     # return excel_name
