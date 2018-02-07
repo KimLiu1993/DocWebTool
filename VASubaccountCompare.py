@@ -128,7 +128,7 @@ def run(docid, fundname_string):
             total_result = total_result + temp_total_result + temp_result + null_list
 
     pd_total_result = pd.DataFrame.from_records(total_result, columns=['FundName', 'PolicyId', 'SubaccountId', 'SecName', 'CloseDate', 'Similarity'])
-    excel_name = 'VASubaccountCompareResult-' + datetime.datetime.now().strftime('%Y%m%d') + '.xlsx'
+    excel_name = 'VASubaccountCompareResult-' + str(docid) + '-' + datetime.datetime.now().strftime('%Y%m%d') + '.xlsx'
     pd_total_result.to_excel(common.temp_path + excel_name, encoding='UTF-8', index=False)
     connection.close()
 
