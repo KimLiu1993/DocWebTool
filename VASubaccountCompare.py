@@ -60,12 +60,15 @@ def compare(fundname, securityname):
 def run(docid, fundname_string):
 
     fund_name_list = []
-    fund = fundname_string.split('\n')
-    for line in fund:
-        if len(line) > 0:
-            line = line.strip()
-            line = line.rstrip('\r')
-            fund_name_list.append(line)
+    if '\n' in fundname_string:
+        fund = fundname_string.split('\n')
+        for line in fund:
+            if len(line) > 0:
+                line = line.strip()
+                line = line.rstrip('\r')
+                fund_name_list.append(line)
+    else:
+        fund_name_list.append(fundname_string)
 
     connection = pyodbc.connect(common.connection_string_multithread)
 
