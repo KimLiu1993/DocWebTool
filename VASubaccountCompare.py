@@ -32,14 +32,14 @@ def get_subaccount_info(connection, policyid):
         select A.SubaccountId,B.SecurityName,A.CloseToNewInvestorsDate,A.PolicyId
         from [CurrentData].[dbo].[Subaccount] as A
         Left join [SecurityData].[dbo].[SecuritySearch] as B on A.FundShareClassId=B.SecId
-        where A.Status=1 and B.SecurityName is not null and A.PolicyId='%s'
+        where A.Status=1 and A.PolicyId='%s'
         ''' % (policyid)
     result = cursor.execute(code).fetchall()
     subaccount_info = {}
     null_list = []
     
     for i in result:
-        if i[1] != '':
+        if i[1] is None:
             subaccount_info[i[1]] = (i[0], i[2])
             null_list = []
         elif i[2] is not None:
@@ -135,10 +135,10 @@ def run(docid, fundname_string):
     return excel_name
     
 
-# docid = 131338066
-# fundname_string = 'ALPS Variable Investment Trust - ALPS/Alerian Energy Infrastructure Portfolio: Class III\nALPS Variable Investment Trust - ALPS/Red Rocks Listed Private Equity Portfolio: Class III'
-# a = run(docid, fundname_string)
-# print(a)
+docid = 132735313
+fundname_string = 'ALPS Variable Investment Trust - ALPS/Alerian Energy Infrastructure Portfolio: Class III\nALPS Variable Investment Trust - ALPS/Red Rocks Listed Private Equity Portfolio: Class III'
+a = run(docid, fundname_string)
+print(a)
 
 
 
