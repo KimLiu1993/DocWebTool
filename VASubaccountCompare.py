@@ -135,10 +135,10 @@ def run(docid, fundname_string):
     return excel_name
     
 
-docid = 132735313
-fundname_string = 'ALPS Variable Investment Trust - ALPS/Alerian Energy Infrastructure Portfolio: Class III\nALPS Variable Investment Trust - ALPS/Red Rocks Listed Private Equity Portfolio: Class III'
-a = run(docid, fundname_string)
-print(a)
+# docid = 132735313
+# fundname_string = 'ALPS Variable Investment Trust - ALPS/Alerian Energy Infrastructure Portfolio: Class III\nALPS Variable Investment Trust - ALPS/Red Rocks Listed Private Equity Portfolio: Class III'
+# a = run(docid, fundname_string)
+# print(a)
 
 
 
