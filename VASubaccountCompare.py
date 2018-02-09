@@ -110,12 +110,12 @@ def run(docid, fundname_string):
             if pd_result.shape[0]>0:
                 pd_result = pd_result[pd_result['SecurityName'] != temp_security_name]
                 
-        temp_total_result = policyid_result[:]
+        # temp_total_result = policyid_result[:]
 
         if len(fund_name_list) >= len(subaccount_info):
             temp_list = [i for i in fund_name_list if i not in [items[0] for items in policyid_result]]
             temp_result = [(i, policyid, '', '', '', '0') for i in temp_list]
-            total_result = total_result + temp_total_result + temp_result + null_list
+            total_result = total_result + policyid_result + temp_result + null_list
         else:
             temp_list = [i for i in securityname_list if i not in [items[3] for items in policyid_result]]
             temp_result = []
@@ -128,7 +128,7 @@ def run(docid, fundname_string):
                 
                 temp = ('', policyid, temp_subaccountid, each, temp_closedate, '0')
                 temp_result.append(temp)
-            total_result = total_result + temp_total_result + temp_result + null_list
+            total_result = total_result + policyid_result + temp_result + null_list
 
     pd_total_result = pd.DataFrame.from_records(total_result, columns=['FundName', 'PolicyId', 'SubaccountId', 'SecName', 'CloseDate', 'Similarity'])
     excel_name = 'VASubaccountCompareResult-' + str(docid) + '-' + datetime.datetime.now().strftime('%Y%m%d') + '.xlsx'
