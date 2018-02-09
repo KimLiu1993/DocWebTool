@@ -40,7 +40,7 @@ def get_subaccount_info(connection, policyid):
     
     for i in result:
         if i[1] is not None:
-            subaccount_info[i[1]] = (i[0], i[2])
+            subaccount_info[i[1]] = (i[0], i[2]) 
         elif i[2] is not None:
             closedate = i[2].strftime('%Y-%m-%d %H:%M:%S')
             i_list = ['', policyid, i[0], '', closedate, '']
