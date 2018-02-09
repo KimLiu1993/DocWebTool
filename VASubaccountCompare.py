@@ -41,7 +41,6 @@ def get_subaccount_info(connection, policyid):
     for i in result:
         if i[1] is not None:
             subaccount_info[i[1]] = (i[0], i[2])
-            null_list = []
         elif i[2] is not None:
             closedate = i[2].strftime('%Y-%m-%d %H:%M:%S')
             i_list = ['', policyid, i[0], '', closedate, '']
@@ -80,7 +79,7 @@ def run(docid, fundname_string):
         policyid_result = []
         subaccount_result = get_subaccount_info(connection, policyid)
         null_list = subaccount_result[0]
-        policyid_result.append(null_list)
+        # policyid_result.append(null_list)
 
         subaccount_info = subaccount_result[1]
         securityname_list = subaccount_info.keys()
@@ -116,7 +115,7 @@ def run(docid, fundname_string):
         if len(fund_name_list) >= len(subaccount_info):
             temp_list = [i for i in fund_name_list if i not in [items[0] for items in policyid_result]]
             temp_result = [(i, policyid, '', '', '', '0') for i in temp_list]
-            total_result = total_result + temp_total_result + temp_result
+            total_result = total_result + temp_total_result + temp_result + null_list
         else:
             temp_list = [i for i in securityname_list if i not in [items[3] for items in policyid_result]]
             temp_result = []
@@ -129,7 +128,7 @@ def run(docid, fundname_string):
                 
                 temp = ('', policyid, temp_subaccountid, each, temp_closedate, '0')
                 temp_result.append(temp)
-            total_result = total_result + temp_total_result + temp_result
+            total_result = total_result + temp_total_result + temp_result + null_list
 
     pd_total_result = pd.DataFrame.from_records(total_result, columns=['FundName', 'PolicyId', 'SubaccountId', 'SecName', 'CloseDate', 'Similarity'])
     excel_name = 'VASubaccountCompareResult-' + str(docid) + '-' + datetime.datetime.now().strftime('%Y%m%d') + '.xlsx'
