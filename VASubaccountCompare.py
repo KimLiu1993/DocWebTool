@@ -102,12 +102,14 @@ def run(docid, fundname_string):
             
             result = (temp_fundname, policyid, subaccountid, temp_security_name, closedate, '{0:.2f}%'.format(ratio * 100))
             policyid_result.append(result)
-            temp_total_result = policyid_result[:]
+            
 
             if pd_result.shape[0]>0:
                 pd_result = pd_result[pd_result['FundName'] != temp_fundname]
             if pd_result.shape[0]>0:
                 pd_result = pd_result[pd_result['SecurityName'] != temp_security_name]
+                
+        temp_total_result = policyid_result[:]
 
         if len(fund_name_list) >= len(subaccount_info):
             temp_list = [i for i in fund_name_list if i not in [items[0] for items in policyid_result]]
