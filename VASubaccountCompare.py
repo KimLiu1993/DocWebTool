@@ -39,7 +39,7 @@ def get_subaccount_info(connection, policyid):
     null_list = []
     
     for i in result:
-        if i[1] is None:
+        if i[1] is not None:
             subaccount_info[i[1]] = (i[0], i[2])
             null_list = []
         elif i[2] is not None:
