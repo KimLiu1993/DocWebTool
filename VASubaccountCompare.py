@@ -29,7 +29,7 @@ def get_doc_mapping(connection, docid):
 def get_subaccount_info(connection, policyid):
     cursor = connection.cursor()
     code = '''
-        select A.SubaccountId,B.SecurityName,A.CloseToNewInvestorsDate,A.PolicyId
+        select A.SubaccountId,B.SecurityName,A.CloseToNewInvestorsDate,A.MERiskCharge,A.PolicyId
         from [CurrentData].[dbo].[Subaccount] as A
         Left join [SecurityData].[dbo].[SecuritySearch] as B on A.FundShareClassId=B.SecId
         where A.Status=1 and A.PolicyId='%s'
@@ -40,13 +40,13 @@ def get_subaccount_info(connection, policyid):
     
     for i in result:
         if i[1] is not None:
-            subaccount_info[i[1]] = (i[0], i[2]) 
+            subaccount_info[i[1]] = (i[0], i[2], i[3]) 
         elif i[2] is not None:
             closedate = i[2].strftime('%Y-%m-%d %H:%M:%S')
-            i_list = ['', policyid, i[0], '', closedate, '']
+            i_list = ['', policyid, i[0], '', closedate, i[3], '']
             null_list.append(i_list)
         else:
-            i_list = ['', policyid, i[0], '', '', '']
+            i_list = ['', policyid, i[0], '', '', i[3], '']
             null_list.append(i_list)
     return null_list, subaccount_info
 
@@ -92,16 +92,17 @@ def run(docid, fundname_string):
             temp_fundname = temp_target[0]
             temp_security_name = temp_target[1]
             ratio = temp_target[2]
+
             subaccountid = subaccount_info[temp_security_name][0]
-            
             closedate = subaccount_info[temp_security_name][1]
+            risk_charge = subaccount_info[temp_security_name][2]
 
             if closedate is not None:
                 closedate = closedate.strftime('%Y-%m-%d %H:%M:%S')
             else:
                 closedate = ''
             
-            result = (temp_fundname, policyid, subaccountid, temp_security_name, closedate, '{0:.2f}%'.format(ratio * 100))
+            result = (temp_fundname, policyid, subaccountid, temp_security_name, closedate, risk_charge, '{0:.2f}%'.format(ratio * 100))
             policyid_result.append(result)
             
 
@@ -114,7 +115,7 @@ def run(docid, fundname_string):
 
         if len(fund_name_list) >= len(subaccount_info):
             temp_list = [i for i in fund_name_list if i not in [items[0] for items in policyid_result]]
-            temp_result = [(i, policyid, '', '', '', '0') for i in temp_list]
+            temp_result = [(i, policyid, '', '', '', '', '0') for i in temp_list]
             total_result = total_result + policyid_result + temp_result + null_list
         else:
             temp_list = [i for i in securityname_list if i not in [items[3] for items in policyid_result]]
@@ -122,15 +123,16 @@ def run(docid, fundname_string):
             for each in temp_list:
                 temp_subaccountid = subaccount_info[each][0]
                 temp_closedate = subaccount_info[each][1]
+                temp_risk_charge = subaccount_info[each][2]
 
                 if temp_closedate is not None:
                     temp_closedate = temp_closedate.strftime('%Y-%m-%d %H:%M:%S')
                 
-                temp = ('', policyid, temp_subaccountid, each, temp_closedate, '0')
+                temp = ('', policyid, temp_subaccountid, each, temp_closedate, temp_risk_charge, '0')
                 temp_result.append(temp)
             total_result = total_result + policyid_result + temp_result + null_list
 
-    pd_total_result = pd.DataFrame.from_records(total_result, columns=['FundName', 'PolicyId', 'SubaccountId', 'SecName', 'CloseDate', 'Similarity'])
+    pd_total_result = pd.DataFrame.from_records(total_result, columns=['FundName', 'PolicyId', 'SubaccountId', 'SecName', 'CloseDate', 'MERiskCharge', 'Similarity'])
     excel_name = 'VASubaccountCompareResult-' + str(docid) + '-' + datetime.datetime.now().strftime('%Y%m%d') + '.xlsx'
     pd_total_result.to_excel(common.temp_path + excel_name, encoding='UTF-8', index=False)
     connection.close()
