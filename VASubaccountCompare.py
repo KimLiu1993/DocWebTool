@@ -58,86 +58,93 @@ def compare(fundname, securityname):
 
 def run(docid, fundname_string):
 
-    fund_name_list = []
-    if '\n' in fundname_string:
-        fund = fundname_string.split('\n')
-        for line in fund:
-            if len(line) > 0:
-                line = line.strip()
-                line = line.rstrip('\r')
-                fund_name_list.append(line)
-    else:
-        fund_name_list.append(fundname_string)
-
-    connection = pyodbc.connect(common.connection_string_multithread)
-
-    policy_id_list = get_doc_mapping(connection, docid)
-
-    total_result = []
-
-    for policyid in policy_id_list:
-        policyid_result = []
-        subaccount_result = get_subaccount_info(connection, policyid)
-        null_list = subaccount_result[0]
-        # policyid_result.append(null_list)
-
-        subaccount_info = subaccount_result[1]
-        securityname_list = subaccount_info.keys()
-
-        ratio_list = [(fundname, securityname, compare(fundname, securityname)) for fundname in fund_name_list for securityname in securityname_list]
-        pd_result = pd.DataFrame(ratio_list, columns=['FundName', 'SecurityName', 'Ratio']).sort_values(by='Ratio', ascending=False)
-
-        while pd_result.shape[0]>0:
-            temp_target = tuple(pd_result.head(1).values.tolist()[0])
-            temp_fundname = temp_target[0]
-            temp_security_name = temp_target[1]
-            ratio = temp_target[2]
-
-            subaccountid = subaccount_info[temp_security_name][0]
-            closedate = subaccount_info[temp_security_name][1]
-            risk_charge = subaccount_info[temp_security_name][2]
-
-            if closedate is not None:
-                closedate = closedate.strftime('%Y-%m-%d %H:%M:%S')
-            else:
-                closedate = ''
-            
-            result = (temp_fundname, policyid, subaccountid, temp_security_name, closedate, risk_charge, '{0:.2f}%'.format(ratio * 100))
-            policyid_result.append(result)
-            
-
-            if pd_result.shape[0]>0:
-                pd_result = pd_result[pd_result['FundName'] != temp_fundname]
-            if pd_result.shape[0]>0:
-                pd_result = pd_result[pd_result['SecurityName'] != temp_security_name]
-                
-        # temp_total_result = policyid_result[:]
-
-        if len(fund_name_list) >= len(subaccount_info):
-            temp_list = [i for i in fund_name_list if i not in [items[0] for items in policyid_result]]
-            temp_result = [(i, policyid, '', '', '', '', '0') for i in temp_list]
-            total_result = total_result + policyid_result + temp_result + null_list
+    try:
+        fund_name_list = []
+        if '\n' in fundname_string:
+            fund = fundname_string.split('\n')
+            for line in fund:
+                if len(line) > 0:
+                    line = line.strip()
+                    line = line.rstrip('\r')
+                    fund_name_list.append(line)
         else:
-            temp_list = [i for i in securityname_list if i not in [items[3] for items in policyid_result]]
-            temp_result = []
-            for each in temp_list:
-                temp_subaccountid = subaccount_info[each][0]
-                temp_closedate = subaccount_info[each][1]
-                temp_risk_charge = subaccount_info[each][2]
+            fund_name_list.append(fundname_string)
 
-                if temp_closedate is not None:
-                    temp_closedate = temp_closedate.strftime('%Y-%m-%d %H:%M:%S')
+        connection = pyodbc.connect(common.connection_string_multithread)
+
+        policy_id_list = get_doc_mapping(connection, docid)
+
+        total_result = []
+
+        for policyid in policy_id_list:
+            policyid_result = []
+            subaccount_result = get_subaccount_info(connection, policyid)
+            null_list = subaccount_result[0]
+            # policyid_result.append(null_list)
+
+            subaccount_info = subaccount_result[1]
+            securityname_list = subaccount_info.keys()
+
+            ratio_list = [(fundname, securityname, compare(fundname, securityname)) for fundname in fund_name_list for securityname in securityname_list]
+            pd_result = pd.DataFrame(ratio_list, columns=['FundName', 'SecurityName', 'Ratio']).sort_values(by='Ratio', ascending=False)
+
+            while pd_result.shape[0]>0:
+                temp_target = tuple(pd_result.head(1).values.tolist()[0])
+                temp_fundname = temp_target[0]
+                temp_security_name = temp_target[1]
+                ratio = temp_target[2]
+
+                subaccountid = subaccount_info[temp_security_name][0]
+                closedate = subaccount_info[temp_security_name][1]
+                risk_charge = subaccount_info[temp_security_name][2]
+
+                if closedate is not None:
+                    closedate = closedate.strftime('%Y-%m-%d %H:%M:%S')
+                else:
+                    closedate = ''
                 
-                temp = ('', policyid, temp_subaccountid, each, temp_closedate, temp_risk_charge, '0')
-                temp_result.append(temp)
-            total_result = total_result + policyid_result + temp_result + null_list
+                result = (temp_fundname, policyid, subaccountid, temp_security_name, closedate, risk_charge, '{0:.2f}%'.format(ratio * 100))
+                policyid_result.append(result)
+                
 
-    pd_total_result = pd.DataFrame.from_records(total_result, columns=['FundName', 'PolicyId', 'SubaccountId', 'SecName', 'CloseDate', 'MERiskCharge', 'Similarity'])
-    excel_name = 'VASubaccountCompareResult-' + str(docid) + '-' + datetime.datetime.now().strftime('%Y%m%d') + '.xlsx'
-    pd_total_result.to_excel(common.temp_path + excel_name, encoding='UTF-8', index=False)
-    connection.close()
+                if pd_result.shape[0]>0:
+                    pd_result = pd_result[pd_result['FundName'] != temp_fundname]
+                if pd_result.shape[0]>0:
+                    pd_result = pd_result[pd_result['SecurityName'] != temp_security_name]
+                    
+            # temp_total_result = policyid_result[:]
 
-    return excel_name
+            if len(fund_name_list) >= len(subaccount_info):
+                temp_list = [i for i in fund_name_list if i not in [items[0] for items in policyid_result]]
+                temp_result = [(i, policyid, '', '', '', '', '0') for i in temp_list]
+                total_result = total_result + policyid_result + temp_result + null_list
+            else:
+                temp_list = [i for i in securityname_list if i not in [items[3] for items in policyid_result]]
+                temp_result = []
+                for each in temp_list:
+                    temp_subaccountid = subaccount_info[each][0]
+                    temp_closedate = subaccount_info[each][1]
+                    temp_risk_charge = subaccount_info[each][2]
+
+                    if temp_closedate is not None:
+                        temp_closedate = temp_closedate.strftime('%Y-%m-%d %H:%M:%S')
+                    
+                    temp = ('', policyid, temp_subaccountid, each, temp_closedate, temp_risk_charge, '0')
+                    temp_result.append(temp)
+                total_result = total_result + policyid_result + temp_result + null_list
+
+        pd_total_result = pd.DataFrame.from_records(total_result, columns=['FundName', 'PolicyId', 'SubaccountId', 'SecName', 'CloseDate', 'MERiskCharge', 'Similarity'])
+        excel_name = 'VASubaccountCompareResult-' + str(docid) + '-' + datetime.datetime.now().strftime('%Y%m%d') + '.xlsx'
+        pd_total_result.to_excel(common.temp_path + excel_name, encoding='UTF-8', index=False)
+        connection.close()
+
+        return excel_name
+        
+    except pyodbc.Error:
+        return 'Database can not be opened, it is in the middle of a restore'
+    except Exception as e:
+        return str(e)
+    
     
 
 # docid = 132735313
