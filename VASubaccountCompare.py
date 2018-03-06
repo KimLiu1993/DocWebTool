@@ -141,7 +141,7 @@ def run(docid, fundname_string):
         return excel_name
         
     except pyodbc.Error:
-        return 'Database can not be opened, it is in the middle of a restore'
+        return '数据库正在同步当中，暂时无法使用，请稍后再试'
     except Exception as e:
         return str(e)
     
