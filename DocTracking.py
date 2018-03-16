@@ -20,10 +20,17 @@ with open(common.sql_path + '\\DocTracking.sql', 'r') as tracking:
 
 
 def get_processid(docid):
-    url = 'http://dcweb613/GED/Sec/findSECFundDocumentList.action?form.category=&form.docType=&form.status=&form.format=&form.filingId=&form.processId=&form.documentId=' + str(docid) + '&form.formType=&form.accessionNumber=&form.cik=&form.from=&form.to=&form.cusip=&form.companyName=&form.investmentId=&form.specialStatus=0&form.policyId='
-    req = requests.get(url, timeout=300).json()
-    process_id = req['metaData']['rows'][0]['processId']
-    return process_id
+    connection = pyodbc.connect(common.connection_string_multithread)
+    code = '''
+        select ProcessId
+        from DocumentAcquisition..MasterProcess
+        where DocumentId=%s
+        ''' % (docid)
+    cursor = connection.cursor()
+    processid = cursor.execute(code).fetchall()[0][0]
+    cursor.close()
+    connection.close()
+    return processid
 
 
 def get_log(connection, processid, timediff):
