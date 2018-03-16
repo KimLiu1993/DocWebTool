@@ -380,7 +380,10 @@ def vasubaccountcompare():
     docid = request.form['docid']
     fund_content_name_list_string = request.form['fundname']
     excel_name = VASubaccountCompare.run(docid, fund_content_name_list_string)
-    return send_from_directory(directory=common.temp_path, filename=excel_name, as_attachment=True)
+    if excel_name[-5:] == '.xlsx':
+        return send_from_directory(directory=common.temp_path, filename=excel_name, as_attachment=True)
+    else:
+        return str(excel_name)
 
 
 @app.route('/rename', methods=['POST'])
