@@ -7,87 +7,66 @@ from bs4 import BeautifulSoup
 import common
 
 
-# def get_filing(processid, connection):
-#     code = '''
-#     select Comment,mp.ContainerId as filingid
-#     from DocumentAcquisition..MasterProcess as mp
-#     where mp.Category=1
-#     and mp.ProcessId=%s
-#         ''' % (processid)
-#     cursor = connection.cursor()
-#     result = cursor.execute(code).fetchall()
-#     comment_result = result[0][0]
-#     filingid = result[0][1]
-
-#     if comment_result is not None:
-#         regex = re.compile('\d{8}') # 会随着时间的改变而改变
-#         duplicat_result = re.findall(regex, comment_result)
-#         duplicat_result.append(str(filingid))
-#         filingid_list = list(set(duplicat_result))
-#     else:
-#         filingid_list = [str(filingid)]
-#     return filingid_list
+# 通过contract id找最近一年的filing。
+def contract_filing(connection, contractid):
+    code = '''
+            select fc.ContractId,fc.SeriesName,fc.ContractName,fc.CIK,fc.FilingId,fc.Accession,f.FormType,f.FileDate
+            from DocumentAcquisition..FilingSECContract as fc
+            left join DocumentAcquisition..SECFiling as f on f.FilingId=fc.FilingId
+            where fc.ContractId='%s' and f.FileDate>GETDATE()-365
+            order by fc.ContractId,f.FileDate desc
+            ''' % (contractid)
+    result = pd.read_sql(code, connection)
+    return result
 
 
-def get_filing(processid):
-    url = 'http://dcweb613/GED/Sec/findSECFundDocumentList.action'
-    data = {
-            "form.category": "",
-            "form.docType": "",
-            "form.status": "",
-            "form.format": "",
-            "form.filingId": "",
-            "form.processId": processid,
-            "form.documentId": "",
-            "form.formType": "",
-            "form.accessionNumber": "",
-            "form.cik": "",
-            "form.from": "",
-            "form.to": "",
-            "form.cusip": "",
-            "form.companyName": "",
-            "form.investmentId": "",
-            "form.specialStatus": "0",
-            "form.policyId": ""
-        }
-    request = requests.get(url, timeout=300, params=data)
-    json_result = request.json()['metaData']['rows'][0]
-    comment = json_result['comment']
-    filingid = str(json_result['filingId'])
-
-    if comment is not None:
-        regex = re.compile('\d{8}')
-        duplicate_filing = re.findall(regex, comment)
-        duplicate_filing.append(filingid)
-        filingid_list = list(set(duplicate_filing))
-    else:
-        filingid_list = [filingid]
-    return filingid_list
+# 通过contract id找对应的secid
+def get_secid(contractid, connection):
+    cursor = connection.cursor()
+    code = '''
+            select InvestmentId
+            from CurrentData..InvestmentIdentifier
+            where IdentifierType=20 and Identifier='%s'
+            ''' % (contractid)
+    result = cursor.execute(code).fetchall()[0][0]
+    return result
 
 
-def get_doc(connection, filingid_list):
-    docid_list = []
-    for filing in filingid_list:
-        code = '''
-                select distinct sd.DocumentId
-                from DocumentAcquisition..SECFiling as secf
-                left join DocumentAcquisition..FilingSECContract as fs on fs.FilingId=secf.FilingId
-                left join DocumentAcquisition..SECFiling as secf1 on secf1.CIK=fs.CIK
-                left join DocumentAcquisition..MasterProcess as mp on mp.ContainerId=secf1.FilingId
-                left join DocumentAcquisition..InvestmentMapping as im on im.ProcessId=mp.ProcessId
-                left join SecurityData..SecuritySearch as ss on ss.SecId=im.InvestmentId
-                left join DocumentAcquisition..SECCurrentDocument as sd on sd.InvestmentId=ss.SecId
-                --left join DocumentAcquisition..SystemParameter as sp on sp.CodeInt=sd.DocumentType and sp.CategoryId=105
-                where mp.Category=1 and mp.Status<>5 and mp.Format<>'PDF' and ss.Status in (1,2) 
-                and sd.DocumentId is not null and mp.CreationDate>=GETDATE()-180 and sd.DocumentType=2
-                and secf.FilingId in (%s)
-                ''' % (filing)
-        cursor = connection.cursor()
-        result = cursor.execute(code).fetchall()
-        for i in result:
-            docid_list.append(i[0])
-    docid_list = list(set(docid_list))
+# 通过secid找对应的name change的记录。
+def secid_name_change(connection, secid):
+    cursor = connection.cursor()
+    code = '''
+            select ipnt.TrackingId, ipnt.InvestmentId as SecId, ipnt.Name as ShareName,
+            ipnt.InvestmentType,ipnt.ActionType,ipnt.ActionTime as actiontime
+            from LogData_DMWkspaceDB..InvestmentPreviousNameTracking as ipnt
+            left join SupportData_DMWkspaceDB..UserSearch as us on us.UserId=ipnt.ActionUser
+            where ipnt.InvestmentId='%s'
+            union
+            select distinct isnt.TrackingId,isnt.InvestmentId as secid,isnt.StandardName as sharename,isnt.InvestmentType,
+            isnt.ActionType,isnt.ActionTime as actiontime
+            from LogData_DMWkspaceDB..InvestmentStandardNameTracking as isnt
+            left join SupportData_DMWkspaceDB..UserSearch as us1
+            on us1.UserId=isnt.UserId
+            where isnt.InvestmentId='%s'
+            order by actiontime desc
+            ''' % (secid, secid)
+    result = pd.read_sql(code, connection)
+    return result
+
+
+# 通过secid找对应的current doc，doctype限于prospectus和supplement
+def get_current_doc(connection, secid):
+    cursor = connection.cursor()
+    code = '''
+            select distinct sd.DocumentId
+            from SecurityData..SecuritySearch as ss
+            left join DocumentAcquisition..SECCurrentDocument as sd on sd.InvestmentId=ss.SecId
+            where ss.SecId='%s' and sd.DocumentType in(1,2)
+        ''' % (secid)
+    result = cursor.execute(code).fetchall()
+    docid_list = [i[0] for i in result]
     return docid_list
+
 
 
 def get_content(docid):
@@ -99,10 +78,9 @@ def get_content(docid):
     return content_text
 
 
-def name_change(range_start, range_end, num, filing_list, docid_list, keywords, total_result):
+def name_change(range_start, range_end, num, docid_list, keywords, total_result):
     for i in range(range_start, range_end):
         if i < num:
-
             docid = docid_list[i]
             content = get_content(docid)
             if keywords in content:
@@ -110,39 +88,38 @@ def name_change(range_start, range_end, num, filing_list, docid_list, keywords, 
                 result = [str(docid), keywords, str(keywords_num)]
                 total_result.append(result)
             else:
-                # result = [str(docid), keywords, '0']
-                pass
-                
+                result = [str(docid), keywords, '0']
+                total_result.append(result)                
     return total_result
 
 
-def run_result(processid, keywords):
+def run_result(contractid, keywords):
     connection = pyodbc.connect(common.connection_string_multithread)
+    secid = get_secid(contractid, connection)
+    docid_list = get_current_doc(connection, secid)
 
-    filing_list = get_filing(processid)
-    docid_list = get_doc(connection, filing_list)
     mutex = threading.Lock()
 
+    # 得到含有关键词的结果
     if len(docid_list) == 0:
         total_result = []
+
     else:
         total_result = []
-        total_thread = 10
+        total_thread = 5
         num = len(docid_list)
-
-        if num < 10:
+        if num < 5:
             total_thread = num
         
         gap = int(float(num/total_thread))
-        
-
-        thread_list = [threading.Thread(target=name_change, args=(i, gap+i, num, filing_list, docid_list, keywords, total_result,)) for i in range(0, num, gap)]
+        thread_list = [threading.Thread(target=name_change, args=(i, gap+i, num, docid_list, keywords, total_result,)) for i in range(0, num, gap+1)]
         for t in thread_list:
             t.setDaemon(True)
             t.start()
         for i in thread_list:
             i.join()
 
+    # 将所有结果以html的形式写出来
     html_code = '''
                 <!DOCTYPE HTML>
                     <html>
@@ -155,9 +132,52 @@ def run_result(processid, keywords):
                     <h3>Name Change</h3>
                 '''
 
-    html_code = html_code + 'Key Words:  ' + keywords + '<br/><br/>'
+    # contractid_filing的结果
+    html_code = html_code + 'ContractId: ' + contractid + '<br/><br/>'
 
-    html_table = '''
+    html_table1 = '''
+                <table border="1" class="tablestyle">
+                <thead>
+                <tr style="text-align: right;">
+                    <th>No</th>
+                    <th>ContractId</th>
+                    <th>SeriesName</th>
+                    <th>ContractName</th>
+                    <th>CIK</th>
+                    <th>FilingId</th>
+                    <th>Accession</th>
+                    <th>FormType</th>
+                    <th>FileDate</th>
+                    </tr>
+                </thead>
+                <tbody>
+                '''
+    html_code = html_code + html_table1
+
+    contract_result = contract_filing(connection, contractid)
+
+    for row1 in range(len(contract_result)):
+
+        html_code = html_code + '<tr><td>%s</td>' % str(row1 + 1)
+
+        for column1 in range(8):
+            if column1 == 5:
+                html_code = html_code + '<td><a href="https://www.sec.gov/Archives/edgar/data/0/%s-index.htm" target="_blank">%s</a></td>' % (contract_result.iloc[row1, column1], contract_result.iloc[row1, column1])
+            else:
+                html_code = html_code + '<td>%s</td>' % (contract_result.iloc[row1, column1])
+    html_code = html_code + '</tr></tbody></table><br/><br/>'
+
+    # secid name change的结果
+    html_code = html_code + 'SecId: ' + secid + '<br/><br/>'
+
+    secid_result = secid_name_change(connection, secid)
+    secid_result = secid_result.to_html(classes='tablestyle', index=False)
+    
+    html_code = html_code + secid_result + '<br/><br/>'
+
+    # name change的关键词结果
+    html_code = html_code + 'Key Words:  ' + keywords + '<br/><br/>'
+    html_table3 = '''
                 <table border="1" class="tablestyle">
                 <thead>
                 <tr style="text-align: right;">
@@ -169,28 +189,76 @@ def run_result(processid, keywords):
                 </thead>
                 <tbody>
                 ''' 
-    html_code = html_code + html_table
+    html_code = html_code + html_table3
 
     if total_result == []:
         html_code = html_code + '</tbody></table></body></html>'
-        html_code = ('' + common.css_code + html_code).replace('class="dataframe tablestyle"','class="tablestyle" target="_blank"></a></td>')
+        html_code = ('' + common.css_code + html_code).replace('class="dataframe tablestyle"', 'class="tablestyle" target="_blank"></a></td>')
     else:
-        for row in range(len(total_result)):
-            html_code = html_code + '<tr><td>%s</td>' % str(row + 1)
-            for column in range(3):
-                if column == 0:
-                    html_code = html_code + '<td><a href="http://doc.morningstar.com/document/%s.msdoc/?clientid=uscomplianceserviceteam&key=617cf7b229240e1b"  target="_blank"> %s </a></td>' % (total_result[row][column], total_result[row][column])
+        for row3 in range(len(total_result)):
+            html_code = html_code + '<tr><td>%s</td>' % str(row3 + 1)
+            for column3 in range(3):
+                if column3 == 0:
+                    html_code = html_code + '<td><a href="http://doc.morningstar.com/document/%s.msdoc/?clientid=uscomplianceserviceteam&key=617cf7b229240e1b"  target="_blank"> %s </a></td>' % (total_result[row3][column3], total_result[row3][column3])
                 else:
-                    html_code = html_code + '<td>%s</td>' % (total_result[row][column])
+                    html_code = html_code + '<td>%s</td>' % (total_result[row3][column3])
 
         html_code = html_code + '</tr>'
         html_code = html_code + '</tbody></table></body></html>'
         html_code = ('' + common.css_code + html_code).replace('class="dataframe tablestyle"','class="tablestyle"')
+    return html_code    
+
+
+
+
+    # html_code = '''
+    #             <!DOCTYPE HTML>
+    #                 <html>
+    #                 <head>
+    #                     <meta charset="utf-8">
+    #                     <link rel="shortcut icon" href="/static/img/Favicon.ico" type="image/x-icon"/>
+    #                     <title>Name Chnage</title>
+    #                 </head>
+    #                 <body>
+    #                 <h3>Name Change</h3>
+    #             '''
+
+    # html_code = html_code + 'Key Words:  ' + keywords + '<br/><br/>'
+
+    # html_table = '''
+    #             <table border="1" class="tablestyle">
+    #             <thead>
+    #             <tr style="text-align: right;">
+    #                 <th>No</th>
+    #                 <th>DocumentId</th>
+    #                 <th>KeyWords</th>
+    #                 <th>KeyWordsNum</th>
+    #                 </tr>
+    #             </thead>
+    #             <tbody>
+    #             ''' 
+    # html_code = html_code + html_table
+
+    # if total_result == []:
+    #     html_code = html_code + '</tbody></table></body></html>'
+    #     html_code = ('' + common.css_code + html_code).replace('class="dataframe tablestyle"','class="tablestyle" target="_blank"></a></td>')
+    # else:
+    #     for row in range(len(total_result)):
+    #         html_code = html_code + '<tr><td>%s</td>' % str(row + 1)
+    #         for column in range(3):
+    #             if column == 0:
+    #                 html_code = html_code + '<td><a href="http://doc.morningstar.com/document/%s.msdoc/?clientid=uscomplianceserviceteam&key=617cf7b229240e1b"  target="_blank"> %s </a></td>' % (total_result[row][column], total_result[row][column])
+    #             else:
+    #                 html_code = html_code + '<td>%s</td>' % (total_result[row][column])
+
+    #     html_code = html_code + '</tr>'
+    #     html_code = html_code + '</tbody></table></body></html>'
+    #     html_code = ('' + common.css_code + html_code).replace('class="dataframe tablestyle"','class="tablestyle"')
     
-    return html_code
+    # return html_code
 
-# processid = 51698295
-# keywords = 'This Supplement should be retained'
+# contractid = 'C000172618'
+# keywords = 'approved or disapproved'
 
-# a = run_result(processid, keywords)
+# a = run_result(contractid, keywords)
 # print(a)

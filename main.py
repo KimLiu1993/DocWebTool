@@ -307,9 +307,9 @@ def contractidfiling():
 
 @app.route('/namechange', methods=['POST'])
 def namechange():
-    processid = str(request.form['processid'])
+    contractid = str(request.form['contractid'])
     keywords = str(request.form['keywords'])
-    return NameChange.run_result(processid, keywords)
+    return NameChange.run_result(contractid, keywords)
 
 
 @app.route('/batchsearthkeywords', methods=['POST'])
