@@ -255,7 +255,7 @@ def run_result(contractid, keywords):
     #     html_code = html_code + '</tbody></table></body></html>'
     #     html_code = ('' + common.css_code + html_code).replace('class="dataframe tablestyle"','class="tablestyle"')
     
-    # return html_code
+    # return html_code hhhh
 
 # contractid = 'C000172618'
 # keywords = 'approved or disapproved'
