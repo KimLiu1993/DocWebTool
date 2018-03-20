@@ -33,18 +33,38 @@ def get_processid(docid):
     return processid
 
 
-def get_log(connection, processid, timediff):
+def get_cutter(connection, processid):
+    connection = pyodbc.connect(common.connection_string_multithread)
+    code = '''
+        select ac.Email
+        from DocumentAcquisition..MasterProcess as mp
+        left join DocumentAcquisition..Account as ac on ac.DaId=mp.DA2
+        where mp.ProcessId=%s
+        '''% (processid)
+    cursor = connection.cursor()
+    cutter = cursor.execute(code).fetchall()[0][0]
+    cursor.close()
+    connection.close()
+    return cutter
 
+
+def get_log(connection, processid, timediff):
+    connection = pyodbc.connect(common.connection_string_multithread)
     cursor = connection.cursor()
     log_list = pd.read_sql(tracking_code % (timediff, processid), connection)
     log_list = log_list.values.tolist()
+    cutter = get_cutter(connection, processid)
 
     row = 0
     record_list = []
     for each in log_list:
         row = row + 1
         if row == 1:
-            record = [str(row), each[0], each[1], each[2], each[4], each[7], each[8].strftime('%Y-%m-%d %H:%M:%S'), 'Cutting']
+            if each[7] != cutter:
+                user = cutter
+            else:
+                user = cutter
+            record = [str(row), each[0], each[1], each[2], each[4], user, each[8].strftime('%Y-%m-%d %H:%M:%S'), 'Cutting']
             record_list.append(record)
             
         elif each[2] != log_list[row-2][2]:
@@ -82,7 +102,7 @@ def run(processid, timediff):
     html_code = common.css_code + html_code
     return html_code
 
-# processid = 54677854
+# processid = 56048385
 # timediff = 13
 # a = run(processid, timediff)
 # print(a)
