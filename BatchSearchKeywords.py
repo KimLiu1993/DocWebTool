@@ -191,7 +191,7 @@ def search_keyword(Id, idtype, keyword_list, keywordtype, workernumber, mutex, t
             result_list = search_keyword_doc(Id, doc.text, keyword_list, keywordtype, formtype)  
         else:
             result_list = search_keyword_doc(Id, doc.content, keyword_list, keywordtype, formtype)
-    elif idtype == 'process':
+    # elif idtype == 'process':
 
     else:
         filing = fo.get_filing(Id, source='SEC')
