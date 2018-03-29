@@ -3,7 +3,7 @@
 #------------------------------------
 #--Author:        Sharol Liu
 #--CreationDate:  2017/12/18
-#--RevisedDate:   2017/12/29
+#--RevisedDate:   2018/03/29
 #------------------------------------
 
 
@@ -14,6 +14,7 @@ import threading
 import requests
 import pandas as pd
 import File_OP as fo
+import DAP_API as api
 import common
 
 
@@ -23,6 +24,51 @@ def get_doc(docid):
     url = 'http://doc.morningstar.com/document/' + docid + '.msdoc/?clientid=gfdt&key=9afafb2e67d38883'
     req = requests.get(url, timeout=300)
     return req
+
+
+# 根据ProcessId获得对应的DocumentId
+def get_docid_from_processid(id):
+    try:
+        url_api = 'http://dcdocstgap8001:8080/SqlPassAPI/controller/sql?sqlId=46&params={}'.format(id)
+        req = requests.get(url_api, timeout=300)
+        docid = req.json()['result'][0]['DocumentId']
+    except:
+        try:
+            url_nus = 'http://dcweb613/GED/Fund/searchFundMeta.action'
+            data_nus = {
+                "form.market": "",
+                "form.docDateBegin": "",
+                "form.docDateEnd": "",
+                "form.investment": "",
+                "form.processId": str(id),
+                "form.source": "",
+                "form.effDateBegin": "",
+                "form.effDateEnd": "",
+                "form.documentId": "",
+                "form.profileId": "",
+                "form.specialStatus": "",
+                "form.internalOnly": "",
+                "form.docType": "",
+                "form.subDocType": "",
+                "form.language": "",
+                "form.status": "",
+                "form.containerId": "",
+                "form.sender": "",
+                "form.priority": "",
+                "form.age": "",
+                "form.daId": "",
+                'page.page': "1",
+                'page.rp': "100",
+                'page.sortname': "processId",
+                'page.sortorder': "asc",
+                'page.query': "",
+                'page.qtype': ""
+            }
+            req = requests.get(url_nus, timeout=300, params=data_nus)
+            docid = req.json()['metaData']['rows'][0]['documentId']
+        except IndexError:
+            docid = api.get_doc_meta(id, idtype='ProcessId')['documentId']
+    return docid
 
 
 # 获取docid在MDL上的源代码，并识别formattype
@@ -134,13 +180,19 @@ def search_keyword_filing(filingid, filing_data, kw_list, keywordtype, formtype)
 
 # 查找关键词的主要函数，分为document和filing
 def search_keyword(Id, idtype, keyword_list, keywordtype, workernumber, mutex, total_result):
-    if idtype == 'document':
+    if idtype == 'document' or idtype == 'process':
+        if idtype == 'document':
+            Id = Id
+        else:
+            Id = get_docid_from_processid(Id)
         doc = get_doc(Id)
         formtype = get_doc_type(doc)
         if formtype == 'TXT':
             result_list = search_keyword_doc(Id, doc.text, keyword_list, keywordtype, formtype)  
         else:
             result_list = search_keyword_doc(Id, doc.content, keyword_list, keywordtype, formtype)
+    elif idtype == 'process':
+
     else:
         filing = fo.get_filing(Id, source='SEC')
         filingtype = get_filing_type(filing)

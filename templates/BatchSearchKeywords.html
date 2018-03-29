@@ -55,14 +55,15 @@
 			<table>
 				<tr>
 					<td><h2>Batch Search Keywords</h2></td>
-					<td style="font-family:arial;font-size:13px"><i><sub> updated on 2018.01.11</sub></i></td>
+					<td style="font-family:arial;font-size:13px"><i><sub> updated on 2018.03.29</sub></i></td>
 				</tr>
 			</table>
 			<body>
 				<form action="/batchsearthkeywords" method="POST">
 					<select name="idtype">
-						<option value="document" selected>Document</option>
-						<option value="filing">Filing</option>
+						<option value="document" selected>DocumentId</option>
+						<option value="process">ProcessId</option>
+						<option value="filing">FilingId</option>
 					</select>:
 					<br/>
 					<textarea name="ids" wrap="Virtual" style="height:160px;width:300px;resize:none" required="required"></textarea>
