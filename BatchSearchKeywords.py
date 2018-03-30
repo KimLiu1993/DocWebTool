@@ -26,6 +26,13 @@ def get_doc(docid):
     return req
 
 
+# 获取有ProcessId、没DocId的non-us的doc
+def get_no_docid_doc(processid):
+    url = 'http://dcweb613/GED/openFilingByProcessId.action?form.processId={}'.format(processid)
+    response = requests.get(url, timeout=300)
+    return response
+
+
 # 根据ProcessId获得对应的DocumentId
 def get_docid_from_processid(id):
     try:
@@ -185,8 +192,12 @@ def search_keyword(Id, idtype, keyword_list, keywordtype, workernumber, mutex, t
             Id = Id
         else:
             Id = get_docid_from_processid(Id)
-        doc = get_doc(Id)
-        formtype = get_doc_type(doc)
+        if Id == 0 and idtype == 'process':
+            doc = get_no_docid_doc(Id)
+            formtype = 'PDF'
+        else:
+            doc = get_doc(Id)
+            formtype = get_doc_type(doc)
         if formtype == 'TXT':
             result_list = search_keyword_doc(Id, doc.text, keyword_list, keywordtype, formtype)  
         else:
