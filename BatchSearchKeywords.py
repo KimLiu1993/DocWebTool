@@ -190,12 +190,16 @@ def search_keyword(Id, idtype, keyword_list, keywordtype, workernumber, mutex, t
     if idtype == 'document' or idtype == 'process':
         if idtype == 'document':
             Id = Id
+            new_id = Id
         else:
-            Id = get_docid_from_processid(Id)
-        if Id == 0 and idtype == 'process':
+            new_id = get_docid_from_processid(Id)
+            Id = Id
+        if new_id == 0 and idtype == 'process':
+            Id = Id
             doc = get_no_docid_doc(Id)
             formtype = 'PDF'
         else:
+            Id = new_id
             doc = get_doc(Id)
             formtype = get_doc_type(doc)
         if formtype == 'TXT':
