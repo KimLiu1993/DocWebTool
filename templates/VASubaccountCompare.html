@@ -86,9 +86,16 @@
 			</table>
 			<body>
 				<form action="/vasubaccountcompare" method="POST">
+
 					DocumentId(只能填一个):
-					: <br/>
+					<br/>
 					<input type="text" name="docid" required="required">
+					<span style="width:15px">&nbsp;</span>
+					<span style="width:15px">&nbsp;</span>
+					<input type="radio" name="selecttype" value="VA" checked>VA
+					<span style="width:15px">&nbsp;</span>
+					<span style="width:15px">&nbsp;</span>
+					<input type="radio" name="selecttype" value="EMEA">EMEA
 					<br/><br/>
 					Fund Name(可多个，一行一个):
 					<br/>

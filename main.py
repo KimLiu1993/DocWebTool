@@ -379,7 +379,11 @@ def timeliness():
 def vasubaccountcompare():
     docid = request.form['docid']
     fund_content_name_list_string = request.form['fundname']
-    excel_name = VASubaccountCompare.run(docid, fund_content_name_list_string)
+    selecttype = request.form['selecttype']
+    if selecttype == 'VA':
+        excel_name = VASubaccountCompare.run(docid, fund_content_name_list_string)
+    else:
+        excel_name = VASubaccountCompare.run_mappingcompare(docid, fund_content_name_list_string)
     if excel_name[-5:] == '.xlsx':
         return send_from_directory(directory=common.temp_path, filename=excel_name, as_attachment=True)
     else:
